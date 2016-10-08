@@ -34,4 +34,6 @@ Default tab width is 4, not 2.
 
 All backups are saved in a ~/.emacsbackups directory.
 
+Having srgb support means better colors, but messed up modeline colors. To fix the modeline colors in exchange for worse color accuracy overall, uncomment line 124.
+
 Built for OSX.
