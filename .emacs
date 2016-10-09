@@ -108,6 +108,8 @@
 ;; enable lines mode
 ;(global-linum-mode 1)
 (setq backup-directory-alist `(("." . "~/.emacsbackups")))
+(setq mouse-wheel-scroll-amount '(1))
+(setq mouse-wheel-progressive-speed nil)
 ;;;;;;;;;;;; misc ;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;byebye menu;;;;;;;;;;;;;;;;;
