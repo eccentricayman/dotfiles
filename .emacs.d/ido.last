@@ -2,6 +2,9 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/Users/eccentricayman/Downloads/.emacs.d/.emacs.d/" . "lisp/")
+ ("/Users/eccentricayman/Downloads/.emacs.d/" . ".emacs.d/")
+ ("/Users/eccentricayman/Downloads/" . ".emacs.d/")
  ("/Users/eccentricayman/Github/SoftDev/lawgin/" . "data/")
  ("/Users/eccentricayman/Github/Stuff/" . "LibraryScanner/")
  ("/Users/eccentricayman/Github/SoftDev/lawgien/" . "templates/")
@@ -25,7 +28,7 @@
  ("/Users/eccentricayman/.emacs.d/lisp/" . "ido-speed-hack/")
  ("/Users/eccentricayman/.emacs.d/" . "lisp/")
  ("/Users/eccentricayman/Github/dotfiles/" . "Linux/")
- ("/Users/eccentricayman/Github/" . "Systems/")
+ ("/Users/eccentricayman/Github/" . "dotemacs/")
  ("/Users/eccentricayman/" . "Github/")
  ("/home/eccentricayman/Github/apcs/apcs2/" . "hw17/")
  ("/home/eccentricayman/Github/apcs/" . "apcs2/")
@@ -58,9 +61,11 @@
 
 ;; ----- ido-work-directory-list -----
 (
+ "/Users/eccentricayman/"
+ "/Users/eccentricayman/Github/dotemacs/"
+ "/Users/eccentricayman/Downloads/.emacs.d/"
  "/Users/eccentricayman/Github/Systems/StringThings/"
  "/Users/eccentricayman/Github/Systems/list/"
- "/Users/eccentricayman/"
  "/Users/eccentricayman/Github/Systems/mem1/"
  "/Users/eccentricayman/Github/SoftDev/lawgin/"
  "/Users/eccentricayman/Github/SoftDev/lawgin/data/"
@@ -106,31 +111,41 @@
  "/home/eccentricayman/Github/apcs/apcs2/hw15/"
  "/home/eccentricayman/"
  "/home/eccentricayman/Github/apcs/apcs2/hw12b/"
- "/home/eccentricayman/Github/apcs/apcs2/hw09/"
- "/home/eccentricayman/.zprezto/modules/prompt/functions/"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ ".emacs"
+ "README.md"
  "stringthings.c"
  "Makefile"
  "ll.c"
  "a.out"
- ".emacs"
  "memory.c"
  "detectChar.java"
  "app.py"
  "geniefriends.csv"
- "README.md"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/Users/eccentricayman/" (22521 34888 0 0) "Scripts/" "Public/" "Pictures/" "Music/" "Movies/" "Library/" "Google Drive/" "Github/" "Downloads/" "Documents/" "Desktop/" "Applications/" ".zshrc" ".zshenv" ".zprofile" ".zpreztorc" ".zprezto/" ".zlogout" ".zlogin" ".zhistory" ".zcompdump.zwc" ".zcompdump" ".zcompcache/" ".vimrc" ".viminfo" ".vim/" ".v8flags.5.1.281.83.eccentricayman.json" ".Trash/" ".tmux.conf.local" ".tmux.conf" ".tmux/" ".subversion/" ".ssh/" ".sh_history" ".oracle_jre_usage/" ".npmrc" ".npm/" ".node-gyp/" ".no-asepsis-os-restrictiontouch" ".no-asepsis-os-restriction" ".ncmpcpp/" ".lyrics/" ".local/" ".lesshst" ".gitignore" ".gitconfig" ".esd_auth" ".emacsbackups/" ".emacs.d/" ".emacs" ".config/" ".cache/" ".bashrc" ".bash_sessions/" ".bash_history" ".bash/" ".asepsis-suppress-update-errors" "../" "./")
+
+ ("/Users/eccentricayman/Github/dotemacs/" (22521 30392 0 0) "Screenshots/" "README.md" ".gitignore" ".git/" ".emacs.d/" ".emacs" "../" "./")
+
+ ("/Users/eccentricayman/Github/" (22521 30254 0 0) "Systems/" "Stuff/" "SoftDev/" "eccentricayman.github.io/" "dotvim/" "dotfiles/" "dotemacs/" "base16-shell/" "APCS/" "../" "./")
+
+ ("/Users/eccentricayman/Downloads/.emacs.d/.emacs.d/lisp/" (22496 45982 0 0) "ido-speed-hack/" "f/" "../" "./")
+
+ ("/Users/eccentricayman/Downloads/.emacs.d/.emacs.d/" (22521 27246 0 0) "url/" "type-break" "tramp" "smex-items" "SessionDesktop.el" "recentf" "profile-dotemacs.elc" "profile-dotemacs.el" "network-security.data" "lisp/" "irony/" "ido.last" "eshell/" "emacs.png" "elpa/" "auto-save-list/" "ac-comphist.dat" ".tutor/" ".python-environments/" "../" "./")
+
+ ("/Users/eccentricayman/Downloads/.emacs.d/" (22521 27453 0 0) "README.md" ".gitignore" ".git/" ".emacs.d/" ".emacs" "../" "./")
+
+ ("/Users/eccentricayman/Downloads/" (22521 27338 0 0) ".emacs.d/" "../" "./")
+
  ("/Users/eccentricayman/Github/Systems/StringThings/" (22521 27023 0 0) "stringthings.c" "README.md" "Makefile" "a.out" ".gitignore" ".git/" ".#Makefile" "../" "./")
 
  ("/Users/eccentricayman/Github/Systems/" (22520 38436 0 0) "stringy/" "StringThings/" "strings2/" "strings1/" "projecteulerc/" "mem1/" "list/" "linked-list/" "c_hue/" "arrz/" "../" "./")
-
- ("/Users/eccentricayman/" (22521 27005 0 0) "Scripts/" "Public/" "Pictures/" "Music/" "Movies/" "Library/" "Google Drive/" "Github/" "Downloads/" "Documents/" "detectChar.java" "detectChar.class" "Desktop/" "Applications/" ".zshrc" ".zshenv" ".zprofile" ".zpreztorc" ".zprezto/" ".zlogout" ".zlogin" ".zhistory" ".zcompdump.zwc" ".zcompdump" ".zcompcache/" ".vimrc" ".viminfo" ".vim/" ".v8flags.5.1.281.83.eccentricayman.json" ".Trash/" ".tmux.conf.local" ".tmux.conf" ".tmux/" ".subversion/" ".ssh/" ".sh_history" ".oracle_jre_usage/" ".npmrc" ".npm/" ".node-gyp/" ".no-asepsis-os-restrictiontouch" ".no-asepsis-os-restriction" ".ncmpcpp/" ".lyrics/" ".local/" ".lesshst" ".gitignore" ".gitconfig" ".esd_auth" ".emacsbackups/" ".emacs.d/" ".emacs" ".config/" ".cache/" ".bashrc" ".bash_sessions/" ".bash_history" ".bash/" ".asepsis-suppress-update-errors" "../" "./")
 
  ("/Users/eccentricayman/Github/Systems/list/" (22520 38155 0 0) "Makefile" "linkedlist.c" ".#Makefile" "../" "./")
 
@@ -139,8 +154,6 @@
  ("/Users/eccentricayman/Github/Systems/mem1/" (22519 63705 0 0) "memory.c" "a.out" "../" "./")
 
  ("/Users/" (22514 63608 0 0) "Shared/" "eccentricayman/" ".localized" "../" "./")
-
- ("/Users/eccentricayman/Github/" (22519 13033 0 0) "Systems/" "Stuff/" "SoftDev/" "eccentricayman.github.io/" "dotfiles/" "base16-shell/" "APCS/" ".emacs.d/" "../" "./")
 
  ("/Users/eccentricayman/Github/SoftDev/lawgin/data/" (22519 50685 0 0) "geniefriends.csv" "../" "./")
 
@@ -315,16 +328,6 @@
  ("/home/eccentricayman/.zprezto/" (22192 1240 173816 420000) ".gitmodules" "./" ".gitignore" "init.zsh" "CONTRIBUTING.md" "modules/" "../" ".git/" "README.md" "runcoms/")
 
  ("/home/eccentricayman/Downloads/" (22190 61930 639115 485000) "pure/" "archey-master/" "arc-darker-theme.crx" "Popcorn-Time-Linux64.tar.xz" "netlogo-5.3-64/" "mutate-git.tar.gz" "sublime_text_3_build_3083_x64.tar.bz2" "NetLogo-5.3-64.tgz" "./" "Droid_Serif.zip" "archey-master.zip" "rofi-0.15.12.tar.gz" "ubuntu-setup-master.zip" "YosemiteSanFranciscoFont-master.zip" "Final (Mr. Maksudian).docx" "arc-firefox-theme-master.zip" "arc-theme/" "CustomConfigs-master.zip" "fonts-master/" "arc-theme.crx" "CustomConfigs-master/" "dejavu-fonts-ttf-2.35.zip" "Harmattan-master.zip" "../" "YosemiteSanFranciscoFont-master/" "ptc.tar.xz" "Harmattan-master/" "fonts-master.zip" "photonixshort.zsh-theme" "vertex-icons-master.zip" "arc-theme-master.zip" "ubuntu-setup-master/" "penrose_triangle.png")
-
- ("/home/" (22187 56600 625603 704000) "./" "eccentricayman/" "../")
-
- ("/home/eccentricayman/.processing/console/" (22189 25287 456075 126000) "./" "160130_0329.out" "../" "160130_0329.err")
-
- ("/home/eccentricayman/.processing/" (22189 25288 399431 964000) "./" "language.txt" "debug/" "contribs.txt" "../" "console/" "preferences.txt")
-
- ("/home/eccentricayman/Documents/" (22187 57228 49842 994000) "./" "../")
-
- ("/home/eccentricayman/Downloads/CustomConfigs-master/" (22179 4311 0 0) "Emacs/" "Bash/" "./" "Sublime Text 3/" "Powershell/" "../" "Vim/" "Rainmeter/" "README.md")
 )
 
 ;; ----- ido-unc-hosts-cache -----

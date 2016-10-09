@@ -1,12 +1,12 @@
 
 ;; ----- smex-history -----
 (
+ eval-buffer
  term
  comment-region
  menu-bar-showhide-fringe-menu-customize-disable
  make-directory
  highlight-numbers-mode
- eval-buffer
  set-background-color
 )
 
@@ -17,7 +17,7 @@
  (checkdoc-eval-current-buffer . 1)
  (indent-rigidly . 1)
  (eldoc-mode . 1)
- (eval-buffer . 119)
+ (eval-buffer . 122)
  (ido-mode . 1)
  (list-packages . 17)
  (package-refresh-contents . 2)
