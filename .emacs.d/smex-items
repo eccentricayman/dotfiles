@@ -1,12 +1,12 @@
 
 ;; ----- smex-history -----
 (
+ compile
+ c-mode
+ compilation-mode
  eval-buffer
- term
- comment-region
- menu-bar-showhide-fringe-menu-customize-disable
- make-directory
- highlight-numbers-mode
+ load-theme
+ powerline-default-theme
  set-background-color
 )
 
@@ -17,7 +17,7 @@
  (checkdoc-eval-current-buffer . 1)
  (indent-rigidly . 1)
  (eldoc-mode . 1)
- (eval-buffer . 122)
+ (eval-buffer . 127)
  (ido-mode . 1)
  (list-packages . 17)
  (package-refresh-contents . 2)
@@ -33,7 +33,7 @@
  (shell . 1)
  (eshell . 2)
  (org-mode . 2)
- (load-theme . 83)
+ (load-theme . 85)
  (byte-compile-file . 5)
  (profiler-start . 2)
  (profiler-report . 2)
@@ -65,10 +65,10 @@
  (butterfly . 1)
  (emacs-init-time . 11)
  (benchmark . 2)
- (powerline-default-theme . 4)
+ (powerline-default-theme . 5)
  (menu-bar-showhide-tool-bar-menu-customize-disable . 1)
  (byte-recompile-file . 1)
- (package-install . 13)
+ (package-install . 14)
  (color-theme-approximate-on . 1)
  (color-theme-approximate-off . 2)
  (eval-expression . 1)
@@ -108,4 +108,10 @@
  (version . 1)
  (highlight-numbers-mode . 2)
  (menu-bar-showhide-fringe-menu-customize-disable . 1)
+ (ivy-avy . 1)
+ (counsel-expression-history . 1)
+ (compilation-mode . 1)
+ (c-mode . 1)
+ (compile . 9)
+ (compile-goto-error . 1)
 )
