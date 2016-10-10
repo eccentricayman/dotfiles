@@ -27,6 +27,8 @@ C-c s: Run shell script
 
 C-c c: Compile and run C file
 
+C-x SPC: Start avy
+
 ## More Info
 Scrollbar, menubar and the such are disabled.
 
