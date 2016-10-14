@@ -37,7 +37,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (avy counsel swiper web-mode hl-line+ nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
+    (all-the-icons avy counsel swiper web-mode hl-line+ nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(vc-annotate-background "#3b3b3b")
@@ -116,25 +116,49 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-    
+
 ;better terminal line, faster
-(if (display-graphic-p)
-    (progn
-      (require 'spaceline-config)
-      (spaceline-emacs-theme)
-      ;this fixes the spaceline issues on os x, but makes emacs look uglier
-      ;deciding whether to comment the next line was the hardest decision
-      ;of my life
-      ;(setq ns-use-srgb-colorspace nil)
-      (spaceline-compile)
-      (global-hl-line-mode 1))
-  (progn
-    ;(powerline-default-theme)
-    (require 'airline-themes)
-    (load-theme 'airline-distinguished)
-    (global-set-key (kbd "<mouse-4>") 'previous-line)
-    (global-set-key (kbd "<mouse-5>") 'next-line)
-    (xterm-mouse-mode)))
+;; (if (display-graphic-p)
+;;     (progn
+;;       (require 'spaceline-config)
+;;       (spaceline-emacs-theme)
+;;       ;this fixes the spaceline issues on os x, but makes emacs look uglier
+;;       ;deciding whether to comment the next line was the hardest decision
+;;       ;of my life
+;;       ;(setq ns-use-srgb-colorspace nil)
+;;       (spaceline-compile)
+;;       (global-hl-line-mode 1))
+;;   (progn
+;;     ;(powerline-default-theme)
+;;     (require 'airline-themes)
+;;     (load-theme 'airline-distinguished)
+;;     (global-set-key (kbd "<mouse-4>") 'previous-line)
+;;     (global-set-key (kbd "<mouse-5>") 'next-line)
+;;     (xterm-mouse-mode)))
+
+(defun my-frame-config (frame)
+  "Custom behaviours for new frames."
+  (with-selected-frame frame
+    (if (display-graphic-p)
+        (progn
+          (require 'spaceline-config)
+          (powerline-default-theme)
+          (spaceline-emacs-theme)
+          (setq ns-use-srgb-colorspace nil)
+          (spaceline-compile)
+          (global-hl-line-mode 1))
+      (progn
+        (require 'airline-themes)
+        (load-theme 'airline-distinguished)
+        (global-set-key (kbd "<mouse-4>") 'previous-line)
+        (global-set-key (kbd "<mouse-5>") 'next-line)
+        (global-hl-line-mode 0)
+        (set-face-background 'default "#222" (selected-frame))
+        (xterm-mouse-mode)))))
+;; run now
+(my-frame-config (selected-frame))
+;; and later
+(add-hook 'after-make-frame-functions 'my-frame-config)
 
 ;adios crappy terminal background
 (defun on-after-init ()
@@ -215,12 +239,15 @@
 ;(setq-default cursor-type 'bar)
 
 ;(add-hook 'window-setup-hook 'on-after-init)
+(require 'all-the-icons)
 (require 'neotree)
 (global-set-key (kbd "C-c f") 'neotree-toggle)
 ;fix neotree link color
 (setq frame-background-mode 'dark)
+;neotree icons
+(setq neo-theme (if window-system 'icons 'arrow))
 
-;magit
+;Magit
 (global-set-key (kbd "C-c g") 'magit-status)
 
 ;hides abbrev-mode, company-mode, and yas/minor-mode
@@ -250,8 +277,8 @@
 ;  (internal-show-cursor nil (not (internal-show-cursor-p)))
 ;  )
 (if (eq system-type 'windows-nt)
+    (setq doc-view-ghostscript-program "gswin64c")
     (setq tramp-default-method "plink"))
-(setq doc-view-ghostscript-program "gswin64c")
 (setq org-log-done 'time)
 (defadvice doc-view-display (after fit-width activate)
   (doc-view-fit-width-to-window))
@@ -311,10 +338,11 @@
 (setq ivy-use-virtual-buffers t)
 
 (global-set-key "\C-s" 'swiper)
-(define-key read-expression-map (kbd "C-r") 'counnsel-expression-history)
+(global-set-key "\C-r" 'swiper)
+(define-key read-expression-map (kbd "\C-r") 'counsel-expression-history)
 
 (global-set-key (kbd "C-x SPC") 'avy-goto-char-2)
-    
+
 ;might slowdown, but allows vim + emacs
 ;(require 'powerline)
 
@@ -380,7 +408,7 @@
 
 ;dark background for company
 (require 'color)
-  
+
 (let ((bg (face-attribute 'default :background)))
   (custom-set-faces
    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
@@ -388,7 +416,7 @@
    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
-    
+
 ;eclim 4 java (hot damn this takes time to load)
 (require 'company-emacs-eclim)
 (company-emacs-eclim-setup)
@@ -409,13 +437,13 @@
 
 
 ;processing
-(autoload 'processing-mode "processing-mode" "processing mode" t)
-(add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
+;; (autoload 'processing-mode "processing-mode" "processing mode" t)
+;; (add-to-list 'auto-mode-alist '("\\.pde$" . processing-mode))
 
-(setq processing-location "/home/eccentricayman/github/processing-3.1.1/processing-java")
-(setq processing-application-dir "/home/eccentricayman/github/processing-3.1.1/processing")
-(setq processing-sketchbook-dir "/home/eccentricayman/sketchbook")
-(global-set-key (kbd "C-c P") 'processing-sketch-run)
+;; (setq processing-location "/home/eccentricayman/github/processing-3.1.1/processing-java")
+;; (setq processing-application-dir "/home/eccentricayman/github/processing-3.1.1/processing")
+;; (setq processing-sketchbook-dir "/home/eccentricayman/sketchbook")
+;; (global-set-key (kbd "C-c P") 'processing-sketch-run)
 
 ;loading f.el (os x is the load one)
 ;(require 'f.el)
@@ -450,7 +478,7 @@
    "python run"
    ))
 
-(global-set-key (kbd "C-c p") 'python-run)    
+(global-set-key (kbd "C-c p") 'python-run)
 
 (defun script-run ()
   "Run shell script."
@@ -474,7 +502,7 @@
   "c compile and run"
   )
 
-(global-set-key (kbd "C-c c") 'c-compile-and-run) 
+(global-set-key (kbd "C-c c") 'c-compile-and-run)
 
 ;osx stuff
 (defun copy-from-osx ()
@@ -482,7 +510,7 @@
 
 (defun paste-to-osx (text &optional push)
   (let ((process-connection-type nil))
-    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+    (let ((proc (start-process "pbcopy" "*scratch*" "pbcopy")))
       (process-send-string proc text)
       (process-send-eof proc))))
 
@@ -491,4 +519,27 @@
       (setq interprogram-cut-function 'paste-to-osx)
       (setq interprogram-paste-function 'copy-from-osx))
   )
+
+;Makes *scratch* empty.
+(setq initial-scratch-message "")
+
+;Removes *messages* from the buffer.
+(setq-default message-log-max nil)
+(kill-buffer "*Messages*")
+
+;Removes *Completions* from buffer after you've opened a file.
+(add-hook 'minibuffer-exit-hook
+      '(lambda ()
+         (let ((buffer "*Completions*"))
+           (and (get-buffer buffer)
+                (kill-buffer buffer)))))
+
+;Don't show *Buffer list* when opening multiple files at the same time.
+(setq inhibit-startup-buffer-menu t)
+
+;Show only one active window when opening multiple files at the same time.
+(add-hook 'window-setup-hook 'delete-other-windows)
+
+;No more typing the whole yes or no. Just y or n will do.
+(fset 'yes-or-no-p 'y-or-n-p)
 ;
