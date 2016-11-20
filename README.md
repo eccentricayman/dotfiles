@@ -30,9 +30,11 @@ Scrollbar, menubar and the such are disabled.
 
 Default tab width is 4, not 2.
 
+Run the emacs-profile.sh file inside .emacs.d to see what parts of your .emacs take up the most time.
+
 All backups are saved in a ~/.emacs.d/.emacsbackups directory.
 
 Built for OSX.
 
 ## TODO:
- - Start using use-package and init.el instead of .emacs
+ - Start using use-package
