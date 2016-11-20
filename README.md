@@ -1,7 +1,7 @@
 # .emacs.d
 My Emacs configuration.
 
-<img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots.png"></img>
+<img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots/emacs.png"></img>
 
 <img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots/emacs-term.png"></img>
 
