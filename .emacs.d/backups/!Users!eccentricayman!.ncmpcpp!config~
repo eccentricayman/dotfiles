@@ -1,0 +1,7 @@
+mpd_host = "localhost"
+mpd_port = "6600"
+mpd_music_dir = "/home/jb/Music"
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_output_name = "FIFO"
+visualizer_type = "spectrum" (spectrum/wave)
+visualizer_look = "=="

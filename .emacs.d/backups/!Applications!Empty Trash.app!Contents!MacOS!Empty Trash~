@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rm -rf /Users/eccentricayman/.Trash/* && rm -rf /Users/eccentricayman/.Trash/.DS_Store &

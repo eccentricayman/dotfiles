@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int randNumGenerator() {
+    return 4;
+}
+
+void boi() {
+    printf("boi");
+}
+int main() {
+    printf("returning random number...\n");
+    printf("%d", randNumGenerator());
+    boi();
+}

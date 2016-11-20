@@ -1,0 +1,6 @@
+strtest: stringthings.c
+	gcc stringthings.c -o strtest
+clean:
+	rm *~
+run: strtest
+	./strtest

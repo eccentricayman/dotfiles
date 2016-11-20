@@ -1,0 +1,19 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route("/")
+@app.route("/securessn")
+def main():
+    return render_template("form.html")
+
+@app.route("/submit", methods=['POST'])
+def auth():
+    print request.headers
+    print request.args
+    print request.args['securessn']
+    return "Ur ssn has been secured"
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run()

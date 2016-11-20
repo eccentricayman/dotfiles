@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      hmepge
+    </title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
+  </head>
+  <body>
+    <div>
+      <h1>here is ur homepage {{ uname }}</h1>
+    </div>
+  </body>
+</html>

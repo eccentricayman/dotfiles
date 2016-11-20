@@ -1,0 +1,9 @@
+stat: stat
+	compile
+	run
+
+compile:
+	gcc stat.c -o stat
+
+run:
+	./stat

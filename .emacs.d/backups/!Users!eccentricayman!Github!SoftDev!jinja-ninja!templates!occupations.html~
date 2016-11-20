@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Occupations</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  </head>
+  <body>
+    <table style="margin-left: auto ; margin-right: auto ; font-family: 'Open Sans', sans-serif ; text-align: center ; padding: 10px ; border: 2px solid black">
+      <th>
+        <td>Occupations</td>
+        <td>Percents</td>
+      </th>
+      {% for key, val in occudict %}
+      <tr>
+        <td> {{ key }} </td>
+        <td> {{ val }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

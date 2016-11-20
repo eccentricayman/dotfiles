@@ -1,0 +1,8 @@
+div h2 {
+    opacity: 0;
+    transition: 1.5s;
+}
+
+div:hover h2 {
+    opacity: 1;
+}

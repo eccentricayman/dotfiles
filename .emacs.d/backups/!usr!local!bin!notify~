@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+sleep "$1"
+a1='osascript -e '
+a2="'"
+a3='display notification '
+a4='"'
+b1='"'
+b2=' with title "Notify"'
+b3="'"
+c=$a1$a2$a3$a4"$2"$b1$b2$b3
+echo $c
+eval $c
+say "$2"
+exit

@@ -1,0 +1,7 @@
+GCC = gcc -g
+
+all: list.o main.o
+	$(GCC) list.o main.o -o ltest
+
+list.o: list.c list.h
+	$(GCC) -c list.c
