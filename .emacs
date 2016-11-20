@@ -37,7 +37,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (geeknote helm all-the-icons avy counsel swiper web-mode hl-line+ nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
+    (ac-c-headers ac-html auto-complete irony helm avy counsel swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(vc-annotate-background "#3b3b3b")
@@ -84,8 +84,9 @@
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
  '(company-tooltip-selection ((t (:inherit font-lock-function-name-face)))))
 
-;because ido-speed-hacks is terribly coded
-(setq warning-minimum-level :error)
+;because ido-speed-hacks is terribly coded update: doesn't work on startup :(
+;(setq warning-minimum-level :emergency)
+
 ;; Preset width nlinum
 ;(add-hook 'nlinum-mode-hook
 ;          (lambda ()
@@ -105,7 +106,11 @@
 (show-paren-mode 1)
 ;;disabled because emacsclient is weird with it
 (global-nlinum-mode 1)
-(setq nlinum-highlight-current-line t)
+;; (add-to-list 'default-frame-alist '(left-fringe . 8))
+;; (add-to-list 'default-frame-alist '(right-fringe . 0))
+;; (face-spec-set 'fringe
+;;   '((((class color) (background dark))
+;;      :background "#353A43")))
 ;; enable lines mode
 ;(global-linum-mode 1)
 (setq backup-directory-alist `(("." . "~/.emacsbackups")))
@@ -148,12 +153,14 @@
           (spaceline-emacs-theme)
           (setq ns-use-srgb-colorspace nil)
           (spaceline-compile)
+          (setq nlinum-format "%d ")
           (global-hl-line-mode 0))
       (progn
         (require 'airline-themes)
         (load-theme 'airline-distinguished)
         (global-set-key (kbd "<mouse-4>") 'previous-line)
         (global-set-key (kbd "<mouse-5>") 'next-line)
+        (setq nlinum-format "%d ")
         (global-hl-line-mode 0)
         (set-face-background 'default "#222" (selected-frame))
         (xterm-mouse-mode)))))
@@ -241,25 +248,27 @@
 ;(setq-default cursor-type 'bar)
 
 ;(add-hook 'window-setup-hook 'on-after-init)
-(require 'all-the-icons)
-(require 'neotree)
-(global-set-key (kbd "C-c f") 'neotree-toggle)
-;fix neotree link color
-(setq frame-background-mode 'dark)
-;neotree icons
-(setq neo-theme (if window-system 'icons 'arrow))
+;; (require 'all-the-icons)
+;; (require 'neotree)
+;; (global-set-key (kbd "C-c f") 'neotree-toggle)
+;; ;fix neotree link color
+;; (setq frame-background-mode 'dark)
+;; ;neotree icons
+;; (setq neo-theme (if window-system 'icons 'arrow))
 
 ;Magit
 (global-set-key (kbd "C-c g") 'magit-status)
 
-;hides abbrev-mode, company-mode, and yas/minor-mode
+;hides all the minor modes
 (when (require 'diminish nil 'noerror)
-  (eval-after-load "company"
-    '(diminish 'company-mode ""))
+  (eval-after-load "auto-complete"
+    '(diminish 'auto-complete-mode))
+  (eval-after-load "Irony"
+    '(diminish 'irony-mode ""))
   (eval-after-load "abbrev"
     '(diminish 'abbrev-mode ""))
   (eval-after-load "yasnippet"
-    '(diminish 'yas/minor-mode ""))
+    '(diminish 'yas-minor-mode ""))
   (eval-after-load "flycheck"
     '(diminish 'flycheck-mode ""))
   (eval-after-load "ivy"
@@ -304,10 +313,20 @@
     ad-do-it))
 (require 'ido-vertical-mode)
 (ido-mode 1)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
 (ido-vertical-mode 1)
 (setq ido-vertical-show-count t)
 (ido-better-flex/enable)
-(setq neo-smart-open t)
+(defun ido-disable-line-truncation ()
+    (set (make-local-variable 'truncate-lines) nil))
+    (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
+(defun ido-define-keys ()
+  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
+(add-hook 'ido-setup-hook 'ido-define-keys)
+(global-set-key (kbd "C-x b") 'ido-switch-buffer)
+    
 ;non elpa/melpa/marmalade packages, like the m-x speed fixy thingy
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (load "~/.emacs.d/lisp/ido-speed-hack/ido-speed-hack.elc")
@@ -333,7 +352,6 @@
 (global-set-key [(meta shift up)]  'move-line-up)
 (global-set-key [(meta shift down)]  'move-line-down)
 
-(require 'counsel)
 (require 'swiper)
 
 (ivy-mode 1)
@@ -343,7 +361,9 @@
 (global-set-key "\C-r" 'swiper)
 (define-key read-expression-map (kbd "\C-r") 'counsel-expression-history)
 
-(global-set-key (kbd "C-x SPC") 'avy-goto-char-2)
+;yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ;might slowdown, but allows vim + emacs
 ;(require 'powerline)
@@ -394,49 +414,116 @@
 (set-face-attribute 'flycheck-error nil
                     :underline "red")
 
-(require 'company)
+;; (require 'company)
 
-;comapny tab completion
-(add-hook 'after-init-hook 'global-company-mode)
+;; ;(load "~/.emacs.d/lisp/company-complete-cycle/company-complete-cycle.elc")
 
-;comapny then indent
-(defun indent-or-complete ()
+;; ;comapny tab completion
+;; (add-hook 'after-init-hook 'global-company-mode)
+
+;; ;comapny then indent
+;; (defun indent-or-complete ()
+;;   (interactive)
+;;   (if (looking-at "\\_>")
+;;       (company-complete-common)
+;;     (indent-according-to-mode)))
+    
+;; (global-set-key "\t" 'indent-or-complete)
+;; (global-set-key "\t" ')
+
+;; ;dark background for company
+;; (require 'color)
+
+;; (let ((bg (face-attribute 'default :background)))
+;;   (custom-set-faces
+;;    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+;;    `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+;;    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+;;    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+;;    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+
+;; ;eclim 4 java (hot damn this takes time to load)
+;; (require 'company-emacs-eclim)
+;; (company-emacs-eclim-setup)
+;; (global-company-mode t)
+
+;; ;irony for c / c++
+;; (eval-after-load 'company
+;;   '(add-to-list 'company-backends 'company-irony))
+
+;; ;jedi for python
+;; (defun my/python-mode-hook ()
+;;   (add-to-list 'company-backends 'company-jedi))
+
+;; (add-hook 'python-mode-hook 'my/python-mode-hook)
+
+;;using autocomplete-mode instead of company above
+(require 'auto-complete)
+(ac-config-default)
+(ac-set-trigger-key "TAB")
+(global-auto-complete-mode)
+
+(define-key ac-completing-map "\C-n" 'ac-next)
+(define-key ac-completing-map "\C-p" 'ac-previous)
+    
+;c autocompletion
+(require 'ac-c-headers)
+(add-hook 'c-mode-hook
+          (lambda ()
+            (add-to-list 'ac-sources 'ac-source-c-headers)
+            (add-to-list 'ac-sources 'ac-source-c-header-symbols t)
+            ;; (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.0.0/include")
+            ;; (add-to-list 'achead:include-directories '"/usr/include")
+            ))
+
+;irony stuff?
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+
+(load "~/.emacs.d/lisp/ac-irony/ac-irony.elc")
+
+(defun ac-irony-complete-tab ()
   (interactive)
   (if (looking-at "\\_>")
-      (company-complete-common)
+      (ac-complete-irony-async)
     (indent-according-to-mode)))
+(defun my-ac-irony-setup ()
+  (auto-complete-mode 1)
+  (add-to-list 'ac-sources 'ac-source-irony)
+  (define-key irony-mode-map (kbd "TAB") 'ac-irony-complete-tab)
+  (ac-set-trigger-key (kbd "M-RET")))
 
-(global-set-key "\t" 'indent-or-complete)
+(add-hook 'irony-mode-hook 'my-ac-irony-setup)
 
-;dark background for company
-(require 'color)
+;python autocompletion
+(add-hook 'python-mode-hook 'jedi:ac-setup)
 
-(let ((bg (face-attribute 'default :background)))
-  (custom-set-faces
-   `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-   `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-   `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-   `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-   `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
-
-;eclim 4 java (hot damn this takes time to load)
-(require 'company-emacs-eclim)
-(company-emacs-eclim-setup)
-(global-company-mode t)
-
-;irony for c / c++
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-
-;jedi for python
-(defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-
-(add-hook 'python-mode-hook 'my/python-mode-hook)
-
+;java autocompletion
+;(add-to-list 'load-path "~/.emacs.d/lisp/auto-java-complete/")
+;(require 'ajc-java-complete-config)
+;(add-hook 'java-mode-hook 'ajc-java-complete-mode)
+;(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+    
 ;autocomplete html
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(defun setup-ac-for-html ()
+  ;; Require ac-html since we are setup html auto completion
+  (require 'ac-html)
+  ;; Require default data provider if you want to use
+  (require 'ac-html-default-data-provider)
+  ;; Enable data providers,
+  ;; currently only default data provider available
+  (ac-html-enable-data-provider 'ac-html-default-data-provider)
+  ;; Let ac-html do some setup
+  (ac-html-setup)
+  ;; Set your ac-source
+  (setq ac-sources '(ac-source-html-tag
+                     ac-source-html-attr
+                     ac-source-html-attrv)))
 
+;don't know why i need a seperate hook for autocomplete mode but it doesn't seem to work
+(add-hook 'html-mode-hook 'auto-complete-mode)
+(add-hook 'html-mode-hook 'setup-ac-for-html)
 
 ;processing
 ;; (autoload 'processing-mode "processing-mode" "processing mode" t)
@@ -516,7 +603,7 @@
 
 (defun paste-to-osx (text &optional push)
   (let ((process-connection-type nil))
-    (let ((proc (start-process "pbcopy" "*scratch*" "pbcopy")))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
       (process-send-string proc text)
       (process-send-eof proc))))
 
@@ -528,10 +615,6 @@
 
 ;Makes *scratch* empty.
 (setq initial-scratch-message "")
-
-;Removes *messages* from the buffer.
-(setq-default message-log-max nil)
-(kill-buffer "*Messages*")
 
 ;Removes *Completions* from buffer after you've opened a file.
 (add-hook 'minibuffer-exit-hook

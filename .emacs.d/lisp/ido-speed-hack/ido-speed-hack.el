@@ -78,7 +78,6 @@
 ;; -------------
 ;; Use variable ido-speed-hints-alist to fine-tune hints for individual commands.
 
-
 (defvar ido-shared-bitcache (make-hash-table :test 'equal :size 65537)
   "Hash table for caching computed bitmaps (usually for command names)")
 
@@ -132,6 +131,11 @@ WORD (using bitmask). Optionally use BIT-CACHE to store bitmasks."
 						       bit-cache)))
 	    (push x result)))
 	result))))
+
+(defvar ido-speed-text* nil)
+(defvar ido-speed-orig* nil)
+(defvar ido-speed-cache* nil)
+(defvar ido-speed-bitcache* nil)
 
 (defadvice ido-read-internal (around ido-speed-read first nil activate)
   "Prepare variables for ido-speed"
