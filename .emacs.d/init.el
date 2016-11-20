@@ -113,7 +113,7 @@
 ;;      :background "#353A43")))
 ;; enable lines mode
 ;(global-linum-mode 1)
-(setq backup-directory-alist `(("." . "~/.emacsbackups")))
+(setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
 (setq mouse-wheel-scroll-amount '(1))
 (setq mouse-wheel-progressive-speed nil)
 ;;;;;;;;;;;; misc ;;;;;;;;;;;;;;;;;;;;;;;

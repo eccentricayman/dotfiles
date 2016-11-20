@@ -77,8 +77,8 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "/Users/eccentricayman/Github/APCS/apcs2/hw38/"
  "/Users/eccentricayman/"
+ "/Users/eccentricayman/Github/APCS/apcs2/hw38/"
  "/Users/eccentricayman/Github/eccentricayman.github.io/"
  "/Users/eccentricayman/.emacs.d/lisp/ido-speed-hack/"
  "/Users/eccentricayman/Github/Systems/exeggutor/"
@@ -131,8 +131,8 @@
 
 ;; ----- ido-work-file-list -----
 (
- "BST.java"
  ".emacs"
+ "BST.java"
  "index.html"
  "ido-speed-hack.el"
  "executor.c"
@@ -145,7 +145,7 @@
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/Users/eccentricayman/" (22577 18569 0 0) "Scripts/" "Public/" "Pictures/" "perl5/" "Music/" "Movies/" "Library/" "Google Drive/" "Github/" "Downloads/" "Documents/" "Desktop/" "Applications/" ".zshrc" ".zshenv" ".zprofile" ".zpreztorc" ".zprezto/" ".zlogout" ".zlogin" ".zhistory" ".zcompdump.zwc" ".zcompdump" ".zcompcache/" ".Xauthority" ".vimrc" ".viminfo" ".vim/" ".v8flags.5.1.281.83.eccentricayman.json" ".Trash/" ".tmux.conf.local" ".tmux.conf" ".tmux/" ".subversion/" ".ssh/" ".sqlite_history" ".sh_history" ".rnd" ".python-eggs/" ".oracle_jre_usage/" ".npmrc" ".npm/" ".node-gyp/" ".no-asepsis-os-restrictiontouch" ".no-asepsis-os-restriction" ".ncmpcpp/" ".lyrics/" ".local/" ".lesshst" ".idlerc/" ".gradle/" ".gitignore" ".gitconfig" ".geeknote/" ".esd_auth" ".emulator_console_auth_token" ".emacsbackups/" ".emacs.d/" ".emacs" ".cups/" ".cpan/" ".config/" ".cache/" ".bashrc" ".bash_sessions/" ".bash_history" ".bash/" ".asepsis-suppress-update-errors" ".android/" "../" "./")
+ ("/Users/eccentricayman/" (22577 19418 0 0) "Scripts/" "Public/" "Pictures/" "Music/" "Movies/" "Library/" "Google Drive/" "Github/" "Downloads/" "Documents/" "Desktop/" "Applications/" ".zshrc" ".zshenv" ".zprofile" ".zpreztorc" ".zprezto/" ".zlogout" ".zlogin" ".zhistory" ".zcompdump.zwc" ".zcompdump" ".zcompcache/" ".Xauthority" ".vimrc" ".viminfo" ".vim/" ".v8flags.5.1.281.83.eccentricayman.json" ".Trash/" ".tmux.conf.local" ".tmux.conf" ".tmux/" ".subversion/" ".ssh/" ".sqlite_history" ".sh_history" ".rnd" ".python-eggs/" ".oracle_jre_usage/" ".npmrc" ".npm/" ".node-gyp/" ".no-asepsis-os-restrictiontouch" ".no-asepsis-os-restriction" ".ncmpcpp/" ".lyrics/" ".local/" ".lesshst" ".idlerc/" ".gradle/" ".gitignore" ".gitconfig" ".geeknote/" ".esd_auth" ".emulator_console_auth_token" ".emacsbackups/" ".emacs.d/" ".emacs" ".cups/" ".cpan/" ".config/" ".cache/" ".bashrc" ".bash_sessions/" ".bash_history" ".bash/" ".asepsis-suppress-update-errors" ".android/" "../" "./")
 
  ("/Users/eccentricayman/Github/eccentricayman.github.io/" (22577 18476 0 0) "resume.pdf" "README.md" "min/" "js/" "index.html" "img/" "font-awesome/" "css/" ".git/" "../" "./")
 
