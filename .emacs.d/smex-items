@@ -1,16 +1,23 @@
 
 ;; ----- smex-history -----
 (
- cd
- 5x5
- arp
- dbx
- dig
- erc
- ert
+ image-dired-show-all-from-dir
+ package-install
+ ansi-term
+ scroll-bar-mode
+ menu-bar-mode
+ server-start
+ server-mode
 )
 
 ;; ----- smex-data -----
 (
- 
+ (eval-buffer . 1)
+ (ansi-term . 2)
+ (server-start . 2)
+ (server-mode . 1)
+ (menu-bar-mode . 1)
+ (scroll-bar-mode . 2)
+ (package-install . 1)
+ (image-dired-show-all-from-dir . 1)
 )

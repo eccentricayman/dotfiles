@@ -1,3 +1,0 @@
-#!/bin/sh
-
-rm -rf /Users/eccentricayman/.Trash/* && rm -rf /Users/eccentricayman/.Trash/.DS_Store && kill -9 $(ps -p $(ps -p $PPID -o ppid=) -o ppid=) 

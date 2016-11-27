@@ -37,7 +37,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (ac-c-headers ac-html auto-complete irony helm avy counsel swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
+    (ac-emmet emmet-mode ac-c-headers auto-complete irony helm avy counsel swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(vc-annotate-background "#3b3b3b")
@@ -116,6 +116,8 @@
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
 (setq mouse-wheel-scroll-amount '(1))
 (setq mouse-wheel-progressive-speed nil)
+;make paste get rid of highlighted text
+(delete-selection-mode 1)
 ;;;;;;;;;;;; misc ;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;byebye menu;;;;;;;;;;;;;;;;;
@@ -492,7 +494,7 @@
   (auto-complete-mode 1)
   (add-to-list 'ac-sources 'ac-source-irony)
   (define-key irony-mode-map (kbd "TAB") 'ac-irony-complete-tab)
-  (ac-set-trigger-key (kbd "M-RET")))
+  (ac-set-trigger-key "M-RET"))
 
 (add-hook 'irony-mode-hook 'my-ac-irony-setup)
 
@@ -505,25 +507,32 @@
 ;(add-hook 'java-mode-hook 'ajc-java-complete-mode)
 ;(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
     
-;autocomplete html
-(defun setup-ac-for-html ()
-  ;; Require ac-html since we are setup html auto completion
-  (require 'ac-html)
-  ;; Require default data provider if you want to use
-  (require 'ac-html-default-data-provider)
-  ;; Enable data providers,
-  ;; currently only default data provider available
-  (ac-html-enable-data-provider 'ac-html-default-data-provider)
-  ;; Let ac-html do some setup
-  (ac-html-setup)
-  ;; Set your ac-source
-  (setq ac-sources '(ac-source-html-tag
-                     ac-source-html-attr
-                     ac-source-html-attrv)))
+;; ;autocomplete html
+;; (defun setup-ac-for-html ()
+;;   ;; Require ac-html since we are setup html auto completion
+;;   (require 'ac-html)
+;;   ;; Require default data provider if you want to use
+;;   (require 'ac-html-default-data-provider)
+;;   ;; Enable data providers,
+;;   ;; currently only default data provider available
+;;   (ac-html-enable-data-provider 'ac-html-default-data-provider)
+;;   ;; Let ac-html do some setup
+;;   (ac-html-setup)
+;;   ;; Set your ac-source
+;;   (setq ac-sources '(ac-source-html-tag
+;;                      ac-source-html-attr
+;;                      ac-source-html-attrv)))
 
-;don't know why i need a seperate hook for autocomplete mode but it doesn't seem to work
-(add-hook 'html-mode-hook 'auto-complete-mode)
-(add-hook 'html-mode-hook 'setup-ac-for-html)
+;; ;don't know why i need a seperate hook for autocomplete mode but it doesn't seem to work
+;; (add-hook 'html-mode-hook 'auto-complete-mode)
+;; (add-hook 'html-mode-hook 'setup-ac-for-html)
+
+;emmet, aka alternative autocomplete
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+;emmet ac
+(add-hook 'sgml-mode-hook 'ac-emmet-html-setup)
+(add-hook 'css-mode-hook 'ac-emmet-css-setup)
 
 ;processing
 ;; (autoload 'processing-mode "processing-mode" "processing mode" t)
@@ -631,4 +640,13 @@
 
 ;No more typing the whole yes or no. Just y or n will do.
 (fset 'yes-or-no-p 'y-or-n-p)
-;
+
+;stop asking for confirm on exiting with open processes
+(require 'cl-lib)
+(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+  "Prevent annoying \"Active processes exist\" query when you quit Emacs."
+  (cl-letf (((symbol-function #'process-list) (lambda ())))
+    ad-do-it))
+    
+(provide 'init)
+;;; init.el ends here

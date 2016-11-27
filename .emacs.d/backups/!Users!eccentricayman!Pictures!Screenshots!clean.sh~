@@ -1,4 +1,0 @@
-#!/bin/zsh
-for i in ./*Screenshot\ *
-do mv -- "$i" "${i//Screenshot\ /}"
-done && echo "Done." || echo "Already cleaned."
