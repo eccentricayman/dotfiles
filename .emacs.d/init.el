@@ -262,20 +262,13 @@
 (global-set-key (kbd "C-c g") 'magit-status)
 
 ;hides all the minor modes
-(when (require 'diminish nil 'noerror)
-  (eval-after-load "auto-complete"
-    '(diminish 'auto-complete-mode))
-  (eval-after-load "Irony"
-    '(diminish 'irony-mode ""))
-  (eval-after-load "abbrev"
-    '(diminish 'abbrev-mode ""))
-  (eval-after-load "yasnippet"
-    '(diminish 'yas-minor-mode ""))
-  (eval-after-load "flycheck"
-    '(diminish 'flycheck-mode ""))
-  (eval-after-load "ivy"
-    '(diminish 'ivy-mode ""))
-)
+(diminish 'auto-complete-mode)
+(diminish 'irony-mode "")
+(diminish 'emmet-mode "")
+(diminish 'abbrev-mode "")
+(diminish 'yas-minor-mode "")
+(diminish 'flycheck-mode "")
+(diminish 'ivy-mode "")
 
 ;random testing, makes cursor go through entire rainbow spectrum
 ; (defvar blink-cursor-colors (list  "#ff0000" "#ff7f00" "#ffff00" "#00ff00" "0000ff" "551a8b" "4b0082"))
