@@ -25,13 +25,12 @@ C-c s: Run shell script
 
 C-c c: Compile and run C file
 
-C-x SPC: Start avy
 
 ## More Info
 All backups are saved in a ~/.emacs.d/.emacsbackups directory.
 
-## TODO:
- - Start using use-package
+<br>
+<br>
 
 # .vimrc
 My Vim configuration.
