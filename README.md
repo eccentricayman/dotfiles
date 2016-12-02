@@ -54,29 +54,3 @@ C-h, C-j, C-k, C-l: Move around windows
 
 ## More Information
 Requires the silver search ($ brew install ag)
-
-<br>
-<br>
-
-# Zsh
-Zsh with zprezto, a custom theme, and neofetch
-
-<img src="https://github.com/eccentricayman/dotfiles/blob/master/Screenshots/term.png">
-
-## Instructions
-Install <a href="https://github.com/sorin-ionescu/prezto">zprezto</a>
-
-Install neofetch, and move the file named config to ~/.config/neofetch
-
-Move the prompt_sorin_setup file to ~/.zprezto/modules/prompt/functions (Make a backup of the existing one before overwriting it)
-
-<br>
-<br>
-
-# Mac Apps
-<b>Lock</b> instantly locks your screen and opens the screensaver.
-
-<b>Empty Trash</b> just empties your trash.
-
-## Instructions
-Put both in your /Applications directory, and both can be launched from Spotlight/Finder.
