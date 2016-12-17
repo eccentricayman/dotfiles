@@ -1,4 +1,15 @@
-;Custom emacs configuration by eccentricayman on Github
+;;; init.el --- eccentricayman's emacs config
+
+;;; Commentary:
+; C-c s : speedbar
+; C-c g : magit
+; C-c f : flycheck list errors
+; C-c j : Compile and run java file in current buffer
+; C-c p : Run python file in current buffer
+; C-c c : Compile and run C file in current buffer
+; C-c h : Open current HTML file in default browser (OSX Only)
+
+;;; Code:
 
 ;(let ((file-name-handler-alist nil))
 ;(run-with-idle-timer
@@ -37,7 +48,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (ac-emmet emmet-mode ac-c-headers auto-complete irony helm avy counsel swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
+    (sr-speedbar tabbar impatient-mode ac-emmet emmet-mode ac-c-headers auto-complete irony helm avy counsel swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(vc-annotate-background "#3b3b3b")
@@ -96,21 +107,23 @@
 
  ;;;;;;;;;;;; misc ;;;;;;;;;;;;;;;;;;;;;;;
 ;; enable clipboard
-(setq x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
 ;; autocomplete paired brackets
 (electric-pair-mode 1)
 (global-set-key (kbd "<C-tab>") 'other-window)
 ;; tramp mode for editing through ssh
-(setq tramp-default-method "ssh")
+;following line windows only
+;(setq tramp-default-method "ssh")
 ;; show paren mode
 (show-paren-mode 1)
 ;;disabled because emacsclient is weird with it
 (global-nlinum-mode 1)
 ;; (add-to-list 'default-frame-alist '(left-fringe . 8))
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
-;; (face-spec-set 'fringe
-;;   '((((class color) (background dark))
-;;      :background "#353A43")))
+; (face-spec-set 'fringe
+;   '((((class color) (background dark))
+;      :background "#353A43")))
+;(setq fringe-mode "no-fringes")
 ;; enable lines mode
 ;(global-linum-mode 1)
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
@@ -145,7 +158,7 @@
 ;;     (xterm-mouse-mode)))
 
 (defun my-frame-config (frame)
-  "Custom behaviours for new frames."
+  "Custom behaviours for new FRAME."
   (with-selected-frame frame
     (if (display-graphic-p)
         (progn
@@ -156,12 +169,24 @@
           (setq ns-use-srgb-colorspace nil)
           (spaceline-compile)
           (setq nlinum-format "%d ")
+          (set-fringe-mode 0)
           (global-hl-line-mode 0))
       (progn
         (require 'airline-themes)
         (load-theme 'airline-distinguished)
+        (setq airline-cursor-colors nil)
+        (setq powerline-utf-8-separator-left        #xe0b0
+              powerline-utf-8-separator-right       #xe0b2
+              airline-utf-glyph-separator-left      #xe0b0
+              airline-utf-glyph-separator-right     #xe0b2
+              airline-utf-glyph-subseparator-left   #xe0b1
+              airline-utf-glyph-subseparator-right  #xe0b3
+              airline-utf-glyph-branch              #xe0a0
+              airline-utf-glyph-readonly            #xe0a2
+              airline-utf-glyph-linenumber          #xe0a1)
         (global-set-key (kbd "<mouse-4>") 'previous-line)
         (global-set-key (kbd "<mouse-5>") 'next-line)
+        (set-fringe-mode 0)
         (setq nlinum-format "%d ")
         (global-hl-line-mode 0)
         (set-face-background 'default "#222" (selected-frame))
@@ -173,6 +198,7 @@
 
 ;adios crappy terminal background
 (defun on-after-init ()
+  "Set background for terminal Emacs."
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "#222" (selected-frame))))
 (add-hook 'window-setup-hook 'on-after-init)
@@ -262,13 +288,22 @@
 (global-set-key (kbd "C-c g") 'magit-status)
 
 ;hides all the minor modes
-(diminish 'auto-complete-mode)
-(diminish 'irony-mode "")
-(diminish 'emmet-mode "")
-(diminish 'abbrev-mode "")
-(diminish 'yas-minor-mode "")
-(diminish 'flycheck-mode "")
-(diminish 'ivy-mode "")
+(when (require 'diminish nil 'noerror)
+  (eval-after-load "auto-complete"
+    '(diminish 'auto-complete-mode))
+  (eval-after-load "Irony"
+    '(diminish 'irony-mode ""))
+  (eval-after-load "abbrev"
+    '(diminish 'abbrev-mode ""))
+  (eval-after-load "yasnippet"
+    '(diminish 'yas-minor-mode ""))
+  (eval-after-load "flycheck"
+    '(diminish 'flycheck-mode ""))
+  (eval-after-load "ivy"
+    '(diminish 'ivy-mode ""))
+  )
+;can't find emmet
+(diminish 'emmet-mode)
 
 ;random testing, makes cursor go through entire rainbow spectrum
 ; (defvar blink-cursor-colors (list  "#ff0000" "#ff7f00" "#ffff00" "#00ff00" "0000ff" "551a8b" "4b0082"))
@@ -282,23 +317,28 @@
 ;    )
 ;  (internal-show-cursor nil (not (internal-show-cursor-p)))
 ;  )
-(if (eq system-type 'windows-nt)
-    (setq doc-view-ghostscript-program "gswin64c")
-    (setq tramp-default-method "plink"))
+;following is windows only for pdf viewing
+;(if (eq system-type 'windows-nt)
+;    (setq doc-view-ghostscript-program "gswin64c")
+;    (setq tramp-default-method "plink"))
 (setq org-log-done 'time)
-(defadvice doc-view-display (after fit-width activate)
-  (doc-view-fit-width-to-window))
-(defun always-use-fancy-splash-screens-p () 1)
+;(defadvice doc-view-display (after fit-width activate)
+;  (doc-view-fit-width-to-window))
+(defun always-use-fancy-splash-screens-p ()
+  "Just to make the always fancy splash screens work."
+  1)
 (defalias 'use-fancy-splash-screens-p 'always-use-fancy-splash-screens-p)
 (global-set-key (kbd "M-x") 'smex)
 ;(global-set-key (kbd "M-x") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 (smex-initialize)
 (defun smex-update-after-load (unused)
+  "Update UNUSED commands in smex after loading."
   (when (boundp 'smex-cache)
     (smex-update)))
 (add-hook 'after-load-functions 'smex-update-after-load)
 (defadvice smex (around space-inserts-hyphen activate compile)
+  "Check if ido cannot complete command."
   (let ((ido-cannot-complete-command
          `(lambda ()
             (interactive)
@@ -314,14 +354,19 @@
 (setq ido-vertical-show-count t)
 (ido-better-flex/enable)
 (defun ido-disable-line-truncation ()
+  "No line truncation in ido."
     (set (make-local-variable 'truncate-lines) nil))
     (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-truncation)
 (defun ido-define-keys ()
+  "Make n and p work to move between ido match along with s, p."
   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
   (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
 (add-hook 'ido-setup-hook 'ido-define-keys)
 (global-set-key (kbd "C-x b") 'ido-switch-buffer)
-    
+
+;ido ignore starred default buffers
+(setq ido-ignore-buffers '("\\` " "^\*"))
+
 ;non elpa/melpa/marmalade packages, like the m-x speed fixy thingy
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (load "~/.emacs.d/lisp/ido-speed-hack/ido-speed-hack.elc")
@@ -331,14 +376,14 @@
 
 ;moving lines up and down
 (defun move-line-up ()
-  "move up the current line."
+  "Move up the current line."
   (interactive)
   (transpose-lines 1)
   (forward-line -2)
   (indent-according-to-mode))
 
 (defun move-line-down ()
-  "move down the current line."
+  "Move down the current line."
   (interactive)
   (forward-line 1)
   (transpose-lines 1)
@@ -355,6 +400,10 @@
 (global-set-key "\C-s" 'swiper)
 (global-set-key "\C-r" 'swiper)
 (define-key read-expression-map (kbd "\C-r") 'counsel-expression-history)
+
+;avy
+(global-set-key (kbd "C-x SPC") 'avy-goto-char-2)
+(setq avy-all-windows nil)
 
 ;yasnippet
 (require 'yasnippet)
@@ -387,7 +436,8 @@
 ;start in emacs mode
 ;(add-hook 'after-init 'to-emacs())
 ;;;;;;;;;;fix this;;;;;;;;;;;
-(setq redisplay-dont-pause t)
+; not needed in emacs 25
+;(setq redisplay-dont-pause t)
 ;)
 
 ;no gnu emacs buffer when opening file
@@ -403,12 +453,30 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
-
+;crayola colors!
 (set-face-attribute 'flycheck-warning nil
-                    :underline "yellow")
+                    :underline "#FFF44F")
 (set-face-attribute 'flycheck-error nil
-                    :underline "red")
+                    :underline "#EE204D")
+;no sidelines
+(setq flycheck-indication-mode nil)
+;flycheck error list
+ (defun close-and-kill-next-pane ()
+      "If there are multiple windows, then close the other pane and kill the buffer in it also."
+      (interactive)
+      (other-window 1)
+      (kill-this-buffer)
+      (if (not (one-window-p))
+          (delete-window)))
 
+(defun flycheck-list-errors-toggle ()
+  "Toggle listing flycheck errors buffer."
+  (interactive)
+  (if (get-buffer "*Flycheck errors*")
+      (close-and-kill-next-pane)
+    (flycheck-list-errors)))
+
+(global-set-key (kbd "C-c f") 'flycheck-list-errors-toggle)
 ;; (require 'company)
 
 ;; ;(load "~/.emacs.d/lisp/company-complete-cycle/company-complete-cycle.elc")
@@ -479,11 +547,13 @@
 (load "~/.emacs.d/lisp/ac-irony/ac-irony.elc")
 
 (defun ac-irony-complete-tab ()
+  "Complete tab in irony mode."
   (interactive)
   (if (looking-at "\\_>")
       (ac-complete-irony-async)
     (indent-according-to-mode)))
 (defun my-ac-irony-setup ()
+  "Enabling auto-complete, then irony-complete."
   (auto-complete-mode 1)
   (add-to-list 'ac-sources 'ac-source-irony)
   (define-key irony-mode-map (kbd "TAB") 'ac-irony-complete-tab)
@@ -542,7 +612,7 @@
 
 ;java sht (install f.el manually on os x)
 (defun java-compile-and-run ()
-  "compile and run java files."
+  "Compile and run java files."
   (interactive)
   (shell-command-on-region
   ;seperate buffer
@@ -557,7 +627,7 @@
 (global-set-key (kbd "C-c j") 'java-compile-and-run)
 
 (defun python-run ()
-  "easier pythoning than c-c c-c, also only for simple shit"
+  "For running simple python files."
   (interactive)
   (shell-command-on-region
    ;seperate buffr
@@ -581,10 +651,8 @@
    "Script Run"
    ))
 
-(global-set-key (kbd "C-c s") 'script-run)
-
 (defun c-compile-and-run ()
-  "c compile and run."
+  "C compile and run."
   (interactive)
   (shell-command-on-region
    (point-min)
@@ -595,15 +663,29 @@
 
 (global-set-key (kbd "C-c c") 'c-compile-and-run)
 
+(defun open-html-file ()
+  "Open current html file in default browser."
+  (interactive)
+  (shell-command-on-region
+   (point-min)
+   (point-max)
+   (concat "open " (buffer-file-name))
+  "Open HTML File"))
+
+(global-set-key (kbd "C-c h") 'open-html-file)
+
 ;osx stuff
 (setq ns-function-modifier 'control)
-(setq ns-command-modifier 'meta)
+(setq ns-command-modifier 'hyper)
+(global-set-key (kbd "H-v") 'pbpaste)
 (setq frame-resize-pixelwise t)
 
 (defun copy-from-osx ()
+  "Copy from OSX's GUI using pbcopy."
   (shell-command-to-string "pbpaste"))
 
 (defun paste-to-osx (text &optional push)
+  "TEXT: PUSH through pbpaste."
   (let ((process-connection-type nil))
     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
       (process-send-string proc text)
@@ -640,6 +722,29 @@
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
   (cl-letf (((symbol-function #'process-list) (lambda ())))
     ad-do-it))
-    
+
+;speedbar stuff
+(setq speedbar-show-unknown-files t) ; show all files
+(setq speedbar-use-images nil) ; use text for buttons
+(setq sr-speedbar-auto-refresh nil)
+
+(defun speedbar-expand-all-lines ()
+  "Expand all items in the speedbar buffer."
+  (interactive)
+  (goto-char (point-min))
+  (while (not (eobp))
+    (forward-line)
+    (speedbar-expand-line)))
+
+(defun run-speedbar ()
+  "Run sr-speedbar and expand all."
+  (interactive)
+  (sr-speedbar-toggle))
+
+(global-set-key (kbd "C-c s") 'run-speedbar)
+
+;windmove
+(windmove-default-keybindings 'control)
+
 (provide 'init)
 ;;; init.el ends here
