@@ -437,7 +437,7 @@
 ;(add-hook 'after-init 'to-emacs())
 ;;;;;;;;;;fix this;;;;;;;;;;;
 ; not needed in emacs 25
-;(setq redisplay-dont-pause t)
+(setq redisplay-dont-pause t)
 ;)
 
 ;no gnu emacs buffer when opening file
