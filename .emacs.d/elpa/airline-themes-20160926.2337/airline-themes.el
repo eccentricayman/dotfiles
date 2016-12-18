@@ -183,7 +183,7 @@ Valid Values: airline-directory-full, airline-directory-shortened, nil (disabled
                           (current-evil-state-string (if (featurep 'evil)
                                                          (upcase (concat (symbol-name evil-state)
                                                                          (cond (visual-block "-BLOCK")
-                                                                               (visual-line "-LINE"))))
+                                                                               (visual-line (format "-LINE")))))
                                                        nil))
 
                           (outer-face
@@ -234,6 +234,10 @@ Valid Values: airline-directory-full, airline-directory-shortened, nil (disabled
                                         (list
                                          ;; Modified string
                                          (powerline-raw "%*" outer-face 'l)
+                                         ;; Buffer Size
+                                         (when powerline-display-buffer-size
+                                           (powerline-buffer-size outer-face 'l))
+                                         
                                          ;; Separator >
                                          (powerline-raw " " outer-face)
                                          (funcall separator-left outer-face inner-face))))
@@ -264,15 +268,15 @@ Valid Values: airline-directory-full, airline-directory-shortened, nil (disabled
                                      ;; Buffer ID
                                      ;; (powerline-buffer-id center-face)
                                      (powerline-raw "%b" center-face)
-
+;(powerline-raw (char-to-string airline-utf-glyph-subseparator-left) center-face 'l)
                                      ;; Current Function (which-function-mode)
                                      (when (and (boundp 'which-func-mode) which-func-mode)
                                        ;; (powerline-raw which-func-format 'l nil))
                                        (powerline-raw which-func-format center-face 'l))
 
                                      ;; ;; Separator >
-                                     ;; (powerline-raw " " center-face)
-                                     ;; (funcall separator-left mode-line face1)
+                                     ; (powerline-raw " " center-face)
+                                     ; (funcall separator-left mode-line face1)
 
                                      (when (boundp 'erc-modified-channels-object)
                                        (powerline-raw erc-modified-channels-object center-face 'l))
@@ -305,34 +309,36 @@ Valid Values: airline-directory-full, airline-directory-shortened, nil (disabled
                                      (powerline-raw " " center-face)
                                      (funcall separator-right center-face inner-face)
 
-                                     ;; Buffer Size
-                                     (when powerline-display-buffer-size
-                                       (powerline-buffer-size inner-face 'l))
-
-                                     ;; Mule Info
-                                     (when powerline-display-mule-info
-                                       (powerline-raw mode-line-mule-info inner-face 'l))
+                                     ;; LN charachter
+                                     (powerline-raw
+                                      (if (use-region-p)
+                                          (format "%d lines" (count-lines (region-beginning) (region-end)))
+                                        (let ((buf-coding (format "%s" buffer-file-coding-system)))
+    (if (string-match "\\(dos\\|unix\\|mac\\)" buf-coding)
+        (match-string 1 buf-coding)
+      buf-coding)))
+                                      inner-face 'l)
+                                     ;(powerline-raw " " inner-face)
+                                     ;(powerline-raw (char-to-string airline-utf-glyph-subseparator-right) inner-face 'l)
+                                     ;; Current Line
+                                     (powerline-raw " |" inner-face)
+                                     (powerline-raw "%2l" inner-face 'l)
+                                     (powerline-raw ":" inner-face 'l)
+                                     ;; Current Column
+                                     (powerline-raw "%2c" inner-face 'l)
 
                                      (powerline-raw " " inner-face)
 
                                      ;; Separator <
                                      (funcall separator-right inner-face outer-face)
 
-                                     ;; LN charachter
-                                     (powerline-raw (char-to-string airline-utf-glyph-linenumber) outer-face 'l)
-
-                                     ;; Current Line
-                                     (powerline-raw "%4l" outer-face 'l)
-                                     (powerline-raw ":" outer-face 'l)
-                                     ;; Current Column
-                                     (powerline-raw "%3c" outer-face 'r)
-
                                      ;; % location in file
-                                     (powerline-raw "%6p" outer-face 'r)
-
+                                     (powerline-raw "%7p" outer-face 'l)
+                                     
                                      ;; position in file image
                                      (when powerline-display-hud
-                                       (powerline-hud inner-face outer-face)))
+                                       (powerline-hud inner-face outer-face))
+                                     )
                                ))
 
                      ;; Combine Left and Right Hand Sides
@@ -400,8 +406,7 @@ PWD is not in a git repo (or the git command is not found)."
   "Reimplementation of powerline-vc function to give the same result in gui as the terminal."
   (interactive)
   (when (and (buffer-file-name (current-buffer)) vc-mode)
-    (format " %s %s"
-            (char-to-string airline-utf-glyph-branch)
+    (format "%s"
             (if (featurep 'magit)
                 (magit-get-current-branch)
               (format-mode-line '(vc-mode vc-mode))))))
