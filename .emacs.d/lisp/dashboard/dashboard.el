@@ -1,4 +1,5 @@
 
+
 ;; Version: $Id$
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -329,19 +330,9 @@
 
 (provide 'dashboard)
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Dashboard credits
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;; dashboard.el --- A startup screen extracted from Spacemacs
 
-;; Copyright (c) 2016 Rakan Al-Hneiti & Contributors
-;;
-;; Author: Rakan Al-Hneiti
-;; URL: https://github.com/rakanalh/emacs-dashboard
-
-;; A shameless extraction of Spacemacs’ startup screen, with sections for
-;; bookmarks, projectile projects and more.
+;; taken from https://github.com/rakanalh/emacs-dashboard, modified by https://github.com/eccentricayman
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; dashboard.el ends here
