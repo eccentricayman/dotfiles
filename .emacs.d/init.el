@@ -801,8 +801,8 @@
 
 (setq inhibit-startup-screen t)
 
-(load "~/.emacs.d/lisp/dashboard/dashboard.el")
-(setq dashboard-items '((recents  . 10)))
+(load "~/.emacs.d/lisp/dashboard/dashboard.elc")
+;(setq dashboard-items '((recents  . 10)))
 (dashboard-setup-startup-hook)
 (diminish 'dashboard-mode "")
 
