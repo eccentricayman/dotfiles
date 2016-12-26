@@ -71,16 +71,16 @@
 (defconst dashboard-banner-margin 29 "")
 
 (defvar dashboard-item-generators '((recents    . dashboard-insert-recents)
-                                              (bookmarks  . dashboard-insert-bookmarks)
-                                              (projects   . dashboard-insert-projects)
-                                              (workspaces . dashboard-insert-workspaces)
-                                              (info       . dashboard-insert-info)))
+                                    (bookmarks  . dashboard-insert-bookmarks)))
+                                    ;;(projects   . dashboard-insert-projects)
+                                    ;;(workspaces . dashboard-insert-workspaces)
+                                    ;;(info       . dashboard-insert-info)))
 
 (defvar dashboard-items '((recents    . 20)
-                                    (bookmarks  . 10)
-                                    (projects   . 10)
-                                    (workspaces . 10)
-                                    (info       . 10)) "")
+                          (bookmarks  . 10)) "")
+                          ;;(projects   . 10)
+                          ;;(workspaces . 10)
+                          ;;(info       . 10)) "")
 
 (defvar dashboard-items-default-length 20 "")
 
@@ -257,6 +257,20 @@
                     (dashboard-subseq (projectile-relevant-known-projects) 0 list-size))
                (dashboard-insert--shortcut "p" "Projects:")))
          (error "Projects list depends on 'projectile-mode` to be activated")))
+
+(defun dashboard-insert-workspaces (list-size) ""
+       (if (bound-and-true-p persp-mode)
+           (progn
+             (when (dashboard-insert-workspace-list
+                    "Workspaces:"
+                    (dashboard-subseq (f-glob (expand-file-name "*workspace*" save-dir)) 0 list-size))
+               (dashboard-insert--shortcut "w" "Workspaces:")))))
+
+(defun dashboard-insert-info (list-size) ""
+       (when (dashboard-insert-info-list
+              "Info:"
+              (dashboard-subseq (f-glob (expand-file-name "*" info-dir)) 0 list-size))
+         (dashboard-insert--shortcut "i" "Info:")))
 
 (defun dashboard-insert-startupify-lists () ""
        (interactive)
