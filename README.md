@@ -25,6 +25,12 @@ C-c s: Run shell script
 
 C-c c: Compile and run C file
 
+C-c h: Open HTML file in browser
+
+C-c f: Show all flycheck errors for this buffer (toggle-able)
+
+C-c s: Open speedbar on the right (toggle-able)
+
 
 ## More Info
 All backups are saved in a ~/.emacs.d/.emacsbackups directory.
