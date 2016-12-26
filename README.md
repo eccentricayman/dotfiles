@@ -1,5 +1,4 @@
 # .emacs.d
-My Emacs configuration.
 
 GUI
 <img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots/emacs.png"></img>
@@ -39,7 +38,6 @@ All backups are saved in a ~/.emacs.d/.emacsbackups directory.
 <br>
 
 # .vimrc
-My Vim configuration.
 
 <img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots/vim.png">
 
@@ -59,4 +57,4 @@ F5: Delete all trailing whitespaces
 C-h, C-j, C-k, C-l: Move around windows
 
 ## More Information
-Requires the silver search ($ brew install ag)
+Requires the silver searcher ($ brew install ag)
