@@ -1,4 +1,4 @@
-# All my OSX dotfiles are here.
+# OSX dotfiles for Emacs, Vim, Zsh
 
 ## Requirements
 
@@ -9,7 +9,5 @@ zsh
 [zprezto](https://github.com/sorin-ionescu/prezto)
 
 [neofetch](https://github.com/dylanaraps/neofetch)
-
-Images in your pictures directory labelled day and night
 
 OSX 10.11+
