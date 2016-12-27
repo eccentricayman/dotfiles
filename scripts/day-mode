@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+cd /Users/eccentricayman/.zprezto/runcoms
+
+#light terminal theme
+info=$(awk 'NR==19 {$0="source /Users/eccentricayman/.config/base16-shell/scripts/base16-google-light.sh"} { print }' zshrc)
+rm -rf zshrc
+echo $info > zshrc
+
+#dark mode off
+osascript -e 'tell application "System Events"' -e 'tell appearance preferences' -e 'set dark mode to false' -e 'end tell' -e 'end tell'
+
+#neofetch
+neofetch=$(awk 'NR==22 {$0="#neofetch --image ~/Pictures/boo2.png"} { print }' zshrc)
+rm -rf zshrc
+echo $neofetch > zshrc
+
+source zshrc
+
+neofetch=$(awk 'NR==22 {$0="neofetch --image ~/Pictures/boo2.png"} { print }' zshrc)
+rm -rf zshrc
+echo $neofetch > zshrc
+
+#day.png in pictures background
+osascript -e 'tell application "System Events" to set picture of every desktop to ("/Users/eccentricayman/Pictures/day.jpg" as POSIX file as alias)'
+
