@@ -1,21 +1,15 @@
-# .vimrc
+# All my OSX dotfiles are here.
 
-<img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots/vim.png">
+## Requirements
 
-## Custom Commands
-C-w w: Cycle between windows
+ag (The Silver Searcher)
 
-C-w v: Split window vertically
+zsh
 
-C-w s: Split window horizontally
+[zprezto](https://github.com/sorin-ionescu/prezto)
 
-C-Tab: Next buffer (GUI)
+[neofetch](https://github.com/dylanaraps/neofetch)
 
-C-S-Tab: Previous buffer (GUI)
+Images in your pictures directory labelled day and night
 
-F5: Delete all trailing whitespaces
-
-C-h, C-j, C-k, C-l: Move around windows
-
-## More Information
-Requires the silver searcher ($ brew install ag)
+OSX 10.11+
