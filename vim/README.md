@@ -16,6 +16,3 @@ C-S-Tab: Previous buffer (GUI)
 F5: Delete all trailing whitespaces
 
 C-h, C-j, C-k, C-l: Move around windows
-
-## More Information
-Requires the silver searcher ($ brew install ag)
