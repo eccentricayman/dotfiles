@@ -1,7 +1,5 @@
 # OSX dotfiles for Emacs // Vim // Zsh
-
-## Requirements
-
+<b>Requirements:</b>
 - ag (The Silver Searcher)
 - zsh
 - [zprezto](https://github.com/sorin-ionescu/prezto)
