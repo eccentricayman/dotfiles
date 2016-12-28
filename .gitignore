@@ -3,3 +3,10 @@
 
 # Packaging
 .cask
+
+# my stuff
+backups/
+ido.last
+network-security.data
+recentf
+smex-items
