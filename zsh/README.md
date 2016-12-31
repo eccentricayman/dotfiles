@@ -1,6 +1,6 @@
 # zsh + zprezto
 
-Shown in the image is also neofetch
+Shown in the image is also fortune | cowsay | lolcat
 
 ## Screenshot
 
