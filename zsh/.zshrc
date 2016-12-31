@@ -16,10 +16,10 @@ promptinit
 prompt sorin
 
 #colorz
-source /Users/eccentricayman/.config/base16-shell/scripts/base16-google-light.sh
+source /Users/eccentricayman/.config/base16-shell/scripts/base16-brewer.sh
 
 #fetch
-neofetch --image ~/Pictures/boo2.png
+fortune -as | cowsay -f moose | lolcat
 #neofetch
 
 alias gvim="open -a macvim"
@@ -38,3 +38,5 @@ unsetopt correct
 
 export EDITOR=/usr/local/Cellar/emacs/HEAD-3ec1503/bin/emacs
 PATH="/Users/eccentricayman/perl5/bin${PATH:+:${PATH}}"; export PATH;
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
