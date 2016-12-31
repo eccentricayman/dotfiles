@@ -10,16 +10,27 @@ echo $theme > zshrc
 #dark mode off
 osascript -e 'tell application "System Events"' -e 'tell appearance preferences' -e 'set dark mode to true' -e 'end tell' -e 'end tell'
 
-#get rid of neofetch printing
-neofetch=$(awk 'NR==22 {$0="#neofetch --image ~/Pictures/boo2.png"} { print }' zshrc)
+#remove neofetch
+#neofetch=$(awk 'NR==22 {$0="#neofetch --image ~/Pictures/boo2.png"} { print }' zshrc)
+#rm -rf zshrc
+#echo $neofetch > zshrc
+
+#remove fortune
+fortune=$(awk 'NR==22 {$0="#fortune -as | cowsay -f moose"} { print }' zshrc)
 rm -rf zshrc
-echo $neofetch > zshrc
+echo $fortune > zshrc
 
 source zshrc
 
-neofetch=$(awk 'NR==22 {$0="neofetch --image ~/Pictures/boo2.png"} { print }' zshrc)
+#readd neofetch
+#neofetch=$(awk 'NR==22 {$0="neofetch --image ~/Pictures/boo2.png"} { print }' zshrc)
+#rm -rf zshrc
+#echo $neofetch > zshrc
+
+#readd fortune
+fortune=$(awk 'NR==22 {$0="fortune -as | cowsay -f moose | lolcat"} { print }' zshrc)
 rm -rf zshrc
-echo $neofetch > zshrc
+echo $fortune > zshrc
 
 #night.png in pictures background
 osascript -e 'tell application "System Events" to set picture of every desktop to ("/Users/eccentricayman/Pictures/night.jpg" as POSIX file as alias)'
