@@ -1,7 +1,3 @@
 # OSX dotfiles for Emacs // Vim // Zsh
-<b>Requirements:</b>
-- ag (The Silver Searcher)
-- zsh
-- [zprezto](https://github.com/sorin-ionescu/prezto)
-- [neofetch](https://github.com/dylanaraps/neofetch)
+<b>Screenshots are in each folder's README.</b>
 - OSX 10.11+
