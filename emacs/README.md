@@ -30,6 +30,8 @@ C-c f: Show all flycheck errors for this buffer (toggle-able)
 
 C-c s: Open speedbar on the right (toggle-able)
 
+C-c d: Toggle distraction free mode
+
 Two-Swipe Left/Right: Previous buffer/ Next buffer
 
 ## More Info
