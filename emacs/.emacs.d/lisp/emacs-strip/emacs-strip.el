@@ -1,24 +1,24 @@
 ;; Prevent the cursor from blinking
 (blink-cursor-mode 0)
 ;; Don't use messages that you don't read
-(setq initial-scratch-message "")
-(setq inhibit-startup-message t)
+;;(setq initial-scratch-message "")
+;;(setq inhibit-startup-message t)
 ;; Don't let Emacs hurt your ears
-(setq visible-bell t)
+;;(setq visible-bell t)
 
 ;; You need to set `inhibit-startup-echo-area-message' from the
 ;; customization interface:
 ;; M-x customize-variable RET inhibit-startup-echo-area-message RET
 ;; then enter your username
-(setq inhibit-startup-echo-area-message "guerry")
+;;(setq inhibit-startup-echo-area-message "guerry")
 
 ;; This is bound to f11 in Emacs 24.4
-(toggle-frame-fullscreen) 
+;;(toggle-frame-fullscreen) 
 ;; Who use the bar to scroll?
-(scroll-bar-mode 0)
+;;(scroll-bar-mode 0)
 
-(tool-bar-mode 0)
-(menu-bar-mode 0)
+;;(tool-bar-mode 0)
+;;(menu-bar-mode 0)
 
 ;; You can also set the initial frame parameters
 ;; (setq initial-frame-alist
@@ -52,7 +52,7 @@
              "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
 
 ;; Activate hidden-mode-line-mode
-(hidden-mode-line-mode 1)
+;;(hidden-mode-line-mode 1)
 
 ;; If you want to hide the mode-line in all new buffers
 ;; (add-hook 'after-change-major-mode-hook 'hidden-mode-line-mode)
@@ -80,7 +80,7 @@
         2))))
 
 ;; Now activate this global minor mode
-(bzg-big-fringe-mode 1)
+;;(bzg-big-fringe-mode 1)
 
 ;; To activate the fringe by default and deactivate it when windows
 ;; are split vertically, uncomment this:
@@ -97,25 +97,22 @@
 ;; (setq cursor-type 'hbar)
 
 ;; Get rid of the indicators in the fringe
-(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
-        fringe-bitmaps)
+;(mapcar (lambda(fb) (set-fringe-bitmap-face fb 'org-hide))
+;        fringe-bitmaps)
 
 ;; Set the color of the fringe
-(custom-set-faces
- '(fringe ((t (:background "white")))))
+(defun distraction-free-mode ()
+  "Make current buffer distraction free."
+  ;;(toggle-frame-fullscreen)
+  (nlinum-mode -1)
+  (hidden-mode-line-mode 1)
+  (bzg-big-fringe-mode 1)
+  (custom-set-faces
+   '(fringe ((t (:background "white")))))
+  (custom-set-faces
+   '(default ((t (:background "black" :foreground "grey"))))
+   '(fringe ((t (:background "black")))))
+  )
 
-(custom-set-faces
-  '(default ((t (:background "black" :foreground "grey"))))
-  '(fringe ((t (:background "black")))))
-
-;; Command to toggle the display of the mode-line as a header
-(defvar-local header-line-format nil)
-(defun mode-line-in-header ()
-  (interactive)
-  (if (not header-line-format)
-      (setq header-line-format mode-line-format
-            mode-line-format nil)
-    (setq mode-line-format header-line-format
-          header-line-format nil))
-  (set-window-buffer nil (current-buffer)))
-(global-set-key (kbd "C-s-SPC") 'mode-line-in-header)
+(provide 'emacs-strip)
+;;; emacs-strip.el ends here

@@ -206,7 +206,7 @@
           :config
           (setq fortune-cookie-cowsay-args  "-s")
           (fortune-cookie-mode))
-        (require 'airline-themes)
+    	(require 'airline-themes)
         (load-theme 'airline-distinguished)
         (setq airline-cursor-colors nil)
         (setq powerline-utf-8-separator-left        #xe0b0
@@ -832,6 +832,8 @@
 
 ;;show keystrokes after 0.01 seconds
 (setq echo-keystrokes 0.01)
+
+(load "~/.emacs.d/lisp/emacs-strip/emacs-strip.elc")
 
 (provide 'init)
 ;;; init.el ends here
