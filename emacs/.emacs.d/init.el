@@ -37,7 +37,7 @@
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-safe-themes
    (quote
-    ("32c4ff8d6904594327c0c3cd9828c62673962d9e90b11fa3881fb330dd55c831" "e9101154806d5d9508b2c804b6a0cdc53236171a76a247350f822f1ec28b996c" "a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "b01e2d02a7bd9a67e8824bf1501f4fb9d5dce57941808f0af7020b47aaa9b294" "e3cf7c5e6fed398173ef56b6547bdcc2436604ecd3e60d46d51fb8d9a0a25ab0" "c2f49c919c31c7de1ace6f10eea91f64c6f2338a82a203eca2588e3447082e76" "01e067188b0b53325fc0a1c6e06643d7e52bc16b6653de2926a480861ad5aa78" "d6db7498e2615025c419364764d5e9b09438dfe25b044b44e1f336501acd4f5b" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "06dbcfac3705aaaa79e1a3264c6fd44ef0cf86ef5ed67930e4007e63a8c1e8ee" "38f48e62e16e2c8f178c7e9de00aab382bc92d84ea382822907ed4e762388ae0" "ad950f1b1bf65682e390f3547d479fd35d8c66cafa2b8aa28179d78122faa947" "4ab95b35f7720043592b49d890003874aa1954a3cf299edde13657c6a9182d85" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" "d9dab332207600e49400d798ed05f38372ec32132b3f7d2ba697e59088021555" "41eb3fe4c6b80c7ad156a8c52e9dd6093e8856c7bbf2b92cc3a4108ceb385087" "3de3f36a398d2c8a4796360bfce1fa515292e9f76b655bb9a377289a6a80a132" "8cf1002c7f805360115700144c0031b9cfa4d03edc6a0f38718cef7b7cabe382" "760ce657e710a77bcf6df51d97e51aae2ee7db1fba21bbad07aab0fa0f42f834" "790e74b900c074ac8f64fa0b610ad05bcfece9be44e8f5340d2d94c1e47538de" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b61c55259c639a54628f91452b060b99c550a1269eb947e372321b806b68f114" "1160f5fc215738551fce39a67b2bcf312ed07ef3568d15d53c87baa4fd1f4d4e")))
+    ("962dacd99e5a99801ca7257f25be7be0cebc333ad07be97efd6ff59755e6148f" "64ca5a1381fa96cb86fd6c6b4d75b66dc9c4e0fc1288ee7d914ab8d2638e23a9" "0726d81a364bba24e311416c3c29674c7a09781ac13f16fe193f714c645b2bf4" "32c4ff8d6904594327c0c3cd9828c62673962d9e90b11fa3881fb330dd55c831" "e9101154806d5d9508b2c804b6a0cdc53236171a76a247350f822f1ec28b996c" "a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "b01e2d02a7bd9a67e8824bf1501f4fb9d5dce57941808f0af7020b47aaa9b294" "e3cf7c5e6fed398173ef56b6547bdcc2436604ecd3e60d46d51fb8d9a0a25ab0" "c2f49c919c31c7de1ace6f10eea91f64c6f2338a82a203eca2588e3447082e76" "01e067188b0b53325fc0a1c6e06643d7e52bc16b6653de2926a480861ad5aa78" "d6db7498e2615025c419364764d5e9b09438dfe25b044b44e1f336501acd4f5b" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "06dbcfac3705aaaa79e1a3264c6fd44ef0cf86ef5ed67930e4007e63a8c1e8ee" "38f48e62e16e2c8f178c7e9de00aab382bc92d84ea382822907ed4e762388ae0" "ad950f1b1bf65682e390f3547d479fd35d8c66cafa2b8aa28179d78122faa947" "4ab95b35f7720043592b49d890003874aa1954a3cf299edde13657c6a9182d85" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" "d9dab332207600e49400d798ed05f38372ec32132b3f7d2ba697e59088021555" "41eb3fe4c6b80c7ad156a8c52e9dd6093e8856c7bbf2b92cc3a4108ceb385087" "3de3f36a398d2c8a4796360bfce1fa515292e9f76b655bb9a377289a6a80a132" "8cf1002c7f805360115700144c0031b9cfa4d03edc6a0f38718cef7b7cabe382" "760ce657e710a77bcf6df51d97e51aae2ee7db1fba21bbad07aab0fa0f42f834" "790e74b900c074ac8f64fa0b610ad05bcfece9be44e8f5340d2d94c1e47538de" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b61c55259c639a54628f91452b060b99c550a1269eb947e372321b806b68f114" "1160f5fc215738551fce39a67b2bcf312ed07ef3568d15d53c87baa4fd1f4d4e")))
  '(fci-rule-color "#3E4451")
  '(org-startup-truncated t)
  '(package-archives
@@ -47,7 +47,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (page-break-lines smooth-scrolling geeknote markdown-mode sr-speedbar ac-emmet emmet-mode ac-c-headers auto-complete irony helm avy swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
+    (fortune-cookie highlight-indent-guides try page-break-lines smooth-scrolling geeknote markdown-mode sr-speedbar ac-emmet emmet-mode ac-c-headers auto-complete irony helm avy swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
  '(vc-annotate-background "#3b3b3b")
@@ -72,6 +72,12 @@
      (340 . "#6380b3")
      (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
+
+;;startup buffer
+(setq inhibit-startup-screen t)
+
+;;empty scratch message
+(setq initial-scratch-message "")
 
 ;;emacs sizing
 (setq initial-frame-alist '((top . 50) (left . 300) (width . 90) (height . 40)))
@@ -167,6 +173,11 @@
   (with-selected-frame frame
     (if (display-graphic-p)
         (progn
+          ;;custom startscreen
+          (use-package page-break-lines)
+          (load "~/.emacs.d/lisp/dashboard/dashboard.elc")
+          ;;(setq dashboard-items '((recents  . 10)))
+          (dashboard-setup-startup-hook)
           (require 'spaceline-config)
           (if (fboundp 'menu-bar-mode) (menu-bar-mode 1))
           (setq ns-use-srgb-colorspace t)
@@ -191,6 +202,10 @@
           (setq mouse-wheel-progressive-speed nil)
           )
       (progn
+        (use-package fortune-cookie
+          :config
+          (setq fortune-cookie-cowsay-args  "-s")
+          (fortune-cookie-mode))
         (require 'airline-themes)
         (load-theme 'airline-distinguished)
         (setq airline-cursor-colors nil)
@@ -461,7 +476,7 @@
 ;;(add-hook 'after-init 'to-emacs())
 ;;;;;;;;;;fix this;;;;;;;;;;;
 ;; not needed in emacs 25
-(setq redisplay-dont-pause t)
+;(setq redisplay-dont-pause t)
 ;;)
 
 ;;\\no gnu emacs buffer when opening file
@@ -706,6 +721,31 @@
       (setq ns-function-modifier 'control)
       ;;(setq ns-command-modifier 'hyper)
       ;;(setq ns-command-modifier 'meta)
+      (defvar *my-previous-buffer* t
+        "can we switch?")
+
+      (defun my-previous-buffer ()
+          (interactive)
+          (message "custom prev: *my-previous-buffer*=%s" *my-previous-buffer*)
+          (when *my-previous-buffer*
+            (previous-buffer)
+            (setq *my-previous-buffer* nil)
+            (run-at-time "1 sec" nil (lambda ()
+                (setq *my-previous-buffer* t)))))
+
+      (defvar *my-next-buffer* t
+        "can we switch?")
+
+      (defun my-next-buffer ()
+          (interactive)
+          (message "custom prev: *my-next-buffer*=%s" *my-next-buffer*)
+          (when *my-next-buffer*
+            (next-buffer)
+            (setq *my-next-buffer* nil)
+            (run-at-time "1 sec" nil (lambda ()
+                (setq *my-next-buffer* t)))))
+      (global-set-key [triple-wheel-left] 'my-previous-buffer)
+      (global-set-key [triple-wheel-right] 'my-next-buffer)
       (setq frame-resize-pixelwise t)
       )
   )
@@ -725,9 +765,6 @@
       (setq interprogram-cut-function 'paste-to-osx)
       (setq interprogram-paste-function 'copy-from-osx))
   )
-
-;;Makes *scratch* empty.
-(setq initial-scratch-message "")
 
 ;;Removes *Completions* from buffer after you've opened a file.
 (add-hook 'minibuffer-exit-hook
@@ -795,16 +832,6 @@
 
 ;;show keystrokes after 0.01 seconds
 (setq echo-keystrokes 0.01)
-
-;;custom startscreen
-(use-package page-break-lines)
-
-(setq inhibit-startup-screen t)
-
-(load "~/.emacs.d/lisp/dashboard/dashboard.elc")
-;(setq dashboard-items '((recents  . 10)))
-(dashboard-setup-startup-hook)
-(diminish 'dashboard-mode "")
 
 (provide 'init)
 ;;; init.el ends here
