@@ -30,6 +30,7 @@ C-c f: Show all flycheck errors for this buffer (toggle-able)
 
 C-c s: Open speedbar on the right (toggle-able)
 
+Two-Swipe Left/Right: Previous buffer/ Next buffer
 
 ## More Info
 All backups are saved in a ~/.emacs.d/.emacsbackups directory.
