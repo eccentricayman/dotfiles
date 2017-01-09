@@ -851,9 +851,13 @@
                 '(fringe ((t (:background "black"))))))
       (revert-buffer t t)
       (bzg-big-fringe-mode)
-      (custom-set-faces
-       '(default ((t (:background "#282C34"))))
-       '(fringe ((t (:background "#282C34")))))))
+      (if (display-graphic-p)
+          (custom-set-faces
+           '(default ((t (:background "#282C34"))))
+           '(fringe ((t (:background "#282C34")))))
+        (custom-set-faces
+         '(default ((t (:background "#222"))))
+         '(fringe ((t (:background "#222"))))))))
       ;;(toggle-frame-fullscreen))
 
 (global-set-key (kbd "C-c d") 'distraction-free-mode)
