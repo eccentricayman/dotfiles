@@ -101,18 +101,6 @@
 ;        fringe-bitmaps)
 
 ;; Set the color of the fringe
-(defun distraction-free-mode ()
-  "Make current buffer distraction free."
-  ;;(toggle-frame-fullscreen)
-  (nlinum-mode -1)
-  (hidden-mode-line-mode 1)
-  (bzg-big-fringe-mode 1)
-  (custom-set-faces
-   '(fringe ((t (:background "white")))))
-  (custom-set-faces
-   '(default ((t (:background "black" :foreground "grey"))))
-   '(fringe ((t (:background "black")))))
-  )
 
 (provide 'emacs-strip)
 ;;; emacs-strip.el ends here

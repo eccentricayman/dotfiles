@@ -834,6 +834,29 @@
 (setq echo-keystrokes 0.01)
 
 (load "~/.emacs.d/lisp/emacs-strip/emacs-strip.elc")
+;;add a distraction free mode
+(defun distraction-free-mode ()
+  "Make current buffer distraction free."
+  (interactive)
+  (if (bound-and-true-p nlinum-mode)
+      (progn
+        ;;(toggle-frame-fullscreen)
+        (nlinum-mode -1)
+        (hidden-mode-line-mode)
+        (bzg-big-fringe-mode)
+        (custom-set-faces
+                '(fringe ((t (:background "white")))))
+        (custom-set-faces
+                '(default ((t (:background "black" :foreground "grey"))))
+                '(fringe ((t (:background "black"))))))
+      (revert-buffer t t)
+      (bzg-big-fringe-mode)
+      (custom-set-faces
+       '(default ((t (:background "#282C34"))))
+       '(fringe ((t (:background "#282C34")))))))
+      ;;(toggle-frame-fullscreen))
+
+(global-set-key (kbd "C-c d") 'distraction-free-mode)
 
 (provide 'init)
 ;;; init.el ends here
