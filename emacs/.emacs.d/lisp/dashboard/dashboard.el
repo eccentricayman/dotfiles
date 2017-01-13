@@ -71,14 +71,14 @@
 
 (defconst dashboard-banner-margin 29 "")
 
-(defvar dashboard-item-generators '((recents    . dashboard-insert-recents)
-                                    (bookmarks  . dashboard-insert-bookmarks)))
+(defvar dashboard-item-generators '((recents    . dashboard-insert-recents)))
+                                    ;;(bookmarks  . dashboard-insert-bookmarks)
                                     ;;(projects   . dashboard-insert-projects)
                                     ;;(workspaces . dashboard-insert-workspaces)
                                     ;;(info       . dashboard-insert-info)))
 
-(defvar dashboard-items '((recents    . 20)
-                          (bookmarks  . 10)) "")
+(defvar dashboard-items '((recents    . 20)) "")
+                          ;;(bookmarks  . 10)
                           ;;(projects   . 10)
                           ;;(workspaces . 10)
                           ;;(info       . 10)) "")
@@ -213,7 +213,7 @@
        (dashboard-append dashboard-page-separator))
 
 (defun dashboard-append (msg &optional messagebuf) ""
-       (with-current-buffer (get-buffer-create "*dashboard*")
+       (with-current-buffer (get-buffer-create "*Emacs*")
          (goto-char (point-max))
          (let ((buffer-read-only nil))
            (insert msg))))
@@ -230,7 +230,7 @@
 
 (defun dashboard-goto-link-line () ""
        (interactive)
-       (with-current-buffer "*dashboard*"
+       (with-current-buffer "*Emacs*"
          (goto-char (point-min))
          (re-search-forward "Homepage")
          (beginning-of-line)
@@ -275,7 +275,7 @@
 
 (defun dashboard-insert-startupify-lists () ""
        (interactive)
-       (with-current-buffer (get-buffer-create "*dashboard*")
+       (with-current-buffer (get-buffer-create "*Emacs*")
          (let ((buffer-read-only nil)
                (list-separator "\n\n"))
            (erase-buffer)
@@ -312,7 +312,7 @@
              (add-hook 'after-init-hook (lambda () (dashboard-insert-startupify-lists)))
              (add-hook 'emacs-startup-hook
                        '(lambda ()
-                          (switch-to-buffer "*dashboard*")
+                          (switch-to-buffer "*Emacs*")
                           (goto-char (point-min))
                           (redisplay))))))
 
