@@ -80,7 +80,7 @@
 	 ((:keywords "async")
 	  (:url . "http://elpa.gnu.org/packages/async.html"))])
  (auctex .
-	 [(11 89 8)
+	 [(11 90 0)
 	  nil "Integrated environment for *TeX*" tar
 	  ((:url . "http://www.gnu.org/software/auctex/"))])
  (aumix-mode .
@@ -136,10 +136,15 @@
 	      ((:url . "http://elpa.gnu.org/packages/cl-generic.html")
 	       (:keywords))])
  (cl-lib .
-	 [(0 5)
+	 [(0 6 1)
 	  nil "Properly prefixed CL functions and macros" single
 	  ((:url . "http://elpa.gnu.org/packages/cl-lib.html")
 	   (:keywords))])
+ (cobol-mode .
+	     [(1 0 0)
+	      nil "Mode for editing COBOL code" single
+	      ((:url . "http://elpa.gnu.org/packages/cobol-mode.html")
+	       (:keywords "languages"))])
  (coffee-mode .
 	      [(0 4 1 1)
 	       nil "Major mode for CoffeeScript files" single
@@ -291,7 +296,7 @@
 	     ((:url . "http://elpa.gnu.org/packages/ediprolog.html")
 	      (:keywords "languages" "processes"))])
  (el-search .
-	    [(1 2 1)
+	    [(1 2 3)
 	     ((emacs
 	       (25))
 	      (stream
@@ -393,7 +398,7 @@
 	 ((:keywords "mail" "org" "gnus" "bbdb" "todo" "task")
 	  (:url . "https://github.com/girzel/gnorb"))])
  (gnugo .
-	[(3 0 0)
+	[(3 0 1)
 	 ((ascii-art-to-unicode
 	   (1 5))
 	  (xpm
@@ -521,7 +526,7 @@
 	       ((:url . "http://github.com/rocky/emacs-loc-changes")
 		(:keywords))])
  (loccur .
-	 [(1 2 2)
+	 [(1 2 3)
 	  ((cl-lib
 	    (0)))
 	  "Perform an occur-like folding in current buffer" single
@@ -1000,7 +1005,7 @@
 	     ((:keywords "convenience" "emulation")
 	      (:url . "http://github.com/joaotavora/yasnippet"))])
  (ztree .
-	[(1 0 4)
+	[(1 0 5)
 	 ((cl-lib
 	   (0)))
 	 "Text mode directory tree" tar
