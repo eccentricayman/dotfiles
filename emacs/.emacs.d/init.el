@@ -206,12 +206,13 @@
           (setq mouse-wheel-progressive-speed nil)
           )
       (progn
-        (use-package fortune-cookie
-          :config
-          (setq fortune-cookie-cowsay-args  "-s")
-          (fortune-cookie-mode))
     	(require 'airline-themes)
         (load-theme 'airline-distinguished)
+	;;get rid of minibuffer highlighting text for term
+	(custom-theme-set-faces
+	 'airline-distinguished
+	 `(minibuffer-prompt ((t (:foreground nil :background nil :inherit 'default))))
+	 )
         (setq airline-cursor-colors nil)
         (setq powerline-utf-8-separator-left        #xe0b0
               powerline-utf-8-separator-right       #xe0b2
@@ -231,6 +232,15 @@
         (global-hl-line-mode 0)
         (set-face-background 'default "#222" (selected-frame))
         (xterm-mouse-mode)))))
+;;fortune cowsay on emacs -nw
+(if (display-graphic-p)
+    (progn
+      )
+  (progn
+    (use-package fortune-cookie
+      :config
+      (setq fortune-cookie-cowsay-args  "-s")
+      (fortune-cookie-mode))))
 ;; run now
 (my-frame-config (selected-frame))
 ;; and later
