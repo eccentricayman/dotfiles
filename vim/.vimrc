@@ -288,3 +288,9 @@ hi GitGutterChangeDelete     ctermfg=blue    ctermbg=black
 hi vertsplit                 ctermfg=green   ctermbg=green
 hi Pmenu                                     ctermbg=238
 hi clear SignColumn
+
+" my stufs
+if has("gui_running")
+else
+    highlight clear LineNr
+endif
