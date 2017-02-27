@@ -19,11 +19,15 @@ prompt sorin
 source /Users/eccentricayman/.config/base16-shell/scripts/base16-brewer.sh
 
 #fetch
-fortune -as | cowsay -f moose | lolcat
+fortune -as | cowsay -f moose | lolcat -t
 #neofetch
 
 alias gvim="open -a macvim"
 alias emacss="emacsclient"
+function please() {
+    echo -e "Okay, but only because you asked nicely."
+    sudo $(fc -ln -1)
+}
 
 function gitshit() {
     git add --all && git commit -m "$1" && git push
