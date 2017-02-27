@@ -293,4 +293,8 @@ hi clear SignColumn
 if has("gui_running")
 else
     highlight clear LineNr
+    highlight clear GitGutterAdd
+    highlight clear GitGutterChange
+    highlight clear GitGutterDelete
+    highlight clear GitGutterChangeDelete
 endif
