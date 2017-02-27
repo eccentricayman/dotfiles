@@ -47,7 +47,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (web-mode smooth-scrolling fortune-cookie highlight-indent-guides try page-break-lines markdown-mode sr-speedbar emmet-mode ac-c-headers auto-complete irony helm avy swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
+    (ac-emoji fireplace web-mode smooth-scrolling fortune-cookie highlight-indent-guides try page-break-lines markdown-mode sr-speedbar emmet-mode ac-c-headers auto-complete irony helm avy swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
  '(show-paren-mode t)
  '(sublimity-mode t)
  '(tool-bar-mode nil)
@@ -231,7 +231,7 @@
         (setq nlinum-format "%d ")
         (global-hl-line-mode 0)
         (set-face-background 'default "#222" (selected-frame))
-        (xterm-mouse-mode)))))
+        (xterm-mouse-mode 1)))))
 ;;fortune cowsay on emacs -nw
 (if (display-graphic-p)
     (progn
@@ -322,6 +322,9 @@
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 (setq indent-line-function 'insert-tab)
+;;html tab width
+(setq sgml-basic-offset 4)
+
 ;;change block to line cursor if enabled
 ;;(setq-default cursor-type 'bar)
 
@@ -651,9 +654,9 @@
   (interactive)
   (indent-according-to-mode)
   (emmet-expand-line nil))
-(require 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(define-key emmet-mode-keymap [tab] 'emmet-tab)
+;;(require 'emmet-mode)
+;;(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+;;(define-key emmet-mode-keymap [tab] 'emmet-tab)
 ;;(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
 
@@ -810,6 +813,7 @@
 ;;stop asking for confirm on exiting with open processes
 (require 'cl)
 (require 'cl-lib)
+
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
   (cl-letf (((symbol-function #'process-list) (lambda ())))
