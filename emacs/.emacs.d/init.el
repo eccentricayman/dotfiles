@@ -47,7 +47,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (ac-emoji fireplace web-mode smooth-scrolling fortune-cookie highlight-indent-guides try page-break-lines markdown-mode sr-speedbar emmet-mode ac-c-headers auto-complete irony helm avy swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
+    (aurora-config-mode ac-emoji fireplace web-mode smooth-scrolling fortune-cookie highlight-indent-guides try page-break-lines markdown-mode sr-speedbar emmet-mode ac-c-headers auto-complete irony helm avy swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
  '(show-paren-mode t)
  '(sublimity-mode t)
  '(tool-bar-mode nil)
@@ -909,6 +909,10 @@
 
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
+
+(defadvice backward-kill-word (around fix activate)
+  (flet ((kill-region (b e) (delete-region b e)))
+    ad-do-it))
 
 (provide 'init)
 ;;; init.el ends here
