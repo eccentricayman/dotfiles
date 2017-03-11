@@ -188,7 +188,7 @@
           ;;(setq ns-use-srgb-colorspace nil)
           (powerline-reset)
           (spaceline-emacs-theme)
-          (spaceline-toggle-flycheck-error-off)
+          ;;(spaceline-toggle-flycheck-error-off)
           (spaceline-toggle-flycheck-warning-off)
           (spaceline-compile)
           (setq nlinum-format "%d  ")
@@ -206,23 +206,30 @@
           (setq mouse-wheel-progressive-speed nil)
           )
       (progn
-    	(require 'airline-themes)
-        (load-theme 'airline-distinguished)
+    	;;(require 'airline-themes)
+        ;;(load-theme 'airline-distinguished)
 	;;get rid of minibuffer highlighting text for term
-	(custom-theme-set-faces
-	 'airline-distinguished
-	 `(minibuffer-prompt ((t (:foreground nil :background nil :inherit 'default))))
-	 )
-        (setq airline-cursor-colors nil)
-        (setq powerline-utf-8-separator-left        #xe0b0
-              powerline-utf-8-separator-right       #xe0b2
-              airline-utf-glyph-separator-left      #xe0b0
-              airline-utf-glyph-separator-right     #xe0b2
-              airline-utf-glyph-subseparator-left   #xe0b1
-              airline-utf-glyph-subseparator-right  #xe0b3
-              airline-utf-glyph-branch              #xe0a0
-              airline-utf-glyph-readonly            #xe0a2
-              airline-utf-glyph-linenumber          #xe0a1)
+	;;(custom-theme-set-faces
+	 ;;'airline-distinguished
+	 ;;`(minibuffer-prompt ((t (:foreground nil :background nil :inherit 'default))))
+	 ;;)
+        ;;(setq airline-cursor-colors nil)
+        ;;(setq powerline-utf-8-separator-left        #xe0b0
+              ;;powerline-utf-8-separator-right       #xe0b2
+              ;;airline-utf-glyph-separator-left      #xe0b0
+              ;;airline-utf-glyph-separator-right     #xe0b2
+              ;;airline-utf-glyph-subseparator-left   #xe0b1
+              ;;airline-utf-glyph-subseparator-right  #xe0b3
+              ;;airline-utf-glyph-branch              #xe0a0
+              ;;airline-utf-glyph-readonly            #xe0a2
+        ;;airline-utf-glyph-linenumber          #xe0a1)
+        (require 'spaceline-config)
+        (setq powerline-default-separator 'utf-8)
+        (powerline-reset)
+        (spaceline-emacs-theme)
+        ;;(spaceline-toggle-flycheck-error-off)
+        (spaceline-toggle-flycheck-warning-off)
+        (spaceline-compile)
         (global-set-key (kbd "<mouse-4>") 'previous-line)
         (global-set-key (kbd "<mouse-5>") 'next-line)
         (set-fringe-mode 0)
@@ -230,7 +237,7 @@
         (setq mouse-wheel-progressive-speed nil)
         (setq nlinum-format "%d ")
         (global-hl-line-mode 0)
-        (set-face-background 'default "#222" (selected-frame))
+        (set-face-background 'default "292929" (selected-frame))
         (xterm-mouse-mode 1)))))
 ;;fortune cowsay on emacs -nw
 (if (display-graphic-p)
@@ -250,7 +257,7 @@
 (defun on-after-init ()
   "Set background for terminal Emacs."
   (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "#222" (selected-frame))))
+    (set-face-background 'default "292929" (selected-frame))))
 (add-hook 'window-setup-hook 'on-after-init)
 
 ;;also useless, was to fix powerline messing up but we have spaceline now!
@@ -354,11 +361,11 @@
     '(diminish 'flycheck-mode ""))
   (eval-after-load "ivy"
     '(diminish 'ivy-mode ""))
+  (eval-after-load "server-buffer-clients"
+    '(diminish 'server-buffer-clients ""))
   ;;  (eval-after-load "emmet"
   ;;    '(diminish 'emmet-mode ""))
   )
-;;can't find emmet
-(diminish 'emmet-mode "")
 
 ;;random testing, makes cursor go through entire rainbow spectrum
 ;; (defvar blink-cursor-colors (list  "#ff0000" "#ff7f00" "#ffff00" "#00ff00" "0000ff" "551a8b" "4b0082"))
@@ -879,8 +886,8 @@
            '(default ((t (:background "#282C34"))))
            '(fringe ((t (:background "#282C34")))))
         (custom-set-faces
-         '(default ((t (:background "#222"))))
-         '(fringe ((t (:background "#222"))))))))
+         '(default ((t (:background "292929"))))
+         '(fringe ((t (:background "292929"))))))))
       ;;(toggle-frame-fullscreen))
 
 (global-set-key (kbd "C-c d") 'distraction-free-mode)
