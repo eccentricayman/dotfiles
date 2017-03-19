@@ -18,13 +18,13 @@
 ;;(setq gc-cons-threshold 1000000)
 ;;  (message "gc-cons-threshold restored to %S"
 ;;           gc-cons-threshold)))
-(require 'package)
+(require 'package) ;; You might already have this line
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize)
+(package-initialize) ;; You might already have this line
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -47,7 +47,7 @@
      ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-    (aurora-config-mode ac-emoji fireplace web-mode smooth-scrolling fortune-cookie highlight-indent-guides try page-break-lines markdown-mode sr-speedbar emmet-mode ac-c-headers auto-complete irony helm avy swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
+    (aurora-config-mode ac-emoji fireplace smooth-scrolling fortune-cookie highlight-indent-guides try page-break-lines markdown-mode sr-speedbar emmet-mode ac-c-headers auto-complete irony helm avy swiper nlinum-relative multiple-cursors windresize ido-better-flex ido-vertical-mode smex recentf-ext rainbow-delimiters popup highlight-parentheses fsm atom-one-dark-theme)))
  '(show-paren-mode t)
  '(sublimity-mode t)
  '(tool-bar-mode nil)
@@ -107,7 +107,11 @@
  '(company-tooltip ((t (:inherit default :background "#0a0aff"))))
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
  '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
- '(fringe ((t (:background "#282C34")))))
+ '(fringe ((t (:background "#282C34"))))
+ '(web-mode-doctype-face ((t (:foreground "#C678DD"))))
+ '(web-mode-html-attr-name-face ((t (:foreground "#E06C75"))))
+ '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
+ '(web-mode-html-tag-face ((t (:foreground "#61AFEF")))))
 
 ;;because ido-speed-hacks is terribly coded update: doesn't work on startup :(
 ;;(setq warning-minimum-level :emergency)
@@ -257,7 +261,7 @@
 (defun on-after-init ()
   "Set background for terminal Emacs."
   (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "292929" (selected-frame))))
+    (set-face-background 'default "222" (selected-frame))))
 (add-hook 'window-setup-hook 'on-after-init)
 
 ;;also useless, was to fix powerline messing up but we have spaceline now!
@@ -363,6 +367,8 @@
     '(diminish 'ivy-mode ""))
   (eval-after-load "server-buffer-clients"
     '(diminish 'server-buffer-clients ""))
+  (eval-after-load "web"
+    '(diminish 'web-mode ""))
   ;;  (eval-after-load "emmet"
   ;;    '(diminish 'emmet-mode ""))
   )
@@ -666,6 +672,32 @@
 ;;(define-key emmet-mode-keymap [tab] 'emmet-tab)
 ;;(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 
+;;web mode
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+;;various settings for web-mode
+(setq web-mode-enable-auto-pairing t)
+(setq web-mode-enable-current-element-highlight t)
+(setq web-mode-ac-sources-alist
+  '(("css" . (ac-source-css-property))
+    ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+
+;;use default html tag highlighting
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-enable-current-element-highlight nil)
+  (setq web-mode-css-indent-offset 4)
+  (setq web-mode-code-indent-offset 4)
+  )
+(add-hook 'web-mode-hook 'my-web-mode-hook)
+;;desperation lmao
+(setq magic-mode-alist '(("<!DOCTYPE html" . web-mode)))
 
 ;;processing
 ;; (autoload 'processing-mode "processing-mode" "processing mode" t)
