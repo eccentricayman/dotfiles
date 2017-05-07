@@ -45,7 +45,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(recentf-ext smooth-scrolling spaceline page-break-lines ido-better-flex smex ido-sort-mtime ido-vertical-mode ido-yes-or-no windresize markdown-mode sr-speedbar jedi ac-c-headers flycheck multiple-cursors rainbow-delimiters nlinum smartparens fuzzy dash s web-mode cl-lib cl-lib-highlight try auto-complete use-package)))
+	(swiper recentf-ext smooth-scrolling spaceline page-break-lines ido-better-flex smex ido-sort-mtime ido-vertical-mode ido-yes-or-no windresize markdown-mode sr-speedbar jedi ac-c-headers flycheck multiple-cursors rainbow-delimiters nlinum smartparens fuzzy dash s web-mode cl-lib cl-lib-highlight try auto-complete use-package)))
  '(show-paren-mode t)
  '(sublimity-mode t)
  '(tool-bar-mode nil)
@@ -81,7 +81,16 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
  '(web-mode-html-tag-face ((t (:foreground "#61AFEF")))))
 
+;;use-package install
+(if (not (package-installed-p 'use-package))
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)))
+(require 'use-package)
+
 ;;Theme
+(use-package atom-one-dark-theme
+	     :ensure t)
 (load-theme 'atom-one-dark)
 (defun emacs-terminal-background ()
   "Set background for terminal Emacs."
@@ -139,22 +148,6 @@
 
 ;;windmove, control to move between windows
 (windmove-default-keybindings 'control)
-
-;;; Local Packages
-(byte-recompile-directory (expand-file-name "~/.emacs.d/lisp") 0) ;;byte compile local packages directory
-
-(load "~/.emacs.d/lisp/f/f") ;;nice elisp file editing, used for java-compile-and-run
-
-(load "~/.emacs.d/lisp/ido-speed-hack/ido-speed-hack") ;;ido-speed-hack to make M-x under smex snappy
-
-(load "~/.emacs.d/lisp/emacs-strip/emacs-strip") ;;used to clean up screen for distraction free mode
-
-(if (display-graphic-p)
-	(progn
-	  (load "~/.emacs.d/lisp/dashboard/dashboard") ;;dashboard for gui-emacs
-	  (dashboard-setup-startup-hook)
-	  )
-  )
 
 ;;; Packages
 ;;autocompletion on tab
@@ -385,6 +378,28 @@
 	  :config
 	  (setq smooth-scroll-margin 1)
 	  (smooth-scrolling-mode 1)))
+
+;;; Local Packages
+(byte-recompile-directory (expand-file-name "~/.emacs.d/lisp") 0) ;;byte compile local packages directory
+
+;;dependencies
+(use-package s
+  :ensure t)
+(use-package dash
+  :ensure t)
+;;nice elisp file editing, used for java-compile-and-run
+(load "~/.emacs.d/lisp/f/f")
+
+(load "~/.emacs.d/lisp/ido-speed-hack/ido-speed-hack") ;;ido-speed-hack to make M-x under smex snappy
+
+(load "~/.emacs.d/lisp/emacs-strip/emacs-strip") ;;used to clean up screen for distraction free mode
+
+(if (display-graphic-p)
+	(progn
+	  (load "~/.emacs.d/lisp/dashboard/dashboard") ;;dashboard for gui-emacs
+	  (dashboard-setup-startup-hook)
+	  )
+  )
 
 ;;; Keybindings
 (defun move-line-up ()
