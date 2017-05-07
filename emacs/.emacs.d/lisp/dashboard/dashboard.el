@@ -69,7 +69,7 @@
   :type 'string
   :group 'dashboard)
 
-(defconst dashboard-banner-margin 29 "")
+(defconst dashboard-banner-margin 25 "")
 
 (defvar dashboard-item-generators '((recents    . dashboard-insert-recents)))
                                     ;;(bookmarks  . dashboard-insert-bookmarks)
@@ -284,10 +284,10 @@
            (insert "\n")
            (dashboard-insert-banner)
            (insert "\n")
-           (setq version-faced (propertize "\t\t\t\t\t\t\t\t Emacs version: " 'face 'dashboard-info-face))
+           (setq version-faced (propertize "\t\t\t\t\t\t\t Emacs version: " 'face 'dashboard-info-face))
            (insert version-faced)
            (insert (format " %d.%d\n" emacs-major-version emacs-minor-version))
-           (setq version-faced (propertize "\t\t\t\t\t\t\t\t Init time: " 'face 'dashboard-info-face))
+           (setq version-faced (propertize "\t\t\t\t\t\t\t Init time: " 'face 'dashboard-info-face))
            (insert version-faced)
            (insert (format "%s\n" (emacs-init-time)))
            (dashboard-insert-page-break)
