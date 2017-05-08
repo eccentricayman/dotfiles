@@ -169,7 +169,6 @@
 
     (setq ac-delay 0.02)
     (setq ac-use-menu-map t)
-    (setq ac-menu-height 50)
     (setq ac-use-quick-help nil)
     (setq ac-ignore-case nil)
     (setq ac-dwim t)
