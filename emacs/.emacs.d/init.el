@@ -92,14 +92,27 @@
 (use-package atom-one-dark-theme
 	     :ensure t)
 (load-theme 'atom-one-dark)
+
+;;this is for regular emacs background
 (defun emacs-terminal-background ()
   "Set background for terminal Emacs."
-  (unless (display-graphic-p (selected-frame))
+  (unless (display-graphic-p)
 	(progn
 	  (set-face-background 'default "222" (selected-frame))
 	  (custom-set-faces
 	   '(linum ((t (:inherit (shadow default) :background "222"))))))))
 (add-hook 'window-setup-hook 'emacs-terminal-background)
+
+;;this is for emacsclient background
+(defun emacs-background-frame-config (frame)
+  "Set background for terminal Emacs FRAME."
+  (with-selected-frame frame
+	(unless (display-graphic-p)
+	  (emacs-terminal-background))))
+;; run now
+(emacs-background-frame-config (selected-frame))
+;; and later
+(add-hook 'after-make-frame-functions 'emacs-background-frame-config)
 
 ;;; Configs
 (setq ad-redefinition-action 'accept) ;;make ido-yes-no work with ad
