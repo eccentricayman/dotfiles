@@ -133,7 +133,7 @@
 ;;c, perl, python, and html indent to 4
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
-(defvaralias 'python-indent-offset 'tab-width)
+(set-variable 'python-indent-offset 4)
 (setq sgml-basic-offset 4)
 
 ;;get rid of current selection when pasting
@@ -202,13 +202,13 @@
 (use-package jedi
   :ensure t
   :config
+  (add-hook 'python-mode-hook 'jedi:setup)
   (add-hook 'python-mode-hook 'jedi:ac-setup)
   )
 
 ;;html autocompletion
 (use-package web-mode
   :ensure t
-  :diminish web-mode
   :config
   (progn
 	(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -218,7 +218,6 @@
 		  '(("css" . (ac-source-css-property))
 			("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 	(setq web-mode-enable-auto-closing t)
-	(setq web-mode-enable-auto-quoting nil)
 	(setq web-mode-enable-current-element-highlight t)
 	(setq web-mode-css-indent-offset 4)
 	(setq web-mode-code-indent-offset 4)
@@ -271,9 +270,9 @@
 ;;error checking
 (use-package flycheck
   :ensure t
+  :diminish flycheck-mode
   :init
   (global-flycheck-mode)
-  :diminish flycheck-mode
   :config
   (progn
 	;;colors of underlines
@@ -478,6 +477,7 @@
    (point-max)
    (concat "open " (buffer-file-name))
    "*open*"))
+(global-set-key (kbd "C-c h") 'open-html-file)
 
 (defun close-and-kill-next-pane ()
   "If there are multiple windows, then close the other pane and kill the buffer in it also."
@@ -574,37 +574,61 @@
   (interactive)
   (split-window-vertically)
   (other-window 1 nil)
-  (ido-switch-buffer)
+  (ido-find-file)
   )
 (defun hsplit-last-buffer ()
   "Horizontally split, and use last buffer."
   (interactive)
    (split-window-horizontally)
    (other-window 1 nil)
-   (ido-switch-buffer)
+   (ido-find-file)
   )
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
 ;;don't copy word when you delete whole word
-(defun my-delete-word (ARG)
+(defun my-delete-word (arg)
   "Delete characters forward until encountering the end of a word.
-With ARG, do this that many times.
+With argument, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
   (delete-region
    (point)
    (progn
-     (forward-word ARG)
+     (forward-word arg)
      (point))))
 
-(defun my-backward-delete-word (ARG)
+(defun my-backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
-With ARG, do this that many times.
+With argument, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
-  (my-delete-word (- ARG)))
-(global-set-key (kbd "<M-backspace>") 'my-backward-delete-word)
+  (my-delete-word (- arg)))
+
+(defun my-delete-line ()
+  "Delete text from current position to end of line char.
+This command does not push text to `kill-ring'."
+  (interactive)
+  (delete-region
+   (point)
+   (progn (end-of-line 1) (point)))
+  (delete-char 1))
+
+(defun my-delete-line-backward ()
+  "Delete text between the beginning of the line to the cursor position.
+This command does not push text to `kill-ring'."
+  (interactive)
+  (let (p1 p2)
+    (setq p1 (point))
+    (beginning-of-line 1)
+    (setq p2 (point))
+    (delete-region p1 p2)))
+
+; bind them to emacs's default shortcut keys:
+(global-set-key (kbd "C-S-k") 'my-delete-line-backward) ; Ctrl+Shift+k
+(global-set-key (kbd "C-k") 'my-delete-line)
+(global-set-key (kbd "M-d") 'my-delete-word)
+(global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
 
 (provide 'init)
 ;;; init.el ends here
