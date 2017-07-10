@@ -45,7 +45,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(swiper recentf-ext smooth-scrolling spaceline page-break-lines ido-better-flex smex ido-sort-mtime ido-vertical-mode ido-yes-or-no windresize markdown-mode sr-speedbar jedi ac-c-headers flycheck multiple-cursors rainbow-delimiters nlinum smartparens fuzzy dash s web-mode cl-lib cl-lib-highlight try auto-complete use-package)))
+	(js2-mode swiper recentf-ext smooth-scrolling spaceline page-break-lines ido-better-flex smex ido-sort-mtime ido-vertical-mode ido-yes-or-no windresize markdown-mode sr-speedbar jedi ac-c-headers flycheck multiple-cursors rainbow-delimiters nlinum smartparens fuzzy dash s web-mode cl-lib cl-lib-highlight try auto-complete use-package)))
  '(show-paren-mode t)
  '(sublimity-mode t)
  '(tool-bar-mode nil)
@@ -76,6 +76,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ ;;'(linum ((t (:inherit (shadow default) :background "222"))))
  '(web-mode-doctype-face ((t (:foreground "#C678DD"))))
  '(web-mode-html-attr-name-face ((t (:foreground "#E06C75"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
