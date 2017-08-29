@@ -24,6 +24,7 @@ fortune -as | cowsay -f moose | lolcat -t
 
 alias gvim="open -a macvim"
 alias emacss="emacsclient"
+
 function please() {
     echo -e "Okay, but only because you asked nicely."
     sudo $(fc -ln -1)
@@ -41,6 +42,9 @@ function fe() {
 unsetopt correct
 
 export EDITOR=/usr/local/Cellar/emacs/HEAD-3ec1503/bin/emacs
-PATH="/Users/eccentricayman/perl5/bin${PATH:+:${PATH}}"; export PATH;
+export ANDROID_HOME=~/Library/Android/sdk
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+PATH="/Users/eccentricayman/perl5/bin${PATH:+:${PATH}}:/Users/eccentricayman/Github/pokemon:/Users/eccentricayman/Library/Android/sdk/tools:/Users/eccentricayman/Library/Android/sdk/platform-tools:/Users/eccentricayman/Library/Android/sdk/tools/bin:/Library/TeX/texbin:; export PATH;"
+
