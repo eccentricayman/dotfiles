@@ -61,6 +61,7 @@
 					<key>COMMAND_STRING</key>
 					<string>if [ "$(ls -A ~/.Trash)" ]; then
 	find ~/.Trash -mindepth 1 -delete
+	afplay /System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/finder/empty\ trash.aif
 else
 	echo ""
 fi</string>
@@ -176,7 +177,7 @@ fi</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:253.000000</string>
+				<string>351.000000:253.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
