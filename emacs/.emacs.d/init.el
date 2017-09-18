@@ -2,11 +2,11 @@
 
 ;;; Commentary:
 ;;; All backups in ~/.emacs.d/backups
-;;; C-x-3 and C-x-2 opens previous buffer
-;;; Run: C-c-j/s/h/p/c (javac/browser/python/gcc)
-;;; M-RET fullscreen
+;;; C-c w resizes window
+;;; C-c s opens speedbar
 ;;; C-c-f Flycheck current buffer
-;;; C-c-g Magit (Emacs git wrapper )
+;;; Run: C-c-j/h/p/c (java/browser/python/gcc)
+;;; M-RET fullscreen
 
 ;;; Code:
 
@@ -33,7 +33,6 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
- '(blink-cursor-mode nil)
  '(custom-safe-themes
    (quote
 	("a4c9e536d86666d4494ef7f43c84807162d9bd29b0dfd39bdf2c3d845dcc7b2e" "87d34869134b5497549a25dff75367d68aed7a8e3da598c9fa4e060a4e1f948e" "08b8807d23c290c840bbb14614a83878529359eaba1805618b3be7d61b0b0a32" "9b1c580339183a8661a84f5864a6c363260c80136bd20ac9f00d7e1d662e936a" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "962dacd99e5a99801ca7257f25be7be0cebc333ad07be97efd6ff59755e6148f" "64ca5a1381fa96cb86fd6c6b4d75b66dc9c4e0fc1288ee7d914ab8d2638e23a9" "0726d81a364bba24e311416c3c29674c7a09781ac13f16fe193f714c645b2bf4" "32c4ff8d6904594327c0c3cd9828c62673962d9e90b11fa3881fb330dd55c831" "e9101154806d5d9508b2c804b6a0cdc53236171a76a247350f822f1ec28b996c" "a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "b01e2d02a7bd9a67e8824bf1501f4fb9d5dce57941808f0af7020b47aaa9b294" "e3cf7c5e6fed398173ef56b6547bdcc2436604ecd3e60d46d51fb8d9a0a25ab0" "c2f49c919c31c7de1ace6f10eea91f64c6f2338a82a203eca2588e3447082e76" "01e067188b0b53325fc0a1c6e06643d7e52bc16b6653de2926a480861ad5aa78" "d6db7498e2615025c419364764d5e9b09438dfe25b044b44e1f336501acd4f5b" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "06dbcfac3705aaaa79e1a3264c6fd44ef0cf86ef5ed67930e4007e63a8c1e8ee" "38f48e62e16e2c8f178c7e9de00aab382bc92d84ea382822907ed4e762388ae0" "ad950f1b1bf65682e390f3547d479fd35d8c66cafa2b8aa28179d78122faa947" "4ab95b35f7720043592b49d890003874aa1954a3cf299edde13657c6a9182d85" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" "d9dab332207600e49400d798ed05f38372ec32132b3f7d2ba697e59088021555" "41eb3fe4c6b80c7ad156a8c52e9dd6093e8856c7bbf2b92cc3a4108ceb385087" "3de3f36a398d2c8a4796360bfce1fa515292e9f76b655bb9a377289a6a80a132" "8cf1002c7f805360115700144c0031b9cfa4d03edc6a0f38718cef7b7cabe382" "760ce657e710a77bcf6df51d97e51aae2ee7db1fba21bbad07aab0fa0f42f834" "790e74b900c074ac8f64fa0b610ad05bcfece9be44e8f5340d2d94c1e47538de" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b61c55259c639a54628f91452b060b99c550a1269eb947e372321b806b68f114" "1160f5fc215738551fce39a67b2bcf312ed07ef3568d15d53c87baa4fd1f4d4e")))
@@ -46,7 +45,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(js2-mode swiper recentf-ext smooth-scrolling spaceline page-break-lines ido-better-flex smex ido-sort-mtime ido-vertical-mode ido-yes-or-no windresize markdown-mode sr-speedbar jedi ac-c-headers flycheck multiple-cursors rainbow-delimiters nlinum smartparens fuzzy dash s web-mode cl-lib cl-lib-highlight try auto-complete use-package)))
+	(rjsx-mode js2-mode swiper recentf-ext smooth-scrolling spaceline page-break-lines ido-better-flex smex ido-sort-mtime ido-vertical-mode ido-yes-or-no windresize markdown-mode sr-speedbar jedi ac-c-headers flycheck multiple-cursors rainbow-delimiters nlinum smartparens fuzzy dash s web-mode cl-lib cl-lib-highlight try auto-complete use-package)))
  '(show-paren-mode t)
  '(sublimity-mode t)
  '(tool-bar-mode nil)
@@ -116,6 +115,14 @@
 (add-hook 'after-make-frame-functions 'emacs-background-frame-config)
 
 ;;; Configs
+(set-face-attribute 'default nil :font "Monaco") ;;default font
+
+(setq-default cursor-type 'bar) ;;make cursor a line
+
+;;default starting emacs size
+(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(width . 80))
+
 (setq ad-redefinition-action 'accept) ;;make ido-yes-no work with ad
 
 (setq inhibit-startup-screen t) ;; get rid of startup screen
@@ -178,7 +185,6 @@
   (progn
     (use-package auto-complete-config)
 
-    (ac-set-trigger-key "TAB")
     (ac-config-default)
 
     (setq ac-delay 0.02)
@@ -187,6 +193,10 @@
     (setq ac-ignore-case nil)
     (setq ac-dwim t)
     (setq ac-use-fuzzy t)))
+
+;;fuzzy autocompletion
+(use-package fuzzy
+  :ensure t)
 
 ;;c autocompletion
 (use-package ac-c-headers
@@ -220,10 +230,20 @@
 			("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 	(setq web-mode-enable-auto-closing t)
 	(setq web-mode-enable-current-element-highlight t)
+	(setq web-mode-style-padding 4)
+	(setq web-mode-script-padding 4)
 	(setq web-mode-css-indent-offset 4)
 	(setq web-mode-code-indent-offset 4)
 	)
 )
+
+;;emmet for css and html completion
+;;(use-package ac-emmet
+;;  :ensure t)
+
+;;better javascript + jsx
+(use-package rjsx-mode
+  :ensure t)
 
 ;;matching parentheses
 (use-package smartparens
@@ -232,10 +252,18 @@
   :config
   (progn
     (require 'smartparens-config)
-    (smartparens-global-mode 1)
+    (smartparens-global-mode)
 	;;can't deleting matching delimiters
 	;;(smartparens-strict-mode 1)
 	(setq-default sp-highlight-pair-overlay nil)
+		;;enter after bracket
+	(defun my-create-newline-and-enter-sexp (&rest _ignored)
+	  "Open a new brace or bracket expression, with relevant newlines and indent. "
+	  (newline)
+	  (indent-according-to-mode)
+	  (forward-line -1)
+	  (indent-according-to-mode))
+	(sp-pair "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
 	))
 
 ;;line numbers
@@ -399,6 +427,7 @@
   :ensure t)
 (use-package dash
   :ensure t)
+
 ;;nice elisp file editing, used for java-compile-and-run
 (load "~/.emacs.d/lisp/f/f")
 
@@ -409,9 +438,7 @@
 (if (display-graphic-p)
 	(progn
 	  (load "~/.emacs.d/lisp/dashboard/dashboard") ;;dashboard for gui-emacs
-	  (dashboard-setup-startup-hook)
-	  )
-  )
+	  (dashboard-setup-startup-hook)))
 
 ;;; Keybindings
 (defun move-line-up ()
@@ -570,27 +597,28 @@
 
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen) ;;fullscreen
 
-(defun vsplit-last-buffer ()
-  "Vertically split, and use last buffer."
-  (interactive)
-  (split-window-vertically)
-  (other-window 1 nil)
-  (ido-find-file)
-  )
-(defun hsplit-last-buffer ()
-  "Horizontally split, and use last buffer."
-  (interactive)
-   (split-window-horizontally)
-   (other-window 1 nil)
-   (ido-find-file)
-  )
-(global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
-(global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
+;;splits window then finds file, takes time to put into workflow
+;; (defun vsplit-last-buffer ()
+;;   "Vertically split, and use last buffer."
+;;   (interactive)
+;;   (split-window-vertically)
+;;   (other-window 1 nil)
+;;   (ido-find-file)
+;;   )
+;; (defun hsplit-last-buffer ()
+;;   "Horizontally split, and use last buffer."
+;;   (interactive)
+;;    (split-window-horizontally)
+;;    (other-window 1 nil)
+;;    (ido-find-file)
+;;   )
+;; (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
+;; (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
 ;;don't copy word when you delete whole word
 (defun my-delete-word (arg)
   "Delete characters forward until encountering the end of a word.
-With argument, do this that many times.
+With ARG, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
   (delete-region
@@ -601,7 +629,7 @@ This command does not push text to `kill-ring'."
 
 (defun my-backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
-With argument, do this that many times.
+With ARG, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
   (my-delete-word (- arg)))
