@@ -114,6 +114,13 @@
 ;; and later
 (add-hook 'after-make-frame-functions 'emacs-background-frame-config)
 
+;;change the middle of the spaceline
+(if (display-graphic-p)
+	(custom-set-faces
+	 '(powerline-active2 ((t (:inherit mode-line :background "#282C34")))))
+  (custom-set-faces
+   '(powerline-active2 ((t (:inherit mode-line :background "222")))))
+)
 ;;; Configs
 (set-face-attribute 'default nil :font "Monaco") ;;default font
 
@@ -154,6 +161,7 @@
 (show-paren-mode 1) ;;highlight matching parentheses
 
 (diminish 'abbrev-mode) ;;hide abbrev-mode
+(diminish 'eldoc-mode) ;;hide eldoc
 
 (if (display-graphic-p)
 	(progn
@@ -406,6 +414,10 @@
   :config
   (setq powerline-default-separator 'utf-8)
   (powerline-reset)
+  (spaceline-toggle-line-column-off)
+  (spaceline-toggle-major-mode-off)
+  (spaceline-toggle-buffer-size-off)
+  (spaceline-toggle-flycheck-warning-off)
   (spaceline-emacs-theme)
   (setq ns-use-srgb-colorspace t))
 
@@ -418,6 +430,10 @@
 	  :config
 	  (setq smooth-scroll-margin 1)
 	  (smooth-scrolling-mode 1)))
+
+;;test out new packages
+(use-package try
+  :ensure t)
 
 ;;; Local Packages
 (byte-recompile-directory (expand-file-name "~/.emacs.d/lisp") 0) ;;byte compile local packages directory
