@@ -1,10 +1,10 @@
 # .emacs.d
 
 GUI
-<img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots/emacs.png"></img>
+<img src="https://github.com/eccentricayman/.emacs.d/blob/master/images/emacs.png"></img>
 
 Terminal
-<img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots/emacs-term.png"></img>
+<img src="https://github.com/eccentricayman/.emacs.d/blob/master/images/emacs-term.png"></img>
 
 ## Custom Commands
 

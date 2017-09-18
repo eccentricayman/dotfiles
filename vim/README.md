@@ -1,6 +1,6 @@
 # .vimrc
 
-<img src="https://github.com/eccentricayman/.emacs.d/blob/master/Screenshots/vim.png">
+<img src="https://github.com/eccentricayman/.emacs.d/blob/master/images/vim.png">
 
 ## Custom Commands
 C-w w: Cycle between windows
