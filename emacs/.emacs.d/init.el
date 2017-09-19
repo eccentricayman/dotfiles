@@ -418,6 +418,7 @@
   (spaceline-toggle-major-mode-off)
   (spaceline-toggle-buffer-size-off)
   (spaceline-toggle-flycheck-warning-off)
+  (spaceline-toggle-version-control-off)
   (spaceline-emacs-theme)
   (setq ns-use-srgb-colorspace t))
 
