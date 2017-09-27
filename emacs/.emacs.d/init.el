@@ -76,6 +76,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(powerline-active2 ((t (:inherit mode-line :background "#282C34"))))
  '(web-mode-doctype-face ((t (:foreground "#C678DD"))))
  '(web-mode-html-attr-name-face ((t (:foreground "#E06C75"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
@@ -122,6 +123,8 @@
    '(powerline-active2 ((t (:inherit mode-line :background "222")))))
 )
 ;;; Configs
+(setq-default frame-title-format '("")) ;;frame title
+
 (set-face-attribute 'default nil :font "Monaco") ;;default font
 
 (setq-default cursor-type 'bar) ;;make cursor a line
