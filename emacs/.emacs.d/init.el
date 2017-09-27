@@ -121,7 +121,13 @@
 	 '(powerline-active2 ((t (:inherit mode-line :background "#282C34")))))
   (custom-set-faces
    '(powerline-active2 ((t (:inherit mode-line :background "222")))))
-)
+  )
+
+;;hide the default gnu startup help message
+(defun display-startup-echo-area-message ()
+  "Hide default GNU startup help message."
+  (message ""))
+
 ;;; Configs
 (setq-default frame-title-format '("")) ;;frame title
 
