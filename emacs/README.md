@@ -1,9 +1,7 @@
-# .emacs.d
-
-GUI
+#GUI
 <img src="https://github.com/eccentricayman/.emacs.d/blob/master/images/emacs.png"></img>
 
-Terminal
+#Terminal
 <img src="https://github.com/eccentricayman/.emacs.d/blob/master/images/emacs-term.png"></img>
 
 ## Custom Commands
