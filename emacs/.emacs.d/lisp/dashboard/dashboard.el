@@ -314,7 +314,8 @@
                        '(lambda ()
                           (switch-to-buffer "*Emacs*")
                           (goto-char (point-min))
-                          (redisplay))))))
+                          (redisplay)
+						  (hidden-mode-line-mode))))))
 
 (declare-function projectile-load-known-projects "ext:projectile.el")
 (declare-function projectile-relevant-known-projects "ext:projectile.el")
