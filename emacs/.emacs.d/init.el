@@ -217,6 +217,7 @@
 
 ;;c autocompletion
 (use-package ac-c-headers
+  :defer
   :ensure t
   :config
   (add-hook 'c-mode-hook
@@ -228,6 +229,7 @@
 
 ;;python autocompletion
 (use-package jedi
+  :defer
   :ensure t
   :config
   (add-hook 'python-mode-hook 'jedi:setup)
@@ -236,6 +238,7 @@
 
 ;;html autocompletion
 (use-package web-mode
+  :defer
   :ensure t
   :config
   (progn
@@ -260,6 +263,7 @@
 
 ;;better javascript + jsx
 (use-package rjsx-mode
+  :defer
   :ensure t)
 
 ;;matching parentheses
@@ -315,6 +319,7 @@
 
 ;;error checking
 (use-package flycheck
+  :defer
   :ensure t
   :diminish flycheck-mode
   :init
@@ -332,6 +337,7 @@
 
 ;;speedbar for file navigation
 (use-package sr-speedbar
+  :defer
   :ensure t
   :config
   (progn
@@ -342,6 +348,7 @@
 
 ;;markdown editing
 (use-package markdown-mode
+  :defer
   :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
@@ -443,6 +450,7 @@
 
 ;;test out new packages
 (use-package try
+  :defer
   :ensure t)
 
 ;;; Local Packages
