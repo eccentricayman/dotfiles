@@ -213,7 +213,7 @@
        (dashboard-append dashboard-page-separator))
 
 (defun dashboard-append (msg &optional messagebuf) ""
-       (with-current-buffer (get-buffer-create "*Emacs*")
+       (with-current-buffer (get-buffer-create "*start*")
          (goto-char (point-max))
          (let ((buffer-read-only nil))
            (insert msg))))
@@ -230,7 +230,7 @@
 
 (defun dashboard-goto-link-line () ""
        (interactive)
-       (with-current-buffer "*Emacs*"
+       (with-current-buffer "*dashboard*"
          (goto-char (point-min))
          (re-search-forward "Homepage")
          (beginning-of-line)
