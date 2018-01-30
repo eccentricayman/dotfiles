@@ -1,6 +1,7 @@
 ;;; init.el --- eccentricayman's Emacs configuration
 
 ;;; Commentary:
+;;; Move between config sections via C-x [ and C-x ]
 ;;; All backups in ~/.emacs.d/backups
 ;;; C-c w resizes window
 ;;; C-c s opens speedbar
@@ -13,7 +14,6 @@
 ;;more memory for garbage collection for init
 (setq gc-cons-threshold 100000000)
 
-;;; MELPA
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
@@ -35,8 +35,9 @@
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-safe-themes
    (quote
-	("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a4c9e536d86666d4494ef7f43c84807162d9bd29b0dfd39bdf2c3d845dcc7b2e" "87d34869134b5497549a25dff75367d68aed7a8e3da598c9fa4e060a4e1f948e" "08b8807d23c290c840bbb14614a83878529359eaba1805618b3be7d61b0b0a32" "9b1c580339183a8661a84f5864a6c363260c80136bd20ac9f00d7e1d662e936a" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "962dacd99e5a99801ca7257f25be7be0cebc333ad07be97efd6ff59755e6148f" "64ca5a1381fa96cb86fd6c6b4d75b66dc9c4e0fc1288ee7d914ab8d2638e23a9" "0726d81a364bba24e311416c3c29674c7a09781ac13f16fe193f714c645b2bf4" "32c4ff8d6904594327c0c3cd9828c62673962d9e90b11fa3881fb330dd55c831" "e9101154806d5d9508b2c804b6a0cdc53236171a76a247350f822f1ec28b996c" "a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "b01e2d02a7bd9a67e8824bf1501f4fb9d5dce57941808f0af7020b47aaa9b294" "e3cf7c5e6fed398173ef56b6547bdcc2436604ecd3e60d46d51fb8d9a0a25ab0" "c2f49c919c31c7de1ace6f10eea91f64c6f2338a82a203eca2588e3447082e76" "01e067188b0b53325fc0a1c6e06643d7e52bc16b6653de2926a480861ad5aa78" "d6db7498e2615025c419364764d5e9b09438dfe25b044b44e1f336501acd4f5b" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "06dbcfac3705aaaa79e1a3264c6fd44ef0cf86ef5ed67930e4007e63a8c1e8ee" "38f48e62e16e2c8f178c7e9de00aab382bc92d84ea382822907ed4e762388ae0" "ad950f1b1bf65682e390f3547d479fd35d8c66cafa2b8aa28179d78122faa947" "4ab95b35f7720043592b49d890003874aa1954a3cf299edde13657c6a9182d85" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" "d9dab332207600e49400d798ed05f38372ec32132b3f7d2ba697e59088021555" "41eb3fe4c6b80c7ad156a8c52e9dd6093e8856c7bbf2b92cc3a4108ceb385087" "3de3f36a398d2c8a4796360bfce1fa515292e9f76b655bb9a377289a6a80a132" "8cf1002c7f805360115700144c0031b9cfa4d03edc6a0f38718cef7b7cabe382" "760ce657e710a77bcf6df51d97e51aae2ee7db1fba21bbad07aab0fa0f42f834" "790e74b900c074ac8f64fa0b610ad05bcfece9be44e8f5340d2d94c1e47538de" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b61c55259c639a54628f91452b060b99c550a1269eb947e372321b806b68f114" "1160f5fc215738551fce39a67b2bcf312ed07ef3568d15d53c87baa4fd1f4d4e")))
+	("a7e7804313dbf827a441c86a8109ef5b64b03011383322cbdbf646eb02692f76" "6be42070d23e832a7493166f90e9bb08af348a818ec18389c1f21d33542771af" "73e35ffa5ca98b57a9923954f296c3854ce6d8736b31fdbdda3d27502d4b4d69" "77bddca0879cb3b0ecdf071d9635c818827c57d69164291cb27268ae324efa84" "554b7f0439155d6eb648d4837ef03902f51124cacee021217e76f39e9dd314c2" "2e1d19424153d41462ad31144549efa41f55dacda9b76571f73904612b15fd0a" "3481e594ae6866d72c40ad77d86a1ffa338d01daa9eb0977e324f365cef4f47c" "0a3a41085c19d8121ed0ad3eb658a475ccb948a70a83604641ee7d4c3575a4d5" "d0404bd38534a00ee72a4f887a987d6bff87f4cf8d8f85149e32849b262465a5" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a4c9e536d86666d4494ef7f43c84807162d9bd29b0dfd39bdf2c3d845dcc7b2e" "87d34869134b5497549a25dff75367d68aed7a8e3da598c9fa4e060a4e1f948e" "08b8807d23c290c840bbb14614a83878529359eaba1805618b3be7d61b0b0a32" "9b1c580339183a8661a84f5864a6c363260c80136bd20ac9f00d7e1d662e936a" "3eb93cd9a0da0f3e86b5d932ac0e3b5f0f50de7a0b805d4eb1f67782e9eb67a4" "962dacd99e5a99801ca7257f25be7be0cebc333ad07be97efd6ff59755e6148f" "64ca5a1381fa96cb86fd6c6b4d75b66dc9c4e0fc1288ee7d914ab8d2638e23a9" "0726d81a364bba24e311416c3c29674c7a09781ac13f16fe193f714c645b2bf4" "32c4ff8d6904594327c0c3cd9828c62673962d9e90b11fa3881fb330dd55c831" "e9101154806d5d9508b2c804b6a0cdc53236171a76a247350f822f1ec28b996c" "a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "b01e2d02a7bd9a67e8824bf1501f4fb9d5dce57941808f0af7020b47aaa9b294" "e3cf7c5e6fed398173ef56b6547bdcc2436604ecd3e60d46d51fb8d9a0a25ab0" "c2f49c919c31c7de1ace6f10eea91f64c6f2338a82a203eca2588e3447082e76" "01e067188b0b53325fc0a1c6e06643d7e52bc16b6653de2926a480861ad5aa78" "d6db7498e2615025c419364764d5e9b09438dfe25b044b44e1f336501acd4f5b" "721bb3cb432bb6be7c58be27d583814e9c56806c06b4077797074b009f322509" "06dbcfac3705aaaa79e1a3264c6fd44ef0cf86ef5ed67930e4007e63a8c1e8ee" "38f48e62e16e2c8f178c7e9de00aab382bc92d84ea382822907ed4e762388ae0" "ad950f1b1bf65682e390f3547d479fd35d8c66cafa2b8aa28179d78122faa947" "4ab95b35f7720043592b49d890003874aa1954a3cf299edde13657c6a9182d85" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "427fed191e7a766152e59ef0e2904283f436dbbe259b9ccc04989f3acde50a55" "d9dab332207600e49400d798ed05f38372ec32132b3f7d2ba697e59088021555" "41eb3fe4c6b80c7ad156a8c52e9dd6093e8856c7bbf2b92cc3a4108ceb385087" "3de3f36a398d2c8a4796360bfce1fa515292e9f76b655bb9a377289a6a80a132" "8cf1002c7f805360115700144c0031b9cfa4d03edc6a0f38718cef7b7cabe382" "760ce657e710a77bcf6df51d97e51aae2ee7db1fba21bbad07aab0fa0f42f834" "790e74b900c074ac8f64fa0b610ad05bcfece9be44e8f5340d2d94c1e47538de" "de0b7245463d92cba3362ec9fe0142f54d2bf929f971a8cdf33c0bf995250bcf" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b61c55259c639a54628f91452b060b99c550a1269eb947e372321b806b68f114" "1160f5fc215738551fce39a67b2bcf312ed07ef3568d15d53c87baa4fd1f4d4e")))
  '(fci-rule-color "#3E4451")
+ '(global-auto-complete-mode t)
  '(org-startup-truncated t)
  '(package-archives
    (quote
@@ -45,7 +46,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(rjsx-mode js2-mode swiper recentf-ext smooth-scrolling spaceline page-break-lines ido-better-flex smex ido-sort-mtime ido-vertical-mode ido-yes-or-no windresize markdown-mode sr-speedbar jedi ac-c-headers flycheck multiple-cursors rainbow-delimiters nlinum smartparens fuzzy dash s web-mode cl-lib cl-lib-highlight try auto-complete use-package)))
+	(font-lock+ rjsx-mode js2-mode swiper recentf-ext smooth-scrolling spaceline page-break-lines ido-better-flex smex ido-sort-mtime ido-vertical-mode ido-yes-or-no windresize markdown-mode sr-speedbar jedi ac-c-headers flycheck multiple-cursors rainbow-delimiters nlinum smartparens fuzzy dash s web-mode cl-lib cl-lib-highlight try auto-complete use-package)))
  '(show-paren-mode t)
  '(sublimity-mode t)
  '(tool-bar-mode nil)
@@ -89,7 +90,9 @@
       (package-install 'use-package)))
 (require 'use-package)
 
-;;Theme
+
+
+;;; Theme
 (use-package atom-one-dark-theme
 	     :ensure t)
 (load-theme 'atom-one-dark)
@@ -128,6 +131,8 @@
   "Hide default GNU startup help message."
   (message ""))
 
+
+
 ;;; Configs
 (setq-default frame-title-format '("")) ;;frame title
 
@@ -187,9 +192,10 @@
 ;;windmove, control to move between windows
 (windmove-default-keybindings 'meta)
 
+
+
 ;;; Packages
-;;autocompletion on tab
-(use-package auto-complete
+(use-package auto-complete ;;autocompletion on tab
   :ensure t
   :diminish auto-complete-mode
   :init
@@ -211,12 +217,10 @@
     (setq ac-dwim t)
     (setq ac-use-fuzzy t)))
 
-;;fuzzy autocompletion
-(use-package fuzzy
+(use-package fuzzy ;;fuzzy autocompletion
   :ensure t)
 
-;;c autocompletion
-(use-package ac-c-headers
+(use-package ac-c-headers ;;c autocompletion
   :defer
   :ensure t
   :config
@@ -227,8 +231,7 @@
 			  ))
   )
 
-;;python autocompletion
-(use-package jedi
+(use-package jedi ;;python autocompletion
   :defer
   :ensure t
   :config
@@ -236,8 +239,7 @@
   (add-hook 'python-mode-hook 'jedi:ac-setup)
   )
 
-;;html autocompletion
-(use-package web-mode
+(use-package web-mode ;;html autocompletion
   :defer
   :ensure t
   :config
@@ -261,13 +263,11 @@
 ;;(use-package ac-emmet
 ;;  :ensure t)
 
-;;better javascript + jsx
-(use-package rjsx-mode
+(use-package rjsx-mode ;;better javascript + jsx
   :defer
   :ensure t)
 
-;;matching parentheses
-(use-package smartparens
+(use-package smartparens ;;matching parentheses
   :ensure t
   :diminish smartparens-mode
   :config
@@ -287,16 +287,14 @@
 	(sp-pair "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
 	))
 
-;;line numbers
-(use-package nlinum
+(use-package nlinum ;;line numbers
   :ensure t
   :config
   (progn
 	(global-nlinum-mode 1))
   )
 
-;;better search
-(use-package swiper
+(use-package swiper ;;better search
   :ensure t
   :diminish ivy-mode
   :bind
@@ -304,21 +302,18 @@
    ("\C-r" . swiper))
   )
 
-;;rainbow parens!
-(use-package rainbow-delimiters
+(use-package rainbow-delimiters ;;rainbow parens!
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 
-;;multiple cursors
-(use-package multiple-cursors
+(use-package multiple-cursors ;;multiple cursors
   :ensure t
   :bind (("C-." . mc/mark-next-like-this))
   )
 
-;;error checking
-(use-package flycheck
+(use-package flycheck ;;error checking
   :defer
   :ensure t
   :diminish flycheck-mode
@@ -335,8 +330,7 @@
 	(setq flycheck-indication-mode nil))
   )
 
-;;speedbar for file navigation
-(use-package sr-speedbar
+(use-package sr-speedbar ;;speedbar for file navigation
   :defer
   :ensure t
   :config
@@ -346,8 +340,7 @@
 	(setq sr-speedbar-auto-refresh nil))
   )
 
-;;markdown editing
-(use-package markdown-mode
+(use-package markdown-mode ;;markdown editing
   :defer
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -357,14 +350,12 @@
   :init (setq markdown-command "multimarkdown")
   )
 
-;;window resizing interactively
-(use-package windresize
+(use-package windresize ;;window resizing interactively
   :ensure t
   :bind (("C-c w" . windresize))
   )
 
-;;ido mode
-(use-package ido
+(use-package ido ;;ido mode
   :ensure t
   :bind (("C-x b" . ido-switch-buffer))
   :config
@@ -380,23 +371,20 @@
   (add-hook 'ido-setup-hook 'ido-define-keys)
   )
 
-;;ido flex (fuzzy)
-(use-package ido-better-flex
+(use-package ido-better-flex ;;ido flex (fuzzy)
   :ensure t
   :config
   (ido-better-flex/enable)
   )
 
-;;ido vertically shown
-(use-package ido-vertical-mode
+(use-package ido-vertical-mode ;;ido vertically shown
   :ensure t
   :config
   (ido-vertical-mode 1)
   (setq ido-vertical-show-count t)
   )
 
-;;ido for M-x
-(use-package smex
+(use-package smex ;;ido for M-x
   :ensure t
   :bind (
 		 ("M-x" . smex)
@@ -414,16 +402,14 @@
 	  ad-do-it))
   )
 
-;; Turn ^L into nice <hr>
-(use-package page-break-lines
+(use-package page-break-lines ;; Turn ^L into nice <hr>
   :ensure t
   :diminish page-break-lines-mode
   :config
   (global-page-break-lines-mode t)
   )
 
-;;better mode-line
-(use-package spaceline
+(use-package spaceline ;;better mode-line
   :ensure t
   :init
   (require 'spaceline-config)
@@ -452,22 +438,24 @@
 	  (setq smooth-scroll-margin 1)
 	  (smooth-scrolling-mode 1)))
 
-;;test out new packages
-(use-package try
+(use-package try ;;test out new packages
   :defer
   :ensure t)
 
-;;; Local Packages
-(byte-recompile-directory (expand-file-name "~/.emacs.d/lisp") 0) ;;byte compile local packages directory
 
-;;dependencies
+
+;;; Dependencies
 (use-package s
   :ensure t)
 (use-package dash
   :ensure t)
 
-;;nice elisp file editing, used for java-compile-and-run
-(load "~/.emacs.d/lisp/f/f")
+
+
+;;; Local Packages
+(byte-recompile-directory (expand-file-name "~/.emacs.d/lisp") 0) ;;byte compile local packages directory
+
+(load "~/.emacs.d/lisp/f/f") ;;nice elisp file editing, used for java-compile-and-run
 
 (load "~/.emacs.d/lisp/ido-speed-hack/ido-speed-hack") ;;ido-speed-hack to make M-x under smex snappy
 
@@ -478,6 +466,8 @@
 	  (load "~/.emacs.d/lisp/dashboard/dashboard") ;;dashboard for gui-emacs
 	  (dashboard-setup-startup-hook)))
 
+
+
 ;;; Keybindings
 (defun move-line-up ()
   "Move up the current line."
