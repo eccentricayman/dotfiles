@@ -67,32 +67,15 @@
 	 (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
 
-;;custom-set-faces
-(if (display-graphic-p)
-	(progn
-	  ;;gui custom-set-faces
-	  (custom-set-faces
-	   ;;these are colors for powerline, currently based on atom-one-dark (gui)
-	   '(powerline-active2 ((t (:inherit mode-line :background "#282C34"))))
-	   '(powerline-active1 ((t (:inherit mode-line :background "#3c4655"))))
-	   '(web-mode-doctype-face ((t (:foreground "#C678DD"))))
-	   '(web-mode-html-attr-name-face ((t (:foreground "#E06C75"))))
-	   '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
-	   '(web-mode-html-tag-face ((t (:foreground "#61AFEF")))))
-	  )
-  (progn
-	;;terminal custom-set-faces
-	(custom-set-faces
-	 ;;these are colors for powerline, currently based on atom-one-dark (term)
-	 '(powerline-active2 ((t (:inherit mode-line :background "222"))))
-	 '(powerline-active1 ((t (:inherit mode-line :background "#282C34"))))
-	 ;;change linum background colors in term
-	 '(linum ((t (:inherit (shadow default) :background "222"))))
-	 '(web-mode-doctype-face ((t (:foreground "#C678DD"))))
-	 '(web-mode-html-attr-name-face ((t (:foreground "#E06C75"))))
-	 '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
-	 '(web-mode-html-tag-face ((t (:foreground "#61AFEF")))))
-	))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(web-mode-doctype-face ((t (:foreground "#C678DD"))))
+ '(web-mode-html-attr-name-face ((t (:foreground "#E06C75"))))
+ '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
+ '(web-mode-html-tag-face ((t (:foreground "#61AFEF")))))
 
 ;;use-package install and diminsher setpu
 (if (not (package-installed-p 'use-package))
@@ -119,10 +102,14 @@
 
 ;;this is for emacsclient background
 (defun emacs-background-frame-config (frame)
-  "Set background for terminal Emacs FRAME."
+  "Hook emacs terminal background settings into current frame."
+  (interactive)
   (with-selected-frame frame
 	(unless (display-graphic-p)
-	  (emacs-terminal-background))))
+	  ;;change linum background colors in term
+	  (progn
+		;;(set-face-attribute 'linum nil :background "222")
+		(emacs-terminal-background)))))
 ;; run now
 (emacs-background-frame-config (selected-frame))
 ;; and later
@@ -133,7 +120,50 @@
   "Hide default GNU startup help message."
   (message ""))
 
-;;powerline theme and configs
+
+;;remove border
+(set-face-attribute 'mode-line nil
+                    :background "#21242b"
+                    :foreground "#a0a5b4"
+                    :box '(:line-width 2 :color "#282c34")
+                    :overline nil
+                    :underline nil)
+
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#23282d"
+                    :foreground "#5a646e"
+                    :box '(:line-width 2 :color "#282c34")
+                    :overline nil
+                    :underline nil)
+
+;;powerline colors
+(if (display-graphic-p)
+	(progn
+	  ;;custom powerline colors for gui
+	  (defface ayman-powerline-active2 '((t (:background "#282C34" :foreground "#ABB2BF" :inherit mode-line)))
+		"Powerline face 2."
+		:group 'ayman-powerline)
+	  (defface ayman-powerline-active1 '((t (:background "#3b4553" :foreground "#ABB2BF" :inherit mode-line)))
+		"Powerline face 1."
+		:group 'ayman-powerline)
+	  (defface ayman-powerline-active0 '((t (:background "#21242b" :foreground "#ABB2BF" :inherit mode-line)))
+		"Powerline face 0."
+		:group 'ayman-powerline)
+	  )
+  (progn
+	;;custom powerline colors for terminal
+	(defface ayman-powerline-active2 '((t (:background "222" :foreground "white" :inherit mode-line)))
+	  "Powerline face 2."
+	  :group 'ayman-powerline)
+	(defface ayman-powerline-active1 '((t (:background "#444" :foreground "white" :inherit mode-line)))
+	  "Powerline face 1."
+	  :group 'ayman-powerline)
+	(defface ayman-powerline-active0 '((t (:background "#333" :foreground "white" :inherit mode-line)))
+	  "Powerline face 0."
+	  :group 'ayman-powerline)
+	)
+  )
+
 (defun powerline-ayman-modified ()
   "Show padlock if read-only, chain for saved/unsaved."
     (let* ((config-alist
@@ -162,9 +192,9 @@
            (let* (
              (active (powerline-selected-window-active))
              (mode-line (if active 'mode-line 'mode-line-inactive))
-             (face0 (if active 'powerline-active0 'powerline-inactive0))
-             (face1 (if active 'powerline-active1 'powerline-inactive1))
-             (face2 (if active 'powerline-active2 'powerline-inactive2))
+             (face0 (if active 'ayman-powerline-active0 'ayman-powerline-inactive0))
+             (face1 (if active 'ayman-powerline-active1 'powerline-inactive1))
+             (face2 (if active 'ayman-powerline-active2 'powerline-inactive2))
 			 
              (separator-left
               (intern
@@ -179,7 +209,9 @@
              (lhs (list
 				   (powerline-raw (powerline-ayman-modified)  face0 'l)
 				   (funcall separator-left face0 face1)
+				   (powerline-raw " " face1)
 				   (powerline-buffer-id face1 'l)
+				   (powerline-raw " " face1)
 				   (when (and (boundp 'which-func-mode) which-func-mode)
 					 (powerline-raw which-func-format face1 'l))
 				   (powerline-narrow face1 'l)
@@ -203,22 +235,6 @@
              (concat (powerline-render lhs)
                      (powerline-fill face2 (powerline-width rhs))
                      (powerline-render rhs)))))))
-
-;;remove border
-(set-face-attribute 'mode-line nil
-                    :background "#21242b"
-                    :foreground "#a0a5b4"
-                    :box '(:line-width 2 :color "#282c34")
-                    :overline nil
-                    :underline nil)
-
-(set-face-attribute 'mode-line-inactive nil
-                    :background "#23282d"
-                    :foreground "#5a646e"
-                    :box '(:line-width 2 :color "#282c34")
-                    :overline nil
-                    :underline nil)
-
 
 
 
