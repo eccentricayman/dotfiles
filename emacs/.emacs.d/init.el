@@ -43,7 +43,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(smooth-scrolling s latex-pretty-symbols auctex try all-the-icons powerline page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper nlinum smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
+	(window-numbering smooth-scrolling s latex-pretty-symbols auctex try all-the-icons powerline page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
    (quote
@@ -106,10 +106,7 @@
   (interactive)
   (with-selected-frame frame
 	(unless (display-graphic-p)
-	  ;;change linum background colors in term
-	  (progn
-		;;(set-face-attribute 'linum nil :background "222")
-		(emacs-terminal-background)))))
+		(emacs-terminal-background))))
 ;; run now
 (emacs-background-frame-config (selected-frame))
 ;; and later
@@ -167,9 +164,9 @@
 (defun powerline-ayman-modified ()
   "Show padlock if read-only, chain for saved/unsaved."
     (let* ((config-alist
-            '(("*" all-the-icons-faicon-family all-the-icons-faicon "times" :height 1.2 :v-adjust -0.0)
-              ("-" all-the-icons-faicon-family all-the-icons-faicon "check" :height 1.2 :v-adjust -0.0)
-              ("%" all-the-icons-faicon-family all-the-icons-faicon "lock" :height 1.5 :v-adjust -0.0)))
+            '(("*" all-the-icons-faicon-family all-the-icons-faicon "times" :height 1.0 :v-adjust 0.0)
+              ("-" all-the-icons-faicon-family all-the-icons-faicon "check" :height 1.0 :v-adjust 0.0)
+              ("%" all-the-icons-faicon-family all-the-icons-faicon "lock" :height 1.0 :v-adjust 0.0)))
            (result (cdr (assoc (format-mode-line "%*") config-alist))))
 
       (propertize (format "%s  " (apply (cadr result) (cddr result))) 'face `(:family ,(funcall (car result)) :inherit ))))
@@ -180,8 +177,14 @@
       (unless (symbolp icon) ;; This implies it's the major mode
         (propertize icon
                     'help-echo (format "Major-mode: `%s`" major-mode)
-                    'display '(raise 0.0)
+                    'display '(raise -0.1)
                     'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-buffer) :inherit)))))
+
+(defun powerline-ayman-window-numbering ()
+  "Show window numbering icon."
+  (propertize (format "%c" (+ 9311 (window-numbering-get-number)))
+			  'face `(:height 1.0 :inherit)
+			  'display '(raise -0.0)))
 
 (defun powerline-ayman-theme ()
       "Custom powerline theme."
@@ -192,7 +195,7 @@
            (let* (
              (active (powerline-selected-window-active))
              (mode-line (if active 'mode-line 'mode-line-inactive))
-             (face0 (if active 'ayman-powerline-active0 'ayman-powerline-inactive0))
+             (face0 (if active 'ayman-powerline-active0 'powerline-inactive0))
              (face1 (if active 'ayman-powerline-active1 'powerline-inactive1))
              (face2 (if active 'ayman-powerline-active2 'powerline-inactive2))
 			 
@@ -207,7 +210,9 @@
                               (cdr powerline-default-separator-dir))))
 			 
              (lhs (list
-				   (powerline-raw (powerline-ayman-modified)  face0 'l)
+				   (powerline-raw (powerline-ayman-modified) face0 'l)
+				   (powerline-raw (powerline-ayman-window-numbering) face0)
+				   (powerline-raw " " face0)
 				   (funcall separator-left face0 face1)
 				   (powerline-raw " " face1)
 				   (powerline-buffer-id face1 'l)
@@ -453,15 +458,20 @@
   (global-page-break-lines-mode t)
   )
 
-(use-package powerline ;;more aesthetic mode line, loads faster than spaceline
+;;window numbering
+(use-package window-numbering
   :ensure t
   :config
-  (powerline-ayman-theme)
-  ;;(powerline-height 20)
+  (window-numbering-mode))
+
+(use-package powerline ;;more aesthetic mode line, faster than spaceline
+  :ensure t
+  :config
   (setq powerline-image-apple-rgb t)
   (if (display-graphic-p)
 	  (setq powerline-default-separator 'arrow)
-	(setq powerline-default-separator 'utf-8)))
+	(setq powerline-default-separator 'utf-8))
+  (powerline-ayman-theme))
 
 (use-package all-the-icons ;;adding nice icon support to modeline
   :ensure t)
@@ -576,9 +586,6 @@
 	(setq mouse-wheel-progressive-speed nil)
 	(xterm-mouse-mode 1)
 	(setq nlinum-format "%d ")))
-
-;;windmove, control to move between windows
-(windmove-default-keybindings 'meta)
 
 ;;prettify symbols
 (global-prettify-symbols-mode +1)
