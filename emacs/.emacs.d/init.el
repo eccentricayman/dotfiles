@@ -467,9 +467,10 @@
 (use-package powerline ;;more aesthetic mode line, faster than spaceline
   :ensure t
   :config
+  (setq powerline-height 18)
   (setq powerline-image-apple-rgb t)
   (if (display-graphic-p)
-	  (setq powerline-default-separator 'arrow)
+	  (setq powerline-default-separator 'slant)
 	(setq powerline-default-separator 'utf-8))
   (powerline-ayman-theme))
 
