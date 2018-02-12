@@ -43,7 +43,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(window-numbering smooth-scrolling s latex-pretty-symbols auctex try all-the-icons powerline page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
+	(nlinum window-numbering smooth-scrolling s latex-pretty-symbols auctex try all-the-icons powerline page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
    (quote
@@ -90,7 +90,7 @@
 
 ;;; Theme
 (use-package atom-one-dark-theme
-	     :ensure t)
+  :ensure t)
 (load-theme 'atom-one-dark)
 
 ;;this is for regular emacs background
@@ -106,7 +106,7 @@
   (interactive)
   (with-selected-frame frame
 	(unless (display-graphic-p)
-		(emacs-terminal-background))))
+	  (emacs-terminal-background))))
 ;; run now
 (emacs-background-frame-config (selected-frame))
 ;; and later
@@ -163,22 +163,22 @@
 
 (defun powerline-ayman-modified ()
   "Show padlock if read-only, chain for saved/unsaved."
-    (let* ((config-alist
-            '(("*" all-the-icons-faicon-family all-the-icons-faicon "times" :height 1.0 :v-adjust 0.0)
-              ("-" all-the-icons-faicon-family all-the-icons-faicon "check" :height 1.0 :v-adjust 0.0)
-              ("%" all-the-icons-faicon-family all-the-icons-faicon "lock" :height 1.0 :v-adjust 0.0)))
-           (result (cdr (assoc (format-mode-line "%*") config-alist))))
+  (let* ((config-alist
+		  '(("*" all-the-icons-faicon-family all-the-icons-faicon "times" :height 1.0 :v-adjust 0.0)
+			("-" all-the-icons-faicon-family all-the-icons-faicon "check" :height 1.0 :v-adjust 0.0)
+			("%" all-the-icons-faicon-family all-the-icons-faicon "lock" :height 1.0 :v-adjust 0.0)))
+		 (result (cdr (assoc (format-mode-line "%*") config-alist))))
 
-      (propertize (format "%s  " (apply (cadr result) (cddr result))) 'face `(:family ,(funcall (car result)) :inherit ))))
+	(propertize (format "%s  " (apply (cadr result) (cddr result))) 'face `(:family ,(funcall (car result)) :inherit ))))
 
 (defun powerline-ayman-major-mode ()
   "Show major mode icon instead of name if in GUI."
   (let ((icon (all-the-icons-icon-for-buffer)))
-      (unless (symbolp icon) ;; This implies it's the major mode
-        (propertize icon
-                    'help-echo (format "Major-mode: `%s`" major-mode)
-                    'display '(raise -0.1)
-                    'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-buffer) :inherit)))))
+	(unless (symbolp icon) ;; This implies it's the major mode
+	  (propertize icon
+				  'help-echo (format "Major-mode: `%s`" major-mode)
+				  'display '(raise -0.1)
+				  'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-buffer) :inherit)))))
 
 (defun powerline-ayman-window-numbering ()
   "Show window numbering icon."
@@ -187,59 +187,59 @@
 			  'display '(raise -0.0)))
 
 (defun powerline-ayman-theme ()
-      "Custom powerline theme."
-      (interactive)
-      (setq-default mode-line-format
-        '("%e"
-          (:eval
-           (let* (
-             (active (powerline-selected-window-active))
-             (mode-line (if active 'mode-line 'mode-line-inactive))
-             (face0 (if active 'ayman-powerline-active0 'powerline-inactive0))
-             (face1 (if active 'ayman-powerline-active1 'powerline-inactive1))
-             (face2 (if active 'ayman-powerline-active2 'powerline-inactive2))
-			 
-             (separator-left
-              (intern
-               (format "powerline-%s-%s"
-                       powerline-default-separator
-                       (car powerline-default-separator-dir))))
-             (separator-right
-              (intern (format "powerline-%s-%s"
-                              powerline-default-separator
-                              (cdr powerline-default-separator-dir))))
-			 
-             (lhs (list
-				   (powerline-raw (powerline-ayman-modified) face0 'l)
-				   (powerline-raw (powerline-ayman-window-numbering) face0)
-				   (powerline-raw " " face0)
-				   (funcall separator-left face0 face1)
-				   (powerline-raw " " face1)
-				   (powerline-buffer-id face1 'l)
-				   (powerline-raw " " face1)
-				   (when (and (boundp 'which-func-mode) which-func-mode)
-					 (powerline-raw which-func-format face1 'l))
-				   (powerline-narrow face1 'l)
-				   (funcall separator-left face1 face2)))
-			 
-             (rhs (list
-				   (powerline-raw global-mode-string face2 'r)
-				   (funcall separator-right face2 face1)
-				   (powerline-raw " " face1)
-				   (powerline-major-mode face1 'r)
-				   (if (display-graphic-p)
-					   (powerline-raw (powerline-ayman-major-mode) face1)
-					 )
-				   (powerline-raw " " face1)
-				   (funcall separator-right face1 face0)
-				   (powerline-raw " %p  " face0)
-				   (when powerline-display-hud
-                                       (powerline-hud face1 face0))
-				     (powerline-fill face2 0))))
-			 
-             (concat (powerline-render lhs)
-                     (powerline-fill face2 (powerline-width rhs))
-                     (powerline-render rhs)))))))
+  "Custom powerline theme."
+  (interactive)
+  (setq-default mode-line-format
+				'("%e"
+				  (:eval
+				   (let* (
+						  (active (powerline-selected-window-active))
+						  (mode-line (if active 'mode-line 'mode-line-inactive))
+						  (face0 (if active 'ayman-powerline-active0 'powerline-inactive0))
+						  (face1 (if active 'ayman-powerline-active1 'powerline-inactive1))
+						  (face2 (if active 'ayman-powerline-active2 'powerline-inactive2))
+						  
+						  (separator-left
+						   (intern
+							(format "powerline-%s-%s"
+									powerline-default-separator
+									(car powerline-default-separator-dir))))
+						  (separator-right
+						   (intern (format "powerline-%s-%s"
+										   powerline-default-separator
+										   (cdr powerline-default-separator-dir))))
+						  
+						  (lhs (list
+								(powerline-raw (powerline-ayman-modified) face0 'l)
+								(powerline-raw (powerline-ayman-window-numbering) face0)
+								(powerline-raw " " face0)
+								(funcall separator-left face0 face1)
+								(powerline-raw " " face1)
+								(powerline-buffer-id face1 'l)
+								(powerline-raw " " face1)
+								(when (and (boundp 'which-func-mode) which-func-mode)
+								  (powerline-raw which-func-format face1 'l))
+								(powerline-narrow face1 'l)
+								(funcall separator-left face1 face2)))
+						  
+						  (rhs (list
+								(powerline-raw global-mode-string face2 'r)
+								(funcall separator-right face2 face1)
+								(powerline-raw " " face1)
+								(powerline-major-mode face1 'r)
+								(if (display-graphic-p)
+									(powerline-raw (powerline-ayman-major-mode) face1)
+								  )
+								(powerline-raw " " face1)
+								(funcall separator-right face1 face0)
+								(powerline-raw " %p  " face0)
+								(when powerline-display-hud
+								  (powerline-hud face1 face0))
+								(powerline-fill face2 0))))
+					 
+					 (concat (powerline-render lhs)
+							 (powerline-fill face2 (powerline-width rhs))
+							 (powerline-render rhs)))))))
 
 
 
@@ -306,7 +306,7 @@
 	(setq web-mode-css-indent-offset 4)
 	(setq web-mode-code-indent-offset 4)
 	)
-)
+  )
 
 ;;emmet for css and html completion
 ;;(use-package ac-emmet
@@ -326,7 +326,7 @@
 	;;can't deleting matching delimiters
 	;;(smartparens-strict-mode 1)
 	(setq-default sp-highlight-pair-overlay nil)
-		;;enter after bracket
+	;;enter after bracket
 	(defun my-create-newline-and-enter-sexp (&rest _ignored)
 	  "Open a new brace or bracket expression, with relevant newlines and indent. "
 	  (newline)
@@ -340,7 +340,10 @@
   :ensure t
   :config
   (progn
-	(global-nlinum-mode 1))
+    (global-nlinum-mode 1)
+    ;;linum background color
+    (unless (display-graphic-p)
+      (set-face-attribute 'linum nil :background "222")))
   )
 
 (use-package swiper ;;better search
@@ -552,7 +555,7 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (unless (display-graphic-p)
-	(if (fboundp 'menu-bar-mode) (menu-bar-mode -1)))
+  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)))
 
 (setq default-directory "~") ;;set default starting directory
 
@@ -768,7 +771,7 @@ This command does not push text to `kill-ring'."
     (setq p2 (point))
     (delete-region p1 p2)))
 
-; bind them to emacs's default shortcut keys:
+										; bind them to emacs's default shortcut keys:
 (global-set-key (kbd "C-S-k") 'my-delete-line-backward) ; Ctrl+Shift+k
 (global-set-key (kbd "C-k") 'my-delete-line)
 (global-set-key (kbd "M-d") 'my-delete-word)
