@@ -43,7 +43,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(nlinum window-numbering smooth-scrolling s latex-pretty-symbols auctex try all-the-icons powerline page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
+	(all-the-icons-dired s latex-pretty-symbols auctex try powerline all-the-icons window-numbering page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper nlinum smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
    (quote
@@ -102,7 +102,7 @@
 
 ;;this is for emacsclient background
 (defun emacs-background-frame-config (frame)
-  "Hook emacs terminal background settings into current frame."
+  "Hook Emacs terminal background settings into current FRAME."
   (interactive)
   (with-selected-frame frame
 	(unless (display-graphic-p)
@@ -126,12 +126,21 @@
                     :overline nil
                     :underline nil)
 
-(set-face-attribute 'mode-line-inactive nil
-                    :background "#23282d"
-                    :foreground "#5a646e"
-                    :box '(:line-width 2 :color "#282c34")
-                    :overline nil
-                    :underline nil)
+;;change inactive colors for terminal
+(if (display-graphic-p)
+	(set-face-attribute 'mode-line-inactive nil
+						:background "#23282d"
+						:foreground "#5a646e"
+						:box '(:line-width 2 :color "#282c34")
+						:overline nil
+						:underline nil)
+  (set-face-attribute 'mode-line-inactive nil
+					  :background "#555"
+					  :foreground "#777"
+					  :box '(:line-width 2 :color "#555")
+					  :overline nil
+					  :underline nil)
+  )
 
 ;;powerline colors
 (if (display-graphic-p)
@@ -169,7 +178,40 @@
 			("%" all-the-icons-faicon-family all-the-icons-faicon "lock" :height 1.0 :v-adjust 0.0)))
 		 (result (cdr (assoc (format-mode-line "%*") config-alist))))
 
-	(propertize (format "%s  " (apply (cadr result) (cddr result))) 'face `(:family ,(funcall (car result)) :inherit ))))
+	(propertize (format "%s" (apply (cadr result) (cddr result))) 'face `(:family ,(funcall (car result)) :inherit ))))
+
+(defun powerline-ayman-window-numbering ()
+  "Show window numbering icon."
+  (propertize (format "%c" (+ (window-numbering-get-number) 9311))
+			  'face `(:height 1.0 :inherit)
+			  'display '(raise -0.0)))
+
+(defun powerline-ayman-flycheck-count ()
+  "Counts amount of errors/warnings in flycheck."
+  (let* ((count (let-alist (flycheck-count-errors flycheck-current-errors)
+                  (+ (or .warning 0) (or .error 0)))))
+    (if flycheck-current-errors
+		(concat (all-the-icons-faicon "ban") (format " %s" count))
+	  "")))
+
+(defun powerline-ayman-flycheck-status ()
+  "Show flycheck errors and if it's running."
+    (let* ((text (cl-case flycheck-last-status-change
+                 (finished    (powerline-ayman-flycheck-count))
+                 (running     (all-the-icons-faicon "refresh"))
+				 (no-checker  "")
+                 (not-checked "")
+                 (errored     "")
+                 (interrupted "")))
+         (face (cond
+                (t `(:height 0.9 :inherit)))))
+
+	  (propertize text
+				  'face face
+				  'display '(raise 0.1)
+				  'help-echo "Show Flycheck Errors"
+				  'mouse-face 'mode-line-highlight
+				  'local-map (make-mode-line-mouse-map 'mouse-1 'flycheck-list-errors))))
 
 (defun powerline-ayman-major-mode ()
   "Show major mode icon instead of name if in GUI."
@@ -178,13 +220,7 @@
 	  (propertize icon
 				  'help-echo (format "Major-mode: `%s`" major-mode)
 				  'display '(raise -0.1)
-				  'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-buffer) :inherit)))))
-
-(defun powerline-ayman-window-numbering ()
-  "Show window numbering icon."
-  (propertize (format "%c" (+ 9311 (window-numbering-get-number)))
-			  'face `(:height 1.0 :inherit)
-			  'display '(raise -0.0)))
+				  'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-mode major-mode) :inherit)))))
 
 (defun powerline-ayman-theme ()
   "Custom powerline theme."
@@ -202,27 +238,30 @@
 						  (separator-left
 						   (intern
 							(format "powerline-%s-%s"
-									powerline-default-separator
+									(powerline-current-separator)
 									(car powerline-default-separator-dir))))
-						  (separator-right
-						   (intern (format "powerline-%s-%s"
-										   powerline-default-separator
-										   (cdr powerline-default-separator-dir))))
+                          (separator-right
+						   (intern
+							(format "powerline-%s-%s"
+									(powerline-current-separator)
+									(cdr powerline-default-separator-dir))))
 						  
 						  (lhs (list
 								(powerline-raw (powerline-ayman-modified) face0 'l)
-								(powerline-raw (powerline-ayman-window-numbering) face0)
+								(if (and (> (count-windows) 1) (bound-and-true-p window-numbering-mode))
+									(powerline-raw (powerline-ayman-window-numbering) face0 'l))
 								(powerline-raw " " face0)
 								(funcall separator-left face0 face1)
 								(powerline-raw " " face1)
 								(powerline-buffer-id face1 'l)
 								(powerline-raw " " face1)
-								(when (and (boundp 'which-func-mode) which-func-mode)
-								  (powerline-raw which-func-format face1 'l))
 								(powerline-narrow face1 'l)
 								(funcall separator-left face1 face2)))
 						  
 						  (rhs (list
+								(if (bound-and-true-p flycheck-mode)
+									(powerline-raw (powerline-ayman-flycheck-status) face2))
+								(powerline-raw " " face2)
 								(powerline-raw global-mode-string face2 'r)
 								(funcall separator-right face2 face1)
 								(powerline-raw " " face1)
@@ -366,7 +405,6 @@
   )
 
 (use-package flycheck ;;error checking
-  :defer
   :ensure t
   :diminish flycheck-mode
   :init
@@ -461,27 +499,32 @@
   (global-page-break-lines-mode t)
   )
 
-;;window numbering
 (use-package window-numbering
   :ensure t
   :config
   (window-numbering-mode))
 
+(use-package all-the-icons ;;adding nice icon support to modeline
+  :ensure t)
+
+(use-package all-the-icons-dired ;;adding nice idon support to dired
+  :ensure t
+  :diminish all-the-icons-dired-mode
+  :init
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
 (use-package powerline ;;more aesthetic mode line, faster than spaceline
   :ensure t
+  :init
+  (powerline-ayman-theme)
   :config
   (setq powerline-height 18)
   (setq powerline-image-apple-rgb t)
   (if (display-graphic-p)
 	  (setq powerline-default-separator 'slant)
-	(setq powerline-default-separator 'utf-8))
-  (powerline-ayman-theme))
-
-(use-package all-the-icons ;;adding nice icon support to modeline
-  :ensure t)
+	(setq powerline-default-separator 'utf-8)))
 
 (use-package try ;;test out new packages
-  :defer t
   :ensure t)
 
 (use-package auctex ;;better latex editing
@@ -526,21 +569,13 @@
 ;;; Configs
 (setq ns-use-srgb-colorspace t) ;;use full colorspace of mac display
 
-(if (display-graphic-p)
-	;;smooth scrolling in gui
-	(use-package smooth-scrolling
-	  :ensure t
-	  :init (smooth-scrolling-mode 1)
-	  :diminish smooth-scrolling-mode
-	  :config
-	  (setq smooth-scroll-margin 1)
-	  (smooth-scrolling-mode 1)))
-
 (setq-default frame-title-format '("")) ;;frame title
 
 (set-face-attribute 'default nil :font "Monaco") ;;default font
 
 (setq-default cursor-type 'bar) ;;make cursor a line
+
+(setq frame-resize-pixelwise t) ;;make frame sizable to pixels
 
 ;;default starting emacs size
 (add-to-list 'default-frame-alist '(height . 40))
