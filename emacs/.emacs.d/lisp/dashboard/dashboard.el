@@ -239,9 +239,9 @@
 (defun dashboard-insert-recents (list-size) ""
        (recentf-mode)
        (when (dashboard-insert-file-list
-              "Recent Files:"
+              "\tRecent Files:"
               (dashboard-subseq recentf-list 0 list-size))
-         (dashboard-insert--shortcut "r" "Recent Files:")))
+         (dashboard-insert--shortcut "r" "\tRecent Files:")))
 
 (defun dashboard-insert-bookmarks (list-size) ""
        (when (dashboard-insert-bookmark-list
@@ -284,12 +284,12 @@
            (insert "\n")
            (dashboard-insert-banner)
            (insert "\n")
-           (setq version-faced (propertize "\t\t\t\t\t\t\t Emacs version: " 'face 'dashboard-info-face))
+           (setq version-faced (propertize "\t\t\t\t\t\t\t    Version: " 'face 'dashboard-info-face))
            (insert version-faced)
-           (insert (format " %d.%d\n" emacs-major-version emacs-minor-version))
-           (setq version-faced (propertize "\t\t\t\t\t\t\t Init time: " 'face 'dashboard-info-face))
+           (insert (all-the-icons-faicon "tag") (format " %d.%d\n" emacs-major-version emacs-minor-version))
+           (setq version-faced (propertize "  \t\t\t\t\t\t    Init Time: " 'face 'dashboard-info-face))
            (insert version-faced)
-           (insert (format "%s\n" (emacs-init-time)))
+           (insert (all-the-icons-faicon "clock-o") (format " %s\n\n\n" (emacs-init-time)))
            (dashboard-insert-page-break)
            (mapc (lambda (els)
                    (let* ((el (or (car-safe els) els))
