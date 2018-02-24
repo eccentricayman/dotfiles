@@ -567,8 +567,9 @@
 
 (use-package powerline ;;more aesthetic mode line, faster than spaceline
   :ensure t
-  :config
+  :init
   (powerline-ayman-theme)
+  :config
   (setq powerline-height 20)
   (setq powerline-image-apple-rgb t)
   (if (display-graphic-p)
