@@ -23,6 +23,7 @@
 (require 'bookmark)
 (require 'recentf)
 (require 'page-break-lines)
+(require 'all-the-icons)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Dashboard faces
