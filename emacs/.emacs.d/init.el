@@ -33,7 +33,7 @@
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-safe-themes
    (quote
-	("503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
+	("c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
  '(fci-rule-color "#3E4451")
  '(org-startup-truncated t)
  '(package-archives
@@ -43,7 +43,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(all-the-icons-dired s latex-pretty-symbols auctex try powerline all-the-icons window-numbering page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper nlinum smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
+	(esup winum async all-the-icons-dired s latex-pretty-symbols auctex try powerline all-the-icons page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper nlinum smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
    (quote
@@ -181,17 +181,55 @@
 	(propertize (format "%s" (apply (cadr result) (cddr result))) 'face `(:family ,(funcall (car result)) :inherit ))))
 
 (defun powerline-ayman-window-numbering ()
-  "Show window numbering icon."
-  (propertize (format "%c" (+ (window-numbering-get-number) 9311))
-			  'face `(:height 1.0 :inherit)
-			  'display '(raise -0.0)))
+  "Return window number."
+  ;;(defvar window-number-circle-char (+ (winum-get-number) 9311))
+  (propertize
+   ;;(format "%c" (+ (winum-get-number) 9311))
+   (format " %s" (winum-get-number))
+   'face `(:height 0.9 :inherit)
+   'display '(raise -0.0)))
 
+(defun powerline-ayman-buffer-name ()
+  "Return the relative file path or buffer name if too long (25 characters)."
+
+  (if (buffer-file-name)
+	  (propertize
+	   (if (< (length (abbreviate-file-name (buffer-file-name))) 25)
+		   (abbreviate-file-name (buffer-file-name))
+		 (buffer-name))
+	   'face `(:inherit)
+	   'help-echo (format "Open %s" (file-name-directory (abbreviate-file-name (buffer-file-name))))
+	   'mouse-face 'mode-line-highlight
+	   'local-map (make-mode-line-mouse-map 'mouse-1 '(lambda () (interactive) (dired (file-name-directory (buffer-file-name))))))
+	
+	(propertize (buffer-name)
+				'face `(:inherit))
+	))
+  
+(defun powerline-ayman-version-control ()
+  "Prints branch and git icon."
+  (let* ((branch (cadr (split-string vc-mode "Git[:-]")))
+         (git-branch (if (display-graphic-p)
+						 (all-the-icons-octicon "git-branch")
+					   (all-the-icons-faicon "github")))
+         (local-map (get-text-property 1 'local-map branch)))
+    (propertize
+     (concat
+      (propertize git-branch
+                  'face `(:family ,(all-the-icons-octicon-family) :height ,0.9 :inherit)
+                  'display '(raise 0.1))
+      (propertize (format " %s" branch)
+                  'face `(:height ,0.9 :inherit)
+                  'display '(raise 0.1)))
+     'mouse-face 'mode-line-highlight
+     'local-map local-map)))
+  
 (defun powerline-ayman-flycheck-count ()
   "Counts amount of errors/warnings in flycheck."
   (let* ((count (let-alist (flycheck-count-errors flycheck-current-errors)
                   (+ (or .warning 0) (or .error 0)))))
     (if flycheck-current-errors
-		(concat (all-the-icons-faicon "ban") (format " %s" count))
+		(concat (format "%s " count) (all-the-icons-faicon "ban"))
 	  "")))
 
 (defun powerline-ayman-flycheck-status ()
@@ -222,6 +260,7 @@
 				  'display '(raise -0.1)
 				  'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-mode major-mode) :inherit)))))
 
+(setq inhibit-compacting-font-caches t)
 (defun powerline-ayman-theme ()
   "Custom powerline theme."
   (interactive)
@@ -248,15 +287,18 @@
 						  
 						  (lhs (list
 								(powerline-raw (powerline-ayman-modified) face0 'l)
-								(if (and (> (count-windows) 1) (bound-and-true-p window-numbering-mode))
+								(if (and (> (count-windows) 1) (bound-and-true-p winum-mode))
 									(powerline-raw (powerline-ayman-window-numbering) face0 'l))
 								(powerline-raw " " face0)
 								(funcall separator-left face0 face1)
 								(powerline-raw " " face1)
-								(powerline-buffer-id face1 'l)
+								(powerline-raw (powerline-ayman-buffer-name) face1)
 								(powerline-raw " " face1)
 								(powerline-narrow face1 'l)
-								(funcall separator-left face1 face2)))
+								(funcall separator-left face1 face2)
+								(powerline-raw " " face2)
+								(if (bound-and-true-p vc-mode)
+									(powerline-raw (powerline-ayman-version-control) face2))))
 						  
 						  (rhs (list
 								(if (bound-and-true-p flycheck-mode)
@@ -347,10 +389,6 @@
 	)
   )
 
-;;emmet for css and html completion
-;;(use-package ac-emmet
-;;  :ensure t)
-
 (use-package rjsx-mode ;;better javascript + jsx
   :defer
   :ensure t)
@@ -410,14 +448,13 @@
   :init
   (global-flycheck-mode)
   :config
-  (progn
-	;;colors of underlines
-	(set-face-attribute 'flycheck-warning nil
-						:underline "#FFF44F")
-	(set-face-attribute 'flycheck-error nil
-						:underline "#EE204D")
-	;;no fringe arrows
-	(setq flycheck-indication-mode nil))
+  ;;colors of underlines
+  (set-face-attribute 'flycheck-warning nil
+					  :underline "#FFF44F")
+  (set-face-attribute 'flycheck-error nil
+					  :underline "#EE204D")
+  ;;no fringe arrows
+  (setq flycheck-indication-mode nil)
   )
 
 (use-package sr-speedbar ;;speedbar for file navigation
@@ -499,13 +536,28 @@
   (global-page-break-lines-mode t)
   )
 
-(use-package window-numbering
+(use-package winum
   :ensure t
   :config
-  (window-numbering-mode))
+  (setq winum-auto-setup-mode-line nil)
+  (define-key winum-keymap (kbd "C-`") 'winum-select-window-by-number)
+  (define-key winum-keymap (kbd "C-²") 'winum-select-window-by-number)
+  (define-key winum-keymap (kbd "M-0") 'winum-select-window-0-or-10)
+  (define-key winum-keymap (kbd "M-1") 'winum-select-window-1)
+  (define-key winum-keymap (kbd "M-2") 'winum-select-window-2)
+  (define-key winum-keymap (kbd "M-3") 'winum-selwect-window-3)
+  (define-key winum-keymap (kbd "M-4") 'winum-select-window-4)
+  (define-key winum-keymap (kbd "M-5") 'winum-select-window-5)
+  (define-key winum-keymap (kbd "M-6") 'winum-select-window-6)
+  (define-key winum-keymap (kbd "M-7") 'winum-select-window-7)
+  (define-key winum-keymap (kbd "M-8") 'winum-select-window-8)
+  (winum-mode))
 
 (use-package all-the-icons ;;adding nice icon support to modeline
-  :ensure t)
+  :ensure t
+  :config
+  (setq inhibit-compacting-font-caches t) ;;make all-the-icons load faster
+  )
 
 (use-package all-the-icons-dired ;;adding nice idon support to dired
   :ensure t
@@ -515,16 +567,18 @@
 
 (use-package powerline ;;more aesthetic mode line, faster than spaceline
   :ensure t
-  :init
-  (powerline-ayman-theme)
   :config
-  (setq powerline-height 18)
+  (powerline-ayman-theme)
+  (setq powerline-height 20)
   (setq powerline-image-apple-rgb t)
   (if (display-graphic-p)
 	  (setq powerline-default-separator 'slant)
 	(setq powerline-default-separator 'utf-8)))
 
 (use-package try ;;test out new packages
+  :ensure t)
+
+(use-package esup
   :ensure t)
 
 (use-package auctex ;;better latex editing
@@ -567,6 +621,12 @@
 
 
 ;;; Configs
+(when (string= system-type "darwin") ;;dont use ls --dired on mac
+  (setq dired-use-ls-dired nil))
+
+(setq tramp-default-method "ssh")
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash")) ;;zsh hangs use bash
+
 (setq ns-use-srgb-colorspace t) ;;use full colorspace of mac display
 
 (setq-default frame-title-format '("")) ;;frame title
@@ -806,8 +866,8 @@ This command does not push text to `kill-ring'."
     (setq p2 (point))
     (delete-region p1 p2)))
 
-										; bind them to emacs's default shortcut keys:
-(global-set-key (kbd "C-S-k") 'my-delete-line-backward) ; Ctrl+Shift+k
+;; bind them to emacs's default shortcut keys:
+(global-set-key (kbd "C-S-k") 'my-delete-line-backward)
 (global-set-key (kbd "C-k") 'my-delete-line)
 (global-set-key (kbd "M-d") 'my-delete-word)
 (global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
