@@ -33,7 +33,8 @@
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-safe-themes
    (quote
-	("c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
+	("6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
+ '(display-line-numbers-width nil)
  '(fci-rule-color "#3E4451")
  '(org-startup-truncated t)
  '(package-archives
@@ -43,7 +44,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(esup winum async all-the-icons-dired s latex-pretty-symbols auctex try powerline all-the-icons page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper nlinum smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
+	(s latex-pretty-symbols auctex esup try powerline all-the-icons-dired all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
    (quote
@@ -77,7 +78,7 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
  '(web-mode-html-tag-face ((t (:foreground "#61AFEF")))))
 
-;;use-package install and diminsher setpu
+;;use-package install and diminsher setup
 (if (not (package-installed-p 'use-package))
     (progn
       (package-refresh-contents)
@@ -185,8 +186,8 @@
   ;;(defvar window-number-circle-char (+ (winum-get-number) 9311))
   (propertize
    ;;(format "%c" (+ (winum-get-number) 9311))
-   (format " %s" (winum-get-number))
-   'face `(:height 0.9 :inherit)
+   (format "%s" (winum-get-number))
+   'face `(:height 1.0 :inherit)
    'display '(raise -0.0)))
 
 (defun powerline-ayman-buffer-name ()
@@ -260,7 +261,6 @@
 				  'display '(raise -0.1)
 				  'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-mode major-mode) :inherit)))))
 
-(setq inhibit-compacting-font-caches t)
 (defun powerline-ayman-theme ()
   "Custom powerline theme."
   (interactive)
@@ -412,16 +412,6 @@
 	  (indent-according-to-mode))
 	(sp-pair "{" nil :post-handlers '((my-create-newline-and-enter-sexp "RET")))
 	))
-
-(use-package nlinum ;;line numbers
-  :ensure t
-  :config
-  (progn
-    (global-nlinum-mode 1)
-    ;;linum background color
-    (unless (display-graphic-p)
-      (set-face-attribute 'linum nil :background "222")))
-  )
 
 (use-package swiper ;;better search
   :ensure t
@@ -638,9 +628,20 @@
 
 (setq frame-resize-pixelwise t) ;;make frame sizable to pixels
 
-;;default starting emacs size
-(add-to-list 'default-frame-alist '(height . 40))
-(add-to-list 'default-frame-alist '(width . 80))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)) ;;emacs matching title bar
+(add-to-list 'default-frame-alist '(ns-appearance . 'nil))
+
+(pixel-scroll-mode) ;;smooth scrolling
+
+(global-display-line-numbers-mode) ;;line numbers
+
+(set-fringe-mode 1) ;;minimal fringes
+(global-visual-line-mode) ;;visual line mode for word wrap
+
+;;line number background color
+(unless (display-graphic-p)
+  (set-face-attribute 'line-number nil :background "222")
+  (set-face-attribute 'line-number-current-line nil :background "222"))
 
 (setq ad-redefinition-action 'accept) ;;make ido-yes-no work with ad
 
@@ -676,16 +677,15 @@
 (diminish 'eldoc-mode) ;;hide eldoc
 
 (if (display-graphic-p)
-	(progn
-	  (setq mouse-wheel-scroll-amount '(1 ((shift) .1) ((control) . nil)))
-	  (setq mouse-wheel-progressive-speed nil))
+	(progn)
+	  ;;(setq mouse-wheel-scroll-amount '(1 ((shift) .1) ((control) . nil)))
+	  ;;(setq mouse-wheel-progressive-speed nil))
   (progn
 	(global-set-key (kbd "<mouse-4>") 'previous-line)
 	(global-set-key (kbd "<mouse-5>") 'next-line)
 	(setq mouse-wheel-scroll-amount '(1))
 	(setq mouse-wheel-progressive-speed nil)
-	(xterm-mouse-mode 1)
-	(setq nlinum-format "%d ")))
+	(xterm-mouse-mode 1)))
 
 ;;prettify symbols
 (global-prettify-symbols-mode +1)

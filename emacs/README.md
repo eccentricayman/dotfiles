@@ -36,3 +36,4 @@ Two-Swipe Left/Right: Previous buffer/ Next buffer
 
 ## More Info
 All backups are saved in a ~/.emacs.d/.emacsbackups directory.
+Meant for Emacs 26+
