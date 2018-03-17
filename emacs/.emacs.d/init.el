@@ -667,7 +667,15 @@
 ;;get rid of current selection when pasting
 (delete-selection-mode 1)
 
+(setq auto-save-interval 25) ;;save every 25 character
+
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups"))) ;;all backups go in one directory
+(setq
+   backup-by-copying t ;;keep symlinks clean
+   delete-old-versions t ;;dont prompt to delete old versions
+   kept-new-versions 5 ;;keep 5 new versions
+   kept-old-versions 0 ;;keep 0 old versions
+   version-control t) ;;backup files under vc/git
 
 (setq select-enable-clipboard t) ;;use os clipboard (windows & linux)
 
