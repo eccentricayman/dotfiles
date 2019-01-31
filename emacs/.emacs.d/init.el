@@ -33,7 +33,7 @@
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-safe-themes
    (quote
-	("6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
+	("bf5bdab33a008333648512df0d2b9d9710bdfba12f6a768c7d2c438e1092b633" "6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
  '(display-line-numbers-width nil)
  '(fci-rule-color "#3E4451")
  '(org-startup-truncated t)
@@ -185,8 +185,8 @@
   "Return window number."
   ;;(defvar window-number-circle-char (+ (winum-get-number) 9311))
   (propertize
-   ;;(format "%c" (+ (winum-get-number) 9311))
-   (format "%s" (winum-get-number))
+   (format "%c" (+ (winum-get-number) 9311))
+   ;;(format "%s" (winum-get-number))
    'face `(:height 1.0 :inherit)
    'display '(raise -0.0)))
 
@@ -445,6 +445,8 @@
 					  :underline "#EE204D")
   ;;no fringe arrows
   (setq flycheck-indication-mode nil)
+  ;;make c++ 11 the standard (change as you wish)
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
   )
 
 (use-package sr-speedbar ;;speedbar for file navigation
@@ -535,7 +537,7 @@
   (define-key winum-keymap (kbd "M-0") 'winum-select-window-0-or-10)
   (define-key winum-keymap (kbd "M-1") 'winum-select-window-1)
   (define-key winum-keymap (kbd "M-2") 'winum-select-window-2)
-  (define-key winum-keymap (kbd "M-3") 'winum-selwect-window-3)
+  (define-key winum-keymap (kbd "M-3") 'winum-select-window-3)
   (define-key winum-keymap (kbd "M-4") 'winum-select-window-4)
   (define-key winum-keymap (kbd "M-5") 'winum-select-window-5)
   (define-key winum-keymap (kbd "M-6") 'winum-select-window-6)
@@ -855,6 +857,7 @@ With ARG, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
   (my-delete-word (- arg)))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
 (defun my-delete-line ()
   "Delete text from current position to end of line char.
