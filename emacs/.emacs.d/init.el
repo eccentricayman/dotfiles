@@ -403,6 +403,8 @@
 	;;can't deleting matching delimiters
 	;;(smartparens-strict-mode 1)
 	(setq-default sp-highlight-pair-overlay nil)
+	(setq sp-escape-quotes-after-insert nil
+		  sp-escape-wrapped-region nil)
 	;;enter after bracket
 	(defun my-create-newline-and-enter-sexp (&rest _ignored)
 	  "Open a new brace or bracket expression, with relevant newlines and indent. "
@@ -763,6 +765,18 @@
   "*c_compilation*"
   )
 (global-set-key (kbd "C-c c") 'c-compile-and-run)
+
+(defun cpp-compile-and-run ()
+  "C compile and run."
+  (interactive)
+  (shell-command-on-region
+   (point-min)
+   (point-max)
+   (concat "g++ " (buffer-file-name) " && " "./a.out"))
+  "*cpp_compilation*"
+  )
+(global-set-key (kbd "C-c v") 'cpp-compile-and-run)
+
 
 (defun open-html-file ()
   "Open current html file in default browser."
