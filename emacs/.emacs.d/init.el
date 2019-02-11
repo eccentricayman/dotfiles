@@ -772,7 +772,7 @@
   (shell-command-on-region
    (point-min)
    (point-max)
-   (concat "g++ " (buffer-file-name) " && " "./a.out"))
+   (concat "g++ -std=c++11 " (buffer-file-name) " && " "./a.out"))
   "*cpp_compilation*"
   )
 (global-set-key (kbd "C-c v") 'cpp-compile-and-run)
