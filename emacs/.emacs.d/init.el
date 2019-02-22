@@ -11,9 +11,6 @@
 
 ;;; Code:
 
-;;more memory for garbage collection for init
-(setq gc-cons-threshold 1000000000)
-
 (require 'package)
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
@@ -32,23 +29,19 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-safe-themes
-   (quote
-	("bf5bdab33a008333648512df0d2b9d9710bdfba12f6a768c7d2c438e1092b633" "6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
+   '("bf5bdab33a008333648512df0d2b9d9710bdfba12f6a768c7d2c438e1092b633" "6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996"))
  '(display-line-numbers-width nil)
  '(fci-rule-color "#3E4451")
  '(org-startup-truncated t)
  '(package-archives
-   (quote
-	(("gnu" . "http://elpa.gnu.org/packages/")
+   '(("gnu" . "http://elpa.gnu.org/packages/")
 	 ("melpa" . "http://melpa.org/packages/")
-	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
+	 ("marmalade" . "http://marmalade-repo.org/packages/")))
  '(package-selected-packages
-   (quote
-	(s latex-pretty-symbols auctex esup try powerline all-the-icons-dired all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
+   '(drag-stuff s latex-pretty-symbols auctex esup try powerline all-the-icons-dired all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
-   (quote
-	((20 . "#dd5542")
+   '((20 . "#dd5542")
 	 (40 . "#CC5542")
 	 (60 . "#fb8512")
 	 (80 . "#baba36")
@@ -65,7 +58,7 @@
 	 (300 . "#528fd1")
 	 (320 . "#5180b3")
 	 (340 . "#6380b3")
-	 (360 . "#DC8CC3"))))
+	 (360 . "#DC8CC3")))
  '(vc-annotate-very-old-color "#DC8CC3"))
 
 (custom-set-faces
@@ -448,7 +441,7 @@
   ;;no fringe arrows
   (setq flycheck-indication-mode nil)
   ;;make c++ 11 the standard (change as you wish)
-  (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+  (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++14")))
   )
 
 (use-package sr-speedbar ;;speedbar for file navigation
@@ -589,6 +582,10 @@
   :defer
   :ensure t)
 
+(use-package drag-stuff
+  :ensure t
+  :config
+  (drag-stuff-global-mode 1))
 
 
 ;;; Dependencies
@@ -640,7 +637,6 @@
 (global-display-line-numbers-mode) ;;line numbers
 
 (set-fringe-mode 1) ;;minimal fringes
-(global-visual-line-mode) ;;visual line mode for word wrap
 
 ;;line number background color
 (unless (display-graphic-p)
@@ -710,23 +706,6 @@
 
 
 ;;; Keybindings
-(defun move-line-up ()
-  "Move up the current line."
-  (interactive)
-  (transpose-lines 1)
-  (forward-line -2)
-  (indent-according-to-mode))
-
-(defun move-line-down ()
-  "Move down the current line."
-  (interactive)
-  (forward-line 1)
-  (transpose-lines 1)
-  (forward-line -1)
-  (indent-according-to-mode))
-(global-set-key [(meta shift up)]  'move-line-up)
-(global-set-key [(meta shift down)]  'move-line-down)
-
 (defun java-compile-and-run ()
   "Compile and run java files."
   (interactive)
@@ -772,7 +751,7 @@
   (shell-command-on-region
    (point-min)
    (point-max)
-   (concat "g++ -std=c++11 " (buffer-file-name) " && " "./a.out"))
+   (concat "g++ -std=c++14 " (buffer-file-name) " && " "./a.out"))
   "*cpp_compilation*"
   )
 (global-set-key (kbd "C-c v") 'cpp-compile-and-run)
@@ -871,7 +850,6 @@ With ARG, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
   (my-delete-word (- arg)))
-(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
 (defun my-delete-line ()
   "Delete text from current position to end of line char.
@@ -897,6 +875,9 @@ This command does not push text to `kill-ring'."
 (global-set-key (kbd "C-k") 'my-delete-line)
 (global-set-key (kbd "M-d") 'my-delete-word)
 (global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
+
+(global-set-key (kbd "M-<up>") 'drag-stuff-up)
+(global-set-key (kbd "M-<down>") 'drag-stuff-down)
 
 (provide 'init)
 ;;; init.el ends here
