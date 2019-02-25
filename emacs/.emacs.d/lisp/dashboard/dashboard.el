@@ -56,8 +56,8 @@
   :group 'dashboard
   :syntax-table nil
   :abbrev-table nil
+  (display-line-numbers-mode -1)
   (whitespace-mode -1)
-  (nlinum-mode -1)
   (page-break-lines-mode 1)
   (setq inhibit-startup-screen t)
   (setq buffer-read-only t)

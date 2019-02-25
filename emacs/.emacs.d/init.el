@@ -178,8 +178,8 @@
   "Return window number."
   ;;(defvar window-number-circle-char (+ (winum-get-number) 9311))
   (propertize
-   (format "%c" (+ (winum-get-number) 9311))
-   ;;(format "%s" (winum-get-number))
+   ;;(format "%c" (+ (winum-get-number) 9311))
+   (format "%s" (winum-get-number))
    'face `(:height 1.0 :inherit)
    'display '(raise -0.0)))
 
@@ -601,8 +601,6 @@
 
 (load "~/.emacs.d/lisp/f/f") ;;nice elisp file editing, used for java-compile-and-run
 
-(load "~/.emacs.d/lisp/ido-speed-hack/ido-speed-hack") ;;ido-speed-hack to make M-x under smex snappy
-
 (load "~/.emacs.d/lisp/emacs-strip/emacs-strip") ;;used to clean up screen for distraction free mode
 
 (if (display-graphic-p)
@@ -632,7 +630,9 @@
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)) ;;emacs matching title bar
 (add-to-list 'default-frame-alist '(ns-appearance . 'nil))
 
-(pixel-scroll-mode) ;;smooth scrolling
+(pixel-scroll-mode)
+(setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines (t = frame-char-height pixels).
+(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
 
 (global-display-line-numbers-mode) ;;line numbers
 
@@ -876,8 +876,8 @@ This command does not push text to `kill-ring'."
 (global-set-key (kbd "M-d") 'my-delete-word)
 (global-set-key (kbd "M-<DEL>") 'my-backward-delete-word)
 
-(global-set-key (kbd "M-<up>") 'drag-stuff-up)
-(global-set-key (kbd "M-<down>") 'drag-stuff-down)
+(global-set-key (kbd "M-<S-up>") 'drag-stuff-up)
+(global-set-key (kbd "M-<S-down>") 'drag-stuff-down)
 
 (provide 'init)
 ;;; init.el ends here
