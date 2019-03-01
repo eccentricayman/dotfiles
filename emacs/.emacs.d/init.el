@@ -29,19 +29,23 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-safe-themes
-   '("bf5bdab33a008333648512df0d2b9d9710bdfba12f6a768c7d2c438e1092b633" "6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996"))
+   (quote
+	("bf5bdab33a008333648512df0d2b9d9710bdfba12f6a768c7d2c438e1092b633" "6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
  '(display-line-numbers-width nil)
  '(fci-rule-color "#3E4451")
  '(org-startup-truncated t)
  '(package-archives
-   '(("gnu" . "http://elpa.gnu.org/packages/")
+   (quote
+	(("gnu" . "http://elpa.gnu.org/packages/")
 	 ("melpa" . "http://melpa.org/packages/")
-	 ("marmalade" . "http://marmalade-repo.org/packages/")))
+	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
-   '(drag-stuff s latex-pretty-symbols auctex esup try powerline all-the-icons-dired all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package))
+   (quote
+	(doom-modeline f drag-stuff s latex-pretty-symbols auctex esup try powerline all-the-icons-dired all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
-   '((20 . "#dd5542")
+   (quote
+	((20 . "#dd5542")
 	 (40 . "#CC5542")
 	 (60 . "#fb8512")
 	 (80 . "#baba36")
@@ -58,7 +62,7 @@
 	 (300 . "#528fd1")
 	 (320 . "#5180b3")
 	 (340 . "#6380b3")
-	 (360 . "#DC8CC3")))
+	 (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
 
 (custom-set-faces
@@ -167,9 +171,9 @@
 (defun powerline-ayman-modified ()
   "Show padlock if read-only, chain for saved/unsaved."
   (let* ((config-alist
-		  '(("*" all-the-icons-faicon-family all-the-icons-faicon "times" :height 1.0 :v-adjust 0.0)
-			("-" all-the-icons-faicon-family all-the-icons-faicon "check" :height 1.0 :v-adjust 0.0)
-			("%" all-the-icons-faicon-family all-the-icons-faicon "lock" :height 1.0 :v-adjust 0.0)))
+		  '(("*" all-the-icons-faicon-family all-the-icons-faicon "times" :height 1.2 :v-adjust 0.0)
+			("-" all-the-icons-faicon-family all-the-icons-faicon "check" :height 1.2 :v-adjust 0.0)
+			("%" all-the-icons-faicon-family all-the-icons-faicon "lock" :height 1.2 :v-adjust 0.0)))
 		 (result (cdr (assoc (format-mode-line "%*") config-alist))))
 
 	(propertize (format "%s" (apply (cadr result) (cddr result))) 'face `(:family ,(funcall (car result)) :inherit ))))
@@ -178,7 +182,7 @@
   "Return window number."
   ;;(defvar window-number-circle-char (+ (winum-get-number) 9311))
   (propertize
-   ;;(format "%c" (+ (winum-get-number) 9311))
+   ;;(format "%c" (+ (winum-get-number) 9311)) ;;laggy
    (format "%s" (winum-get-number))
    'face `(:height 1.0 :inherit)
    'display '(raise -0.0)))
@@ -210,12 +214,10 @@
     (propertize
      (concat
       (propertize git-branch
-                  'face `(:family ,(all-the-icons-octicon-family) :height ,0.9 :inherit)
-                  'display '(raise 0.1))
+                  'face `(:family ,(all-the-icons-octicon-family) :height ,1.2 :inherit))
       (propertize (format " %s" branch)
-                  'face `(:height ,0.9 :inherit)
-                  'display '(raise 0.1)))
-     'mouse-face 'mode-line-highlight
+                  'face `(:height ,1.0 :inherit))
+     'mouse-face 'mode-line-highlight)
      'local-map local-map)))
   
 (defun powerline-ayman-flycheck-count ()
@@ -252,7 +254,7 @@
 	  (propertize icon
 				  'help-echo (format "Major-mode: `%s`" major-mode)
 				  'display '(raise -0.1)
-				  'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-mode major-mode) :inherit)))))
+				  'face `(:height 1.2 :family ,(all-the-icons-icon-family-for-mode major-mode) :inherit)))))
 
 (defun powerline-ayman-theme ()
   "Custom powerline theme."
@@ -285,6 +287,8 @@
 								(powerline-raw " " face0)
 								(funcall separator-left face0 face1)
 								(powerline-raw " " face1)
+								(powerline-raw (powerline-ayman-major-mode) face1)
+								(powerline-raw " " face1)
 								(powerline-raw (powerline-ayman-buffer-name) face1)
 								(powerline-raw " " face1)
 								(powerline-narrow face1 'l)
@@ -294,16 +298,11 @@
 									(powerline-raw (powerline-ayman-version-control) face2))))
 						  
 						  (rhs (list
-								(if (bound-and-true-p flycheck-mode)
-									(powerline-raw (powerline-ayman-flycheck-status) face2))
-								(powerline-raw " " face2)
 								(powerline-raw global-mode-string face2 'r)
 								(funcall separator-right face2 face1)
 								(powerline-raw " " face1)
-								(powerline-major-mode face1 'r)
-								(if (display-graphic-p)
-									(powerline-raw (powerline-ayman-major-mode) face1)
-								  )
+								(if (bound-and-true-p flycheck-mode)
+									(powerline-raw (powerline-ayman-flycheck-status) face1))
 								(powerline-raw " " face1)
 								(funcall separator-right face1 face0)
 								(powerline-raw " %p  " face0)
@@ -555,13 +554,22 @@
 (use-package powerline ;;more aesthetic mode line, faster than spaceline
   :ensure t
   :init
-  (powerline-ayman-theme)
+  ;;(powerline-ayman-theme)
   :config
-  (setq powerline-height 20)
+  (setq powerline-height 25)
   (setq powerline-image-apple-rgb t)
   (if (display-graphic-p)
 	  (setq powerline-default-separator 'slant)
 	(setq powerline-default-separator 'utf-8)))
+
+(use-package doom-modeline
+      :ensure t
+	  :hook (after-init . doom-modeline-mode)
+	  :config
+	  (setq doom-modeline-major-mode-color-icon t)
+	  (setq doom-modeline-height 25)
+	  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+	  )
 
 (use-package try ;;test out new packages
   :ensure t)
@@ -584,12 +592,15 @@
 
 (use-package drag-stuff
   :ensure t
+  :diminish drag-stuff-mode
   :config
   (drag-stuff-global-mode 1))
 
 
 ;;; Dependencies
 (use-package s
+  :ensure t)
+(use-package f
   :ensure t)
 (use-package dash
   :ensure t)
@@ -599,14 +610,13 @@
 ;;; Local Packages
 (byte-recompile-directory (expand-file-name "~/.emacs.d/lisp") 0) ;;byte compile local packages directory
 
-(load "~/.emacs.d/lisp/f/f") ;;nice elisp file editing, used for java-compile-and-run
-
 (load "~/.emacs.d/lisp/emacs-strip/emacs-strip") ;;used to clean up screen for distraction free mode
 
 (if (display-graphic-p)
 	(progn
-	  (load "~/.emacs.d/lisp/dashboard/dashboard") ;;dashboard for gui-emacs
-	  (dashboard-setup-startup-hook)))
+	  (if (f-this-file) ;; if opening a file, don't open dashboard
+		  (load "~/.emacs.d/lisp/dashboard/dashboard") ;;dashboard for gui-emacs
+		(dashboard-setup-startup-hook))))
 
 
 
