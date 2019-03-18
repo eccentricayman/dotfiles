@@ -41,7 +41,7 @@
 	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(package-selected-packages
    (quote
-	(doom-modeline f drag-stuff s latex-pretty-symbols auctex esup try powerline all-the-icons-dired all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck multiple-cursors rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi ac-c-headers fuzzy auto-complete atom-one-dark-theme diminish use-package)))
+	(company-irony-c-headers company-irony irony company company-web yascroll doom-modeline f drag-stuff s latex-pretty-symbols auctex esup try powerline all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi atom-one-dark-theme diminish use-package)))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
    (quote
@@ -88,8 +88,9 @@
 
 ;;; Theme
 (use-package atom-one-dark-theme
-  :ensure t)
-(load-theme 'atom-one-dark)
+  :ensure t
+  :init
+  (load-theme 'atom-one-dark))
 
 ;;this is for regular emacs background
 (defun emacs-terminal-background ()
@@ -317,69 +318,94 @@
 
 
 ;;; Packages
-(use-package auto-complete ;;autocompletion on tab
+
+(use-package company
   :ensure t
-  :diminish auto-complete-mode
+  :defer t
+  :init (global-company-mode)
+  :config
+  (progn
+    ;; Use Company for completion
+    (bind-key [remap completion-at-point] #'company-complete company-mode-map)
+    (setq company-tooltip-align-annotations t)
+    (setq company-show-numbers t)
+    (setq company-dabbrev-downcase nil)
+	(setq company-idle-delay 0)
+	(setq company-echo-delay 0)
+	(setq company-minimum-prefix-length 2)
+	(setq company-require-match nil)
+	(setq company-selection-wrap-around t)
+	(setq company-tooltip-align-annotations t)
+	;; keybindings for tab completion
+	(defun my-company-visible-and-explicit-action-p ()
+      (and (company-tooltip-visible-p)
+           (company-explicit-action-p)))
+	
+	(defun company-ac-setup ()
+      "Sets up `company-mode' to behave similarly to `auto-complete-mode'."
+      (setq company-auto-complete #'my-company-visible-and-explicit-action-p)
+      (setq company-frontends '(company-echo-metadata-frontend
+								company-pseudo-tooltip-unless-just-one-frontend-with-delay
+								company-preview-frontend))
+      (define-key company-active-map [tab]
+		'company-select-next-if-tooltip-visible-or-complete-selection)
+      (define-key company-active-map (kbd "TAB")
+		'company-select-next-if-tooltip-visible-or-complete-selection))
+	(company-ac-setup))
+  :diminish company-mode)
+
+;; Python auto completion
+(use-package company-jedi
+  :defer t
   :init
-  (progn
-    (global-auto-complete-mode t))
-  :bind (:map ac-completing-map
-			  ("C-n" . ac-next)
-			  ("C-p" . ac-previous))
+  (setq company-jedi-python-bin "python2")
   :config
-  (progn
-    (use-package auto-complete-config)
+  (add-to-list 'company-backends 'company-jedi))
 
-    (ac-config-default)
-
-    (setq ac-delay 0.02)
-    (setq ac-use-menu-map t)
-    (setq ac-use-quick-help nil)
-    (setq ac-ignore-case nil)
-    (setq ac-dwim t)
-    (setq ac-use-fuzzy t)))
-
-(use-package fuzzy ;;fuzzy autocompletion
-  :ensure t)
-
-(use-package ac-c-headers ;;c autocompletion
-  :defer
-  :ensure t
-  :config
-  (add-hook 'c-mode-hook
-			(lambda ()
-			  (add-to-list 'ac-sources 'ac-source-c-headers)
-			  (add-to-list 'ac-sources 'ac-source-c-header-symbols t)
-			  ))
-  )
-
-(use-package jedi ;;python autocompletion
-  :defer
-  :ensure t
-  :config
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (add-hook 'python-mode-hook 'jedi:ac-setup)
-  )
-
-(use-package web-mode ;;html autocompletion
-  :defer
+(use-package irony
   :ensure t
   :config
   (progn
-	(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-	(setq web-mode-engines-alist
-		  '(("django" . "\\.html\\'")))
-	(setq web-mode-ac-sources-alist
-		  '(("css" . (ac-source-css-property))
-			("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-	(setq web-mode-enable-auto-closing t)
-	(setq web-mode-enable-current-element-highlight t)
-	(setq web-mode-style-padding 4)
-	(setq web-mode-script-padding 4)
-	(setq web-mode-css-indent-offset 4)
-	(setq web-mode-code-indent-offset 4)
-	)
-  )
+    (use-package company-irony
+      :ensure t
+      :config
+	  (use-package company-irony-c-headers
+		:ensure t)
+      (add-to-list 'company-backends '(company-irony-c-headers company-irony))))
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands))
+
+(use-package web-mode
+  :defer
+  :ensure t
+  :mode ("\\.html$" . web-mode)
+  :config
+  (progn
+	(use-package company-web
+	  :ensure t
+	  :defer
+	  :config
+	  (add-to-list 'company-backends 'company-web-html)))
+  (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
+  (setq web-mode-enable-auto-closing t)
+  (setq web-mode-enable-current-element-highlight t)
+  (setq web-mode-style-padding 4)
+  (setq web-mode-script-padding 4)
+  (setq web-mode-css-indent-offset 4)
+  (setq web-mode-code-indent-offset 4)
+  (setq web-mode-enable-auto-pairing t)
+  (setq web-mode-enable-auto-expanding t)
+  (setq web-mode-enable-css-colorization t)
+  (add-hook 'web-mode-hook 'electric-pair-mode))
+
+(use-package web-beautify
+  :commands (web-beautify-css
+             web-beautify-css-buffer
+             web-beautify-html
+             web-beautify-html-buffer
+             web-beautify-js
+             web-beautify-js-buffer))
 
 (use-package rjsx-mode ;;better javascript + jsx
   :defer
@@ -419,11 +445,6 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  )
-
-(use-package multiple-cursors ;;multiple cursors
-  :ensure t
-  :bind (("C-." . mc/mark-next-like-this))
   )
 
 (use-package flycheck ;;error checking
@@ -545,12 +566,6 @@
   (setq inhibit-compacting-font-caches t) ;;make all-the-icons load faster
   )
 
-(use-package all-the-icons-dired ;;adding nice idon support to dired
-  :ensure t
-  :diminish all-the-icons-dired-mode
-  :init
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
-
 (use-package powerline ;;more aesthetic mode line, faster than spaceline
   :ensure t
   :init
@@ -566,10 +581,15 @@
       :ensure t
 	  :hook (after-init . doom-modeline-mode)
 	  :config
-	  (setq doom-modeline-major-mode-color-icon t)
 	  (setq doom-modeline-height 25)
-	  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+	  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
 	  )
+
+(use-package yascroll
+  :ensure t
+  :config
+  (if (display-graphic-p)
+	  (global-yascroll-bar-mode 1)))
 
 (use-package try ;;test out new packages
   :ensure t)
@@ -646,7 +666,7 @@
 
 (global-display-line-numbers-mode) ;;line numbers
 
-(set-fringe-mode 1) ;;minimal fringes
+(set-fringe-mode 2) ;;minimal fringes
 
 ;;line number background color
 (unless (display-graphic-p)
@@ -665,6 +685,8 @@
   (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)))
 
 (setq default-directory "~") ;;set default starting directory
+
+(setq find-file-visit-truename t) ;;fixes sus names whne opening symlinks
 
 ;;tab width to 4
 (setq-default tab-width 4)
