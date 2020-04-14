@@ -70,6 +70,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(mode-line ((t (:background "#222222" :foreground "#a0a5b4" :box (:line-width 2 :color "#222222") :overline nil :underline nil))))
  '(web-mode-doctype-face ((t (:foreground "#C678DD"))))
  '(web-mode-html-attr-name-face ((t (:foreground "#E06C75"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "Grey"))))
@@ -569,21 +570,21 @@
 (use-package powerline ;;more aesthetic mode line, faster than spaceline
   :ensure t
   :init
-  ;;(powerline-ayman-theme)
+  (powerline-ayman-theme)
   :config
-  (setq powerline-height 25)
+  (setq powerline-height 20)
   (setq powerline-image-apple-rgb t)
   (if (display-graphic-p)
 	  (setq powerline-default-separator 'slant)
 	(setq powerline-default-separator 'utf-8)))
 
-(use-package doom-modeline
-      :ensure t
-	  :hook (after-init . doom-modeline-mode)
-	  :config
-	  (setq doom-modeline-height 25)
-	  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
-	  )
+ (use-package doom-modeline
+       :ensure t
+ 	  :hook (after-init . doom-modeline-mode)
+ 	  :config
+ 	  (setq doom-modeline-height 20)
+ 	  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+ 	  )
 
 (use-package yascroll
   :ensure t
@@ -652,6 +653,8 @@
 (setq-default frame-title-format '("")) ;;frame title
 
 (set-face-attribute 'default nil :font "Monaco") ;;default font
+;;(set-frame-font "Menlo:pixelsize=13")
+;;(set-face-attribute 'default nil :font "Menlo") ;;default font
 
 (setq-default cursor-type 'bar) ;;make cursor a line
 
