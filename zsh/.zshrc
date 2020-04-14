@@ -1,3 +1,4 @@
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -52,6 +53,8 @@ fortune -s | cowsay | lolcat -t
 
 #alias gvim="open -a macvim"
 alias ec="emacsclient"
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+alias python="python3"
 
 function gitshit() {
     git add --all && git commit -m "$1" && git push
@@ -61,16 +64,23 @@ function gitshit() {
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore "Library/*" --ignore "Music/*" --ignore "Pictures/*" --depth 5 -g ""'
 
 #find file and open it in emacs
-function fe() {
-    emacs -nw $(fzf) 2>& /dev/null
+function emacsf() {
+    emacs $(fzf) 2>& /dev/null
+}
+
+#cd directory fuzzy
+cdf() {
+    local file
+	file="$(fzf +m -q "$*")"
+	cd "$(dirname "$file")" || return
 }
 
 #get rid of annoying autocorrect
 unsetopt correct
 
-export EDITOR=/usr/local/bin/emacs
+export EDITOR=/Applications/Emacs.app/Contents/MacOS/Emacs
 export ANDROID_HOME=~/Library/Android/sdk
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-PATH="/Users/eccentricayman/perl5/bin${PATH:+:${PATH}}:/Users/eccentricayman/Github/pokemon:/Users/eccentricayman/Library/Android/sdk/tools:/Users/eccentricayman/Library/Android/sdk/platform-tools:/Users/eccentricayman/Library/Android/sdk/tools/bin:/Library/TeX/texbin:; export PATH;"
+PATH="/Users/eccentricayman/perl5/bin${PATH:+:${PATH}}:/usr/local/bin:/Users/eccentricayman/Github/pokemon:/Users/eccentricayman/Library/Android/sdk/tools:/Users/eccentricayman/Library/Android/sdk/platform-tools:/Users/eccentricayman/Library/Android/sdk/tools/bin:/Library/TeX/texbin:; export PATH;"
