@@ -297,4 +297,5 @@ else
     highlight clear GitGutterChange
     highlight clear GitGutterDelete
     highlight clear GitGutterChangeDelete
+"    hi Normal ctermbg=none
 endif
