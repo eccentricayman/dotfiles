@@ -1,5 +1,6 @@
 
 
+
 ;; Version: $Id$
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -78,7 +79,7 @@
                                     ;;(workspaces . dashboard-insert-workspaces)
                                     ;;(info       . dashboard-insert-info)))
 
-(defvar dashboard-items '((recents    . 20)) "")
+(defvar dashboard-items '((recents    . 3)) "")
                           ;;(bookmarks  . 10)
                           ;;(projects   . 10)
                           ;;(workspaces . 10)
@@ -284,13 +285,10 @@
            ;(center-body)
            (insert "\n")
            (dashboard-insert-banner)
-           (insert "\n")
+           ;;(insert "\n")
            (setq version-faced (propertize "\t\t\t\t\t\t\t    Version: " 'face 'dashboard-info-face))
            (insert version-faced)
-           (insert (all-the-icons-faicon "tag") (format " %d.%d\n" emacs-major-version emacs-minor-version))
-           (setq version-faced (propertize "  \t\t\t\t\t\t    Init Time: " 'face 'dashboard-info-face))
-           (insert version-faced)
-           (insert (all-the-icons-faicon "clock-o") (format " %s\n\n\n" (emacs-init-time)))
+           (insert (all-the-icons-faicon "tag") (format " %d.%d\n\n" emacs-major-version emacs-minor-version))
            (dashboard-insert-page-break)
            (mapc (lambda (els)
                    (let* ((el (or (car-safe els) els))
