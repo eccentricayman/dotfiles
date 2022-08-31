@@ -4,6 +4,15 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+#path
+export EDITOR=/Applications/Emacs.app/Contents/MacOS/Emacs
+export ANDROID_HOME=~/Library/Android/sdk
+PATH="/Users/eccentricayman/perl5/bin${PATH:+:${PATH}}:/usr/local/bin:/Users/eccentricayman/Github/pokemon:/Users/eccentricayman/Library/Android/sdk/tools:/Users/eccentricayman/Library/Android/sdk/platform-tools:/Users/eccentricayman/Library/Android/sdk/tools/bin:/Library/TeX/texbin; export PATH;"
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+export PATH="/Users/eccentricayman/Library/Python/3.7/bin:$PATH"
+export PATH=/opt/homebrew/bin:$PATH
+export INDRA_HOME="Users/eccentricayman/Github/IndraABM"
+
 #theme settings
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_PROMPT_SEPARATE_LINE=false
@@ -78,9 +87,7 @@ cdf() {
 #get rid of annoying autocorrect
 unsetopt correct
 
-export EDITOR=/Applications/Emacs.app/Contents/MacOS/Emacs
-export ANDROID_HOME=~/Library/Android/sdk
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-PATH="/Users/eccentricayman/perl5/bin${PATH:+:${PATH}}:/usr/local/bin:/Users/eccentricayman/Github/pokemon:/Users/eccentricayman/Library/Android/sdk/tools:/Users/eccentricayman/Library/Android/sdk/platform-tools:/Users/eccentricayman/Library/Android/sdk/tools/bin:/Library/TeX/texbin:; export PATH;"
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/opt/php@8.0/bin:$PATH"
