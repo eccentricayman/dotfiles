@@ -29,23 +29,18 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(custom-safe-themes
-   (quote
-	("bf5bdab33a008333648512df0d2b9d9710bdfba12f6a768c7d2c438e1092b633" "6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996")))
+   '("171d1ae90e46978eb9c342be6658d937a83aaa45997b1d7af7657546cae5985b" "669e02142a56f63861288cc585bee81643ded48a19e36bfdf02b66d745bcc626" "bf5bdab33a008333648512df0d2b9d9710bdfba12f6a768c7d2c438e1092b633" "6dd2b995238b4943431af56c5c9c0c825258c2de87b6c936ee88d6bb1e577cb9" "c620ce43a0b430dcc1b06850e0a84df4ae5141d698d71e17de85e7494377fd81" "503385a618581dacd495907738719565243ab3e6f62fec8814bade68ef66e996"))
  '(display-line-numbers-width nil)
  '(fci-rule-color "#3E4451")
  '(org-startup-truncated t)
  '(package-archives
-   (quote
-	(("gnu" . "http://elpa.gnu.org/packages/")
-	 ("melpa" . "http://melpa.org/packages/")
-	 ("marmalade" . "http://marmalade-repo.org/packages/"))))
+   '(("gnu" . "http://elpa.gnu.org/packages/")
+	 ("melpa" . "http://melpa.org/packages/")))
  '(package-selected-packages
-   (quote
-	(company-irony-c-headers company-irony irony company company-web yascroll doom-modeline f drag-stuff s latex-pretty-symbols auctex esup try powerline all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi atom-one-dark-theme diminish use-package)))
+   '(company-irony-c-headers company-irony irony company company-web doom-modeline f drag-stuff s latex-pretty-symbols auctex esup try powerline all-the-icons winum page-break-lines smex ido-vertical-mode ido-better-flex windresize markdown-mode sr-speedbar flycheck rainbow-delimiters swiper smartparens rjsx-mode web-mode jedi atom-one-dark-theme diminish use-package))
  '(vc-annotate-background "#3b3b3b")
  '(vc-annotate-color-map
-   (quote
-	((20 . "#dd5542")
+   '((20 . "#dd5542")
 	 (40 . "#CC5542")
 	 (60 . "#fb8512")
 	 (80 . "#baba36")
@@ -62,7 +57,7 @@
 	 (300 . "#528fd1")
 	 (320 . "#5180b3")
 	 (340 . "#6380b3")
-	 (360 . "#DC8CC3"))))
+	 (360 . "#DC8CC3")))
  '(vc-annotate-very-old-color "#DC8CC3"))
 
 (custom-set-faces
@@ -317,7 +312,6 @@
 							 (powerline-render rhs)))))))
 
 
-
 ;;; Packages
 
 (use-package company
@@ -485,6 +479,8 @@
   :init (setq markdown-command "multimarkdown")
   )
 
+
+
 (use-package windresize ;;window resizing interactively
   :ensure t
   :bind (("C-c w" . windresize))
@@ -586,11 +582,11 @@
  	  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
  	  )
 
-(use-package yascroll
-  :ensure t
-  :config
-  (if (display-graphic-p)
-	  (global-yascroll-bar-mode 1)))
+;;(use-package yascroll
+;;  :ensure t
+;;  :config
+;;  (if (display-graphic-p)
+;;	  (global-yascroll-bar-mode 1)))
 
 (use-package try ;;test out new packages
   :ensure t)
@@ -650,6 +646,7 @@
 
 (setq ns-use-srgb-colorspace t) ;;use full colorspace of mac display
 
+;;defaults write org.gnu.Emacs HideDocumentIcon YES
 (setq-default frame-title-format '("")) ;;frame title
 
 (set-face-attribute 'default nil :font "Monaco") ;;default font
@@ -663,9 +660,9 @@
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)) ;;emacs matching title bar
 (add-to-list 'default-frame-alist '(ns-appearance . 'nil))
 
-(pixel-scroll-mode)
-(setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines (t = frame-char-height pixels).
-(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
+;;(pixel-scroll-mode)
+;;(setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines (t = frame-char-height pixels).
+;;(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
 
 (global-display-line-numbers-mode) ;;line numbers
 
@@ -682,7 +679,7 @@
 (setq initial-scratch-message "") ;; empty scratch message
 
 ;;get rid of scrollbar, toolbar, and menubar (in terminal) respectively
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+;;(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (unless (display-graphic-p)
   (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)))
@@ -739,7 +736,7 @@
 ;;auctex find latex executables
 (setq exec-path (append exec-path '("/Library/TeX/texbin")))
 
-
+
 ;;; Keybindings
 (defun java-compile-and-run ()
   "Compile and run java files."
